@@ -1,0 +1,86 @@
+schema_version: 2
+id: huatai6_hml_r_std_5m
+display_name: 上冲波动率减去下探波动率5个月
+version: 1.0.0
+status: evaluated
+category: volatility
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 华泰单因子测试之波动率类因子
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 华泰单因子测试之波动率类因子
+  institution: null
+  authors:
+  - XiangWang
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_0e33094604f770bf.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=0e33094604f770bf8116b0006d1cfa16e70148b0b958ff9031aede526293ec78；人工核对页码=5,31,32。PDF保留在用户只读外部目录。
+- role: formula_provenance
+  kind: internal_research
+  title: 研报公式人工复核与可复现因子档案
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/factors/huatai6_hml_r_std_5m.yaml
+  url: null
+  verification_status: verified
+  notes: 人工复核状态=confirmed；精确日频公式指纹=7b41c7a7099a497bd2779eaf82cac8118c619f3d6858e0acf12d12f7ca42761d。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/daily_report_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: high_r_std_5m - low_r_std_5m
+  variables:
+  - name: high
+    meaning: 当日未复权最高价
+  - name: low
+    meaning: 当日未复权最低价
+  - name: close
+    meaning: 当日未复权收盘价
+  - name: adjusted_close
+    meaning: 当日后复权收盘价
+  - name: is_suspended
+    meaning: 当日是否明确停牌
+  interpretation: 比较上冲不稳定性与下探不稳定性谁更强。 观察窗口是最近5个月。
+  beginner_explanation:
+    one_sentence: 比较上冲不稳定性与下探不稳定性谁更强。 观察窗口是最近5个月。
+    steps:
+    - 分别计算盘中最高涨幅和最低涨跌幅在N个月内的标准差。
+    - 用上冲标准差减去下探标准差。
+    high_value: 上冲的不稳定程度大于下探的不稳定程度。
+    low_value: 下探的不稳定程度更强。
+    example: 上冲标准差4%、下探标准差3%，因子值为1个百分点。
+    watch_out: 这是两个波动率的差，不是最高价减最低价。
+direction:
+  expected: negative
+  selection: low
+  meaning: 正式样本RankIC为-0.0620，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/daily_report_factors.py
+  callable: calculate_intraday_volatility / huatai6_hml_r_std_5m
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/huatai6_hml_r_std_5m/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/huatai6_hml_r_std_5m/factor_values.parquet
+assessment:
+  verdict: promising_but_unneutralized
+  summary: RankIC -0.0620，raw RankICIR -0.741，平均覆盖率100.00%；Q1费前年化超额6.18%，年单边换手8.56倍。优选档自身有正的费前年化超额，但尚未计入费用。
+  most_important_risk: 分档很单调，但未做行业、市值和流动性中性化。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- 分档很单调，但未做行业、市值和流动性中性化。

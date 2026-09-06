@@ -1,0 +1,84 @@
+schema_version: 2
+id: jq_price1y
+display_name: 一年价格相对均线
+version: 1.0.0
+status: candidate
+category: momentum
+tags:
+- 日频
+- 微盘
+- 聚宽
+- 官方命名因子
+- Price1Y
+research_sources:
+- role: original_definition
+  kind: platform_documentation
+  title: 聚宽因子库官方定义：Price1Y
+  institution: 聚宽
+  authors: []
+  publication_date: null
+  local_path: null
+  url: https://www.joinquant.com/help/api/getContent?name=factor_values
+  verification_status: verified
+  notes: 官方公式原文=C/MA(C,250)-1；抓取日期=2026-08-07；数据频率=daily; updated 05:00 for the previous day；复权说明=price-volume factors use
+    post-adjusted prices unless the row says otherwise。 原本地证据未随当前归档保留，当前仅保留文字来源记录。
+- role: local_source_evidence
+  kind: strategy_source_collection
+  title: 聚宽策略源码中的因子调用证据
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: null
+  url: null
+  verification_status: verified
+  notes: 源码出现5次，覆盖5个文件；以下内容按审计CSV原文保留。相对路径=2024年度精选策略1/1.差不多得了.txt | 2024年度精选策略1/24.凑波热闹，也来试试多因子线性回归.txt | 聚宽2026年精选/12用子账户模拟多策略分仓.txt
+    | 聚宽2026年精选/19机器学习线性回归小市值.txt | 聚宽2026年精选/37微盘股扩散指数双均线择时.txt；证据行=2024年度精选策略1/1.差不多得了.txt:54 | 2024年度精选策略1/24.凑波热闹，也来试试多因子线性回归.txt:106
+    | 2024年度精选策略1/24.凑波热闹，也来试试多因子线性回归.txt:59 | 聚宽2026年精选/12用子账户模拟多策略分仓.txt:583 | 聚宽2026年精选/19机器学习线性回归小市值.txt:54 | 聚宽2026年精选/37微盘股扩散指数双均线择时.txt:50。
+    原本地证据未随当前归档保留，当前仅保留文字来源记录。
+- role: implementation_reference
+  kind: internal_research
+  title: 聚宽官方命名日频因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/joinquant/scripts/joinquant_named_daily_factors.py
+  url: null
+  verification_status: verified
+  notes: 固定公式、参数、复权方式、零分母与滚动窗口边界均保存在实现模块。
+formula:
+  expression: adjusted_close_t / Mean(adjusted_close, 250)_t - 1
+  variables:
+  - name: adjusted_close
+    meaning: 后复权收盘价，用来消除分红、送股等公司行为造成的机械跳变
+  interpretation: 比较今天股价和过去一年的平均价，看它处在长期价格中枢的上方还是下方。
+  beginner_explanation:
+    one_sentence: 比较今天股价和过去一年的平均价，看它处在长期价格中枢的上方还是下方。
+    steps:
+    - 取最近250个交易日的后复权收盘价并算平均值。
+    - 用今天的后复权收盘价除以这个平均值，再减1。
+    high_value: 今天明显高于一年均价，过去一年的价格趋势相对偏强。
+    low_value: 今天低于一年均价，股价处在长期价格中枢下方。
+    example: 一年均价是10元、今天是12元时，因子=12/10-1=0.20，也就是高出20%。
+    watch_out: 它既可能代表强势延续，也可能代表涨得过多；250日窗口还会让新股长期没有数值。 本次正式样本RankIC为-0.0716，Q1费前年化超额为5.87%。
+direction:
+  expected: unspecified
+  selection: low
+  meaning: 正式样本RankIC为-0.0716，因此当前样本优选低值端；这是样本内方向，不是未来收益保证。
+implementation:
+  path: research/factor-provenance/joinquant/scripts/joinquant_named_daily_factors.py
+  callable: calculate_price1y / jq_price1y
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/jq_price1y/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/jq_price1y/factor_values.parquet
+assessment:
+  verdict: audit_required_anomalous_strength
+  summary: RankIC -0.0716，raw RankICIR -0.567，平均覆盖率92.40%；Q1费前年化超额5.87%，年单边换手9.62倍。 高相关同族候选：jq_mac120(-0.822)。
+  most_important_risk: 绝对RankIC达到0.0716，强度异常，必须先审计泄漏、暴露和样本外稳定性。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 13个命名因子在同一样本集中评估，存在多重检验和样本内筛选偏差。
+- 聚宽未披露所有停牌边界和滚动算子细节，不能声称逐行完全一致。
+- 同日截面因子值与以下因子高度相关，组合前应做残差化或择一：jq_mac120(-0.822)。
+- 绝对RankIC达到0.0716，强度异常，必须先审计泄漏、暴露和样本外稳定性。

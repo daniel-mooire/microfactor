@@ -1,0 +1,69 @@
+schema_version: 2
+id: volatility
+display_name: 总回报波动率（20日）
+version: 1.0.0
+status: evaluated
+category: risk
+tags:
+- 日频
+- 微盘
+- 波动率
+- 低波
+research_sources:
+- role: implementation_reference
+  kind: internal_research
+  title: quant-hive正式因子注册表
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: src/quant_hive/factor.py
+  url: null
+  verification_status: verified
+  notes: 公式实现、ddof和默认参数可在注册表核对。
+- role: original_report
+  kind: classic_factor
+  title: 经典低波动因子；唯一原始研报待指定
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-suite/experiments/daily-microcap-factor-suite/README.md
+  url: null
+  verification_status: pending
+  notes: 当前项目将其作为常见基线，不能据此认定唯一研报来源。
+formula:
+  expression: factor[i,t] = Std_20(r_total[i,*], ddof=0)
+  variables:
+  - name: r_total
+    meaning: 单日收盘到收盘总回报率
+  - name: Std_20
+    meaning: 最近20个完整交易日的总体标准差
+  interpretation: 统计最近20天每日涨跌幅偏离平均水平的程度；数值越大，说明股价每天的波动越剧烈。
+  beginner_explanation:
+    one_sentence: 看一只股票最近一个月坐“过山车”的程度有多大。
+    steps:
+    - 计算最近20个交易日每天的涨跌幅。
+    - 比较这些涨跌幅与其平均值相差多远。
+    - 差距整体越大，标准差越大，波动率分数就越高。
+    high_value: 股票最近经常大涨大跌，价格路径不稳定。
+    low_value: 股票最近每天的涨跌幅相对温和，价格路径更稳定。
+    example: 一只股票经常在+5%和-5%之间跳动，会比每天只波动约1%的股票得到更高分。
+    watch_out: 低波动不等于低风险；停牌、流动性差或价格不活跃也可能让表面波动变低。
+direction:
+  expected: negative
+  selection: low
+  meaning: 正式样本RankIC显著为负，低波动端更优，方向一致。
+implementation:
+  path: src/quant_hive/factor.py
+  callable: _volatility / registry:volatility
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/volatility/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/volatility/factor_values.parquet
+assessment:
+  verdict: promising_research_signal
+  summary: 绝对RankIC较高且方向稳定，低波Q1费前年化超额约2.7%；但单调性主要体现为高波尾部很差，long-only收益仍偏低。
+  most_important_risk: 低波可能代理流动性、停牌风险、涨跌停状态或残余规模，需要正交化检验。
+risks:
+- 不含交易成本和容量约束。
+- 未做行业、市值和流动性中性化。
+- 未核实唯一原始研报来源。

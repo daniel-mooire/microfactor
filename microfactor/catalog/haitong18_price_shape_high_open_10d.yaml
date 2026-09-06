@@ -1,0 +1,73 @@
+schema_version: 2
+id: haitong18_price_shape_high_open_10d
+display_name: 海通价格形态：最高价相对开盘价10日
+version: 1.0.0
+status: candidate
+category: price_shape
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 海通选股因子系列研究18
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 海通选股因子系列研究18：价格形态选股因子
+  institution: null
+  authors:
+  - dengyong
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_d695dd3c8ad7708f.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=d695dd3c8ad7708faeff9fde0b7b5a434387df81b0b148f58b1210f0b94a71f0；人工核对页码=5,6。PDF保留在用户只读外部目录。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/review_batch_11_18_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: Mean(log(high_i/open_i), i=t-10..t-1)
+  variables:
+  - name: high
+    meaning: 当日未复权最高价
+  - name: open
+    meaning: 当日未复权开盘价
+  - name: is_suspended
+    meaning: 当日是否明确停牌
+  interpretation: 看信号日前10天里，股票每天从开盘价向上冲到最高价的幅度平均有多大。
+  beginner_explanation:
+    one_sentence: 看信号日前10天里，股票每天从开盘价向上冲到最高价的幅度平均有多大。
+    steps:
+    - 每天用最高价除以开盘价，再取自然对数，得到当天盘中向上冲的相对幅度。
+    - 严格排除信号日，只使用此前10个交易日；停牌日不参与平均。
+    - 把有效日的数值取平均；超过一半日期停牌时不计算。
+    high_value: 过去10天经常出现明显的盘中冲高；正式样本反而偏好低值端。
+    low_value: 过去10天从开盘到最高价的上冲幅度通常较小。
+    example: 开盘10元、最高10.50元时，当天数值约为ln(1.05)=4.88%；10天平均约4%时，因子约为0.04。
+    watch_out: 绝对RankIC虽高，但它来自大范围样本内筛选且年单边换手约22倍；5.26%只是未扣费用的Q1年化超额。
+direction:
+  expected: negative
+  selection: low
+  meaning: 正式样本RankIC为-0.0917，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/review_batch_11_18_factors.py
+  callable: calculate_price_shape / haitong18_price_shape_high_open_10d
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/haitong18_price_shape_high_open_10d/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/haitong18_price_shape_high_open_10d/factor_values.parquet
+assessment:
+  verdict: exploratory_strong_needs_holdout
+  summary: RankIC -0.0917，raw RankICIR -0.721，平均覆盖率99.98%；Q1费前年化超额5.26%，年单边换手21.99倍。优选档自身有正的费前年化超额，但尚未计入费用。
+  most_important_risk: 绝对RankIC超过0.09，但来自大规模样本内筛选，必须用独立样本复核。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- 绝对RankIC超过0.09，但来自大规模样本内筛选，必须用独立样本复核。

@@ -1,0 +1,65 @@
+schema_version: 2
+id: alpha101_007
+display_name: Alpha101第7号（放量反转）
+version: 1.0.0
+status: rejected
+category: price_volume
+tags:
+- Alpha101
+- 日频
+- 微盘
+- 放量
+- 反转
+- 事件型
+research_sources:
+- role: original_report
+  kind: academic_paper
+  title: 101 Formulaic Alphas
+  institution: null
+  authors:
+  - Zura Kakushadze
+  publication_date: '2015-12-09'
+  local_path: research/factor-suite/experiments/alpha101-daily-microcap/config/alpha101_formulas.yaml
+  url: https://arxiv.org/pdf/1601.00991
+  verification_status: verified
+  notes: 公式见论文附录第8页；本项目按平均成交量解释ADV，并在T日收盘后计算。
+formula:
+  expression: 'volume > adv20 ? -ts_rank(abs(close[t] - close[t-7]), 60) * sign(close[t] - close[t-7]) : -1'
+  variables:
+  - name: close
+    meaning: 当日未复权收盘价
+  - name: volume
+    meaning: 当日成交股数
+  - name: adv20
+    meaning: 最近20个交易日平均成交股数
+  interpretation: 只有当日成交量高于20日均量时才观察7日涨跌；放量下跌给正分，放量上涨给负分，变化越罕见绝对分越大。未放量统一记为-1。
+  beginner_explanation:
+    one_sentence: 找出今天突然放量、而且最近一周跌得异常多的股票，押它可能短期反弹。
+    steps:
+    - 先比较今天成交量和过去20日平均成交量；没有放量就统一打-1分。
+    - 放量时计算今天收盘价相对7个交易日前是涨还是跌，以及这次变化在近60日是否罕见。
+    - 放量下跌会变成正分，放量上涨会变成负分；越异常，分数离0越远。
+    high_value: 股票放量且7日明显下跌，公式把它视为反转候选。
+    low_value: 股票可能放量上涨；大量未放量股票也都挤在固定的-1分。
+    example: 某股成交量高于20日均量，7日跌幅在近60日最异常，时序排名为60；取反后大约得到+60分。若同样异常上涨，则约为-60分。
+    watch_out: 固定-1制造了大量并列值，标准五档分组在多数日期失效；它更像事件信号，不能按连续因子直接使用。
+direction:
+  expected: positive
+  selection: high
+  meaning: 正式RankIC为正，数值较高的一端对应放量下跌后的反转假设，但五档实现不稳定。
+implementation:
+  path: research/factor-suite/experiments/alpha101-daily-microcap/scripts/alpha101_engine.py
+  callable: Alpha101Engine.compute / alpha101_007
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/alpha101_007/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/alpha101_007/factor_values.parquet
+assessment:
+  verdict: not_standalone
+  summary: RankIC为0.0574，但有866条分档警告；Q1至Q5费前年化超额全部为负，Q5约-12.8%。正的多空差主要来自避开更差的Q1，不能支持直接做多高分档。
+  most_important_risk: 大量股票固定为-1导致多数交易日无法形成完整五档，当前正式组合结果不适合解释为连续选股因子。
+risks:
+- ADV按平均成交股数实现，与论文文字中的平均成交额定义不同。
+- 从83个可计算公式中按同一样本筛选，存在明显多重检验偏差。
+- 未做市值、行业或流动性中性化，且不含交易费用与微盘冲击成本。
+- 公式使用未复权收盘价，跨公司行为窗口可能出现机械跳变。

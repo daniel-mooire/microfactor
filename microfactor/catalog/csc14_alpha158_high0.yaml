@@ -1,0 +1,73 @@
+schema_version: 2
+id: csc14_alpha158_high0
+display_name: 中信建投 Alpha158：HIGH0
+version: 1.0.0
+status: rejected
+category: price_shape
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 逐鹿Alpha专题报告14
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 逐鹿Alpha专题报告14：基本面因子与量价因子融合模型
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_29829dcbc80e322e.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=29829dcbc80e322e00b0039b81ec7a08fec83fce344d5b74d284cdf3111ccd93；人工核对页码=6。PDF保留在用户只读外部目录。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/review_batch_11_18_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: $high/$open
+  variables:
+  - name: open
+    meaning: 当日未复权开盘价
+  - name: high
+    meaning: 当日未复权最高价
+  - name: close
+    meaning: 当日未复权收盘价
+  - name: adjusted_close
+    meaning: 后复权收盘价
+  interpretation: 用当天最高价除以开盘价，直接看盘中最高时比开盘高了多少。
+  beginner_explanation:
+    one_sentence: 用当天最高价除以开盘价，直接看盘中最高时比开盘高了多少。
+    steps:
+    - 取得当天经过同一复权比例处理的最高价和开盘价。
+    - 用最高价除以开盘价；减去1即可理解为盘中最大上冲百分比。
+    high_value: 盘中曾经明显高于开盘价，冲高幅度大。
+    low_value: 最高价与开盘价接近，盘中向上空间小。
+    example: 开盘10元、最高10.50元时，HIGH0=1.05，也就是盘中最多比开盘高5%。
+    watch_out: Q1费前年化超额仍为-0.39%，年单边换手约39倍；当前证据最多支持回避极端冲高，不能支持做多低值端。
+direction:
+  expected: unspecified
+  selection: low
+  meaning: 正式样本RankIC为-0.0570，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/review_batch_11_18_factors.py
+  callable: calculate_alpha158 / csc14_alpha158_high0
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/csc14_alpha158_high0/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/csc14_alpha158_high0/factor_values.parquet
+assessment:
+  verdict: exclusion_signal_only
+  summary: RankIC -0.0570，raw RankICIR -0.563，平均覆盖率99.96%；Q1费前年化超额-0.39%，年单边换手39.43倍。优选档自身费前年化超额为负，当前更像排除高风险尾部。
+  most_important_risk: Q1费前年化超额为负且年换手约39倍，只支持回避极端高值。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- Q1费前年化超额为负且年换手约39倍，只支持回避极端高值。

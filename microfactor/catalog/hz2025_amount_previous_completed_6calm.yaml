@@ -1,0 +1,91 @@
+schema_version: 2
+id: hz2025_amount_previous_completed_6calm
+display_name: 华证2025：此前完整6个自然月日均成交额（日频持有式适配）
+version: 1.0.0
+status: evaluated
+category: liquidity
+tags:
+- 日频
+- 微盘
+- 最新公开研报
+- 月度持有
+research_sources:
+- role: original_report
+  kind: index_research_report
+  title: 指数问道系列之新风格体系篇（四）：华证流动性因子的构建与应用
+  institution: 华证指数
+  authors: []
+  publication_date: '2025-04-17'
+  local_path: research/factor-provenance/reports/catalog/reports/report_677104ee790c0903.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=677104ee790c09035cacb639f72e555787165e941a181c6c23572b15ba4b34ee；核对第7页。研报披露1/3/6个月成交额口径，但未披露精确窗口边界，本档案明确标为透明日频适配。
+- role: formula_provenance
+  kind: internal_research
+  title: 最新公开研报批次因子与来源总账
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/public-web-latest-20260809-factor-ledger.yaml
+  url: null
+  verification_status: verified
+  notes: 保留来源定位、披露边界、日频可实现性和同族因子关系。
+- role: implementation_reference
+  kind: internal_research
+  title: 最新公开研报日频因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/public_web_huazheng_amount_daily_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、信号时点、缺失值和日频适配边界固定在研究项目内。
+- role: evaluation_benchmark
+  kind: internal_research
+  title: 最新公开研报幸存因子平均日截面Spearman去重审计
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: null
+  url: null
+  verification_status: verified
+  notes: 审计指纹=e1201035434cb43c61498f0333f96c459158000844fc7e52051a04fcb9705942；三个晋级候选与全部比较项均未触发0.80高相关门槛。 原本地证据未随当前归档保留，当前仅保留文字来源记录。
+formula:
+  expression: 'for every trading day in calendar month c: mean(amount_CNY[i,d], d in completed calendar months c-6 through
+    c-1)'
+  variables:
+  - name: amount_CNY[i,d]
+    meaning: 股票 i 在交易日 d 的成交额，单位为人民币元
+  - name: c
+    meaning: 当前自然月；计算只使用 c 之前已经完整结束的6个自然月
+  interpretation: 把过去6个完整自然月的总成交额除以有效交易日数，观察较长期的平均交易热度。数值越高表示长期成交更活跃，也可能承载流动性或拥挤暴露。
+  beginner_explanation:
+    one_sentence: 看一只股票过去半年平均每天成交多少钱，数字越大越热闹。
+    steps:
+    - 只取当前月之前已经完整结束的6个自然月，不使用本月数据。
+    - 把这6个月每天的成交额相加，再除以其中有效交易日总数。
+    - 把结果沿用到当前自然月的每个交易日，下个月再滚动更新。
+    high_value: 高分表示过去半年平均每天成交的钱更多，股票长期交易更活跃。
+    low_value: 低分表示过去半年成交较冷清；正式样本中低值端相对表现更好。
+    example: 若6个月总成交额为600亿元、有效交易日为120天，因子就是日均5亿元。
+    watch_out: 低成交额可能只是流动性差和容量小，不能把低值端收益全部解释成选股能力。
+direction:
+  expected: negative
+  selection: low
+  meaning: 正式样本RankIC为-0.0469，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/public_web_huazheng_amount_daily_factors.py
+  callable: calculate_previous_completed_months_amount_mean / hz2025_amount_previous_completed_6calm
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/hz2025_amount_previous_completed_6calm/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/hz2025_amount_previous_completed_6calm/factor_values.parquet
+assessment:
+  verdict: liquidity_exposure_candidate
+  summary: RankIC -0.0469，raw RankICIR -0.341，平均覆盖率96.57%；Q1费前年化超额5.64%，年单边换手3.52倍。在华证成交额同族中保留变化更慢、与现有20日成交额基线相关较低的6个完整自然月版本。
+  most_important_risk: Q1费前年化超额为5.64%，但可能主要来自低流动性暴露；年单边换手3.52倍，容量和冲击成本尚未验证。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- Q1费前年化超额为5.64%，但可能主要来自低流动性暴露；年单边换手3.52倍，容量和冲击成本尚未验证。

@@ -1,0 +1,73 @@
+schema_version: 2
+id: guangfa42_ar_20d
+display_name: AR人气指标（20日）
+version: 1.0.0
+status: candidate
+category: price_volume
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 广发多因子系列42
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 广发多因子系列42：海量技术指标掘金Alpha因子
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_ebb746e4e36034e7.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=ebb746e4e36034e7bb654e15858c111028f0e23b67ecbaa72ca1d3677bba07bc；人工核对页码=12,127。PDF保留在用户只读外部目录。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/guangfa_daily_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: AR_N=100*SUM_N(high-open)/SUM_N(open-low); BR_N=100*SUM_N(max(0,high-close[t-1]))/SUM_N(max(0,close[t-1]-low));
+    factor=AR_20
+  variables:
+  - name: open
+    meaning: 当日未复权开盘价
+  - name: high
+    meaning: 当日未复权最高价
+  - name: low
+    meaning: 当日未复权最低价
+  interpretation: 比较最近20天价格从开盘向上冲和向下压的累计力量。
+  beginner_explanation:
+    one_sentence: 比较最近20天价格从开盘向上冲和向下压的累计力量。
+    steps:
+    - 每天分别计算最高价减开盘价、开盘价减最低价。
+    - 把最近20天的向上距离和向下距离各自加总。
+    - 用向上总距离除以向下总距离并乘100。
+    high_value: 盘中向上冲的累计幅度相对更大，交易情绪偏热。
+    low_value: 盘中向上力量相对较弱；当前样本偏好低值端。
+    example: 20天向上距离合计4元、向下距离合计2元，AR等于200。
+    watch_out: AR20是从本样本19项快速结果中再挑出的探索项，多重检验会夸大表现。
+direction:
+  expected: unspecified
+  selection: low
+  meaning: 正式样本RankIC为-0.0750，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/guangfa_daily_factors.py
+  callable: calculate_arbr / guangfa42_ar_20d
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/guangfa42_ar_20d/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/guangfa42_ar_20d/factor_values.parquet
+assessment:
+  verdict: exploratory_strong_needs_holdout
+  summary: RankIC -0.0750，raw RankICIR -0.746，平均覆盖率99.43%；Q1费前年化超额7.43%，年单边换手21.19倍。优选档自身有正的费前年化超额，但尚未计入费用。
+  most_important_risk: AR20由同一样本19项快速筛选产生，存在明显多重检验偏差。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- AR20由同一样本19项快速筛选产生，存在明显多重检验偏差。

@@ -1,0 +1,86 @@
+schema_version: 2
+id: long_momentum2
+display_name: 长端动量2.0
+version: 1.0.0
+status: evaluated
+category: technical
+tags:
+- 日频
+- 微盘
+- 长端动量
+- 低振幅
+- 反转中性化
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 长端动量2.0：长期、低换手、多头显著的量价因子
+  institution: 开源证券股份有限公司
+  authors:
+  - 魏建榕
+  - 王志豪
+  publication_date: '2022-11-27'
+  local_path: null
+  url: http://stock.finance.sina.com.cn/stock/go.php/vReport_Show/kind/lastest/rptid/722884496759/index.phtml
+  verification_status: verified
+  notes: 研报页面的标题、机构、研究员、日期和低振幅长端动量构造已核验。
+- role: implementation_reference
+  kind: internal_research
+  title: 研报衍生日频微盘因子
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/README.md
+  url: null
+  verification_status: verified
+  notes: 本项目固定涨跌停定义、Universe市场收益和20日反转中性化口径。
+formula:
+  expression: 'amplitude[i,d] = (high[i,d] - low[i,d]) / pre_close[i,d]
+
+    S[i,t] = 70 lowest-amplitude ordinary sessions in [t-159, t]
+
+    raw[i,t] = Sum(d in S[i,t], return[i,d] - mean_universe_return[d])
+
+    factor[i,t] = Residual_CS(raw[i,t] ~ 1 + reversal_20d[i,t])
+
+    '
+  variables:
+  - name: ordinary session
+    meaning: 有正常交易、未停牌且收盘不在涨停或跌停的交易日
+  - name: S
+    meaning: 160日窗口内振幅最低的70个普通交易日
+  - name: mean_universe_return
+    meaning: 当日底部1000 Universe 股票的等权平均总收益
+  - name: reversal_20d
+    meaning: 最近20日总收益的相反数，用作截面回归控制变量
+  interpretation: 先忽略涨跌停、停牌和高振幅噪声，只累计普通平静交易日里的相对涨跌，再剔除短期反转能解释的部分。
+  beginner_explanation:
+    one_sentence: 把异常大波动日先放一边，只看平常日子里股价有没有长期、持续地跑赢同组股票。
+    steps:
+    - 回看最近160个交易日，剔除停牌和收盘涨跌停日。
+    - 在剩余日子里挑出振幅最小的70天，减少短期消息冲击的影响。
+    - 每天用个股收益减去当日股票池平均收益，再把70天差值相加。
+    - 最后用截面回归去掉20日反转能解释的部分，留下长端动量分数。
+    high_value: 股票在许多普通、低噪声日里持续跑赢当日微盘股票池，而且不是简单的短期反弹。
+    low_value: 股票在普通日里长期落后，或原始优势主要能被短期反转解释。
+    example: 选出的70个平静日里，股票累计涨12%、当日股票池对应累计涨5%，原始相对动量约7%；再减去短期反转解释的部分。
+    watch_out: 高分只说明相对排序更好；本样本Q5仍是负超额，不能把多空价差误当成长仓收益。
+direction:
+  expected: positive
+  selection: high
+  meaning: 先验与正式样本RankIC均为正，优选Q5，但Q5自身未取得正超额。
+implementation:
+  path: research/factor-provenance/reports/scripts/report_factors.py
+  callable: compute_long_momentum2_panel + long_momentum2 / registry:long_momentum2
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/long_momentum2/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/long_momentum2/factor_values.parquet
+assessment:
+  verdict: not_standalone
+  summary: RankIC约0.0399、raw ICIR约0.404、五档单调性约0.856，但Q5费前年化超额约-2.3%；有排序信息，不能单独做多。
+  most_important_risk: 多空排序有效不等于long-only有效；160日热身还使样本前129个交易日无法正常分档。
+risks:
+- 样本初期缺少160日历史，平均覆盖率约89.4%，前129日出现分档告警。
+- 市场平均收益固定为逐日底部1000 Universe，与研报原股票池可能不同。
+- 涨跌停日按收盘是否在涨跌停价识别，盘中触及但收盘打开的日期未排除。
+- Q5费前年化超额为负，不能作为独立long-only策略。

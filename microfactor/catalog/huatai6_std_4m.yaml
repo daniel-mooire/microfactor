@@ -1,0 +1,80 @@
+schema_version: 2
+id: huatai6_std_4m
+display_name: 日收益率标准差4个月
+version: 1.0.0
+status: evaluated
+category: volatility
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 华泰单因子测试之波动率类因子
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 华泰单因子测试之波动率类因子
+  institution: null
+  authors:
+  - XiangWang
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_0e33094604f770bf.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=0e33094604f770bf8116b0006d1cfa16e70148b0b958ff9031aede526293ec78；人工核对页码=5,14。PDF保留在用户只读外部目录。
+- role: formula_provenance
+  kind: internal_research
+  title: 研报公式人工复核与可复现因子档案
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/factors/huatai6_std_4m.yaml
+  url: null
+  verification_status: verified
+  notes: 人工复核状态=confirmed；精确日频公式指纹=61c6ceea4b8f19ac7b33e322e5f0842e9b7e4b6932e458c378d22fd98f336fa8。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/daily_report_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: Std(total_return_1d, d in (t-4m,t], ddof=0)
+  variables:
+  - name: close_to_close_total_return_1d
+    meaning: 当日收盘到前一交易日收盘的总收益率
+  - name: is_suspended
+    meaning: 当日是否明确停牌
+  interpretation: 看股票最近4个月每天涨跌有多颠簸，越大越像坐过山车。
+  beginner_explanation:
+    one_sentence: 看股票最近4个月每天涨跌有多颠簸，越大越像坐过山车。
+    steps:
+    - 取指定自然月或固定交易日窗口内的股票日总收益率。
+    - 剔除明确停牌日后计算总体标准差。
+    high_value: 股票近期每天涨跌更颠簸。
+    low_value: 股票近期日收益更稳定。
+    example: 三天收益为-2%、0%、2%，总体标准差约1.63%。
+    watch_out: 自然月版本与固定交易日版本不是同一公式；普通缺失会让窗口无效。
+direction:
+  expected: negative
+  selection: low
+  meaning: 正式样本RankIC为-0.0656，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/daily_report_factors.py
+  callable: calculate_return_volatility / huatai6_std_4m
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/huatai6_std_4m/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/huatai6_std_4m/factor_values.parquet
+assessment:
+  verdict: promising_but_unneutralized
+  summary: RankIC -0.0656，raw RankICIR -0.405，平均覆盖率100.00%；Q1费前年化超额3.52%，年单边换手5.94倍。优选档自身有正的费前年化超额，但尚未计入费用。
+  most_important_risk: 波动率和微盘、流动性暴露尚未拆分。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- 波动率和微盘、流动性暴露尚未拆分。

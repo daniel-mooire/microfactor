@@ -1,0 +1,72 @@
+schema_version: 2
+id: inverse_pb
+display_name: 账面价值收益率（PB倒数）
+version: 1.0.0
+status: evaluated
+category: valuation
+tags:
+- 日频
+- 微盘
+- 价值
+- PB
+- 账面价值
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 微盘股指数周报：基本面与量价共振，如遇回调即是买点
+  institution: 中邮证券
+  authors:
+  - 肖承志
+  publication_date: '2025-04-21'
+  local_path: null
+  url: https://reportify.cn/reports/1111737666082312192
+  verification_status: verified
+  notes: 页面标题、机构、作者、发布日期和微盘股基本面因子脉络已核验；本项目使用经典BP定义独立复测。
+- role: implementation_reference
+  kind: internal_research
+  title: 研报衍生日频微盘因子
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/README.md
+  url: null
+  verification_status: verified
+  notes: 使用Tushare daily_basic点时PB，非正值留空。
+formula:
+  expression: factor[i,t] = 1 / PB[i,t], only when PB[i,t] > 0
+  variables:
+  - name: PB
+    meaning: 股价相对于每股账面净资产的倍数
+  - name: 1 / PB
+    meaning: 每1元股价对应多少元账面净资产，也称BP
+  interpretation: PB越低，倒数越高，表示投资者为同样一元账面净资产支付的市场价格越少。
+  beginner_explanation:
+    one_sentence: 同样有1元账面净资产，股价付得越少，这个因子分数越高。
+    steps:
+    - 查看公司股价是每股账面净资产的多少倍，也就是PB。
+    - 只有PB为正时才取倒数。
+    - 倒数越高，代表每1元股价能对应更多账面净资产。
+    high_value: 股票相对账面净资产便宜，可能存在价值折价，也可能说明市场担心资产质量或盈利能力。
+    low_value: 股票相对账面净资产昂贵，市场可能为品牌、成长或高盈利能力支付溢价。
+    example: PB为0.8倍时因子为1.25，PB为2倍时因子为0.5；前者分数更高。
+    watch_out: 账面净资产不等于能变现的钱；坏账、商誉、过时资产和行业差异都会让低PB看起来比实际更便宜。
+direction:
+  expected: positive
+  selection: high
+  meaning: 先验与正式样本RankIC均为正，优选高BP的Q5。
+implementation:
+  path: research/factor-provenance/reports/scripts/report_factors.py
+  callable: inverse_pb / registry:inverse_pb
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/inverse_pb/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/inverse_pb/factor_values.parquet
+assessment:
+  verdict: promising_research_signal
+  summary: RankIC约0.0453、raw ICIR约0.414、五档单调性约0.784，Q5费前年化超额约2.25%，且平均覆盖率约99.6%。
+  most_important_risk: 低PB可能是资产质量差或盈利能力弱的价值陷阱，未做行业中性化会放大该问题。
+risks:
+- 账面净资产可能含商誉、坏账或难变现资产，低PB不等于清算价值高。
+- 未做行业中性化，银行、地产与轻资产行业PB不可直接机械比较。
+- Q4费前年化超额高于Q5，最便宜尾部并非完全单调占优。
+- 结果未计交易费用和微盘冲击成本。

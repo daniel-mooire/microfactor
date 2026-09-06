@@ -1,0 +1,72 @@
+schema_version: 2
+id: huatai28_a1_vwap_high_corr_10d
+display_name: 华泰AI28 A1：VWAP/最高价与最高价10日相关性
+version: 1.0.0
+status: evaluated
+category: price_volume
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 华泰人工智能系列28
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 华泰人工智能系列28：基于量价的人工智能选股体系概览
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_0fa1140e33b17a48.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=0fa1140e33b17a4804ca479906caa38bec8a5b1ada9a2fb07aea8afef69f13cb；人工核对页码=10,11。PDF保留在用户只读外部目录。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/additional_daily_report_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: ts_corr((amount_CNY / volume_shares) / high, high, 10)
+  variables:
+  - name: high
+    meaning: 当日未复权最高价
+  - name: amount
+    meaning: 当日成交金额（人民币元）
+  - name: volume
+    meaning: 当日成交股数
+  interpretation: 看过去10天里，全天平均成交价靠近最高价的程度，是否会和最高价一起变化。
+  beginner_explanation:
+    one_sentence: 看过去10天里，全天平均成交价靠近最高价的程度，是否会和最高价一起变化。
+    steps:
+    - 每天用成交额除以成交股数，得到平均每股成交价。
+    - 再用平均成交价除以当天最高价，得到成交重心离最高点有多近。
+    - 对最近10天的这个比例和最高价计算相关性。
+    high_value: 两条序列经常同涨同跌；本样本中高值端未来表现较好。
+    low_value: 成交重心位置和最高价经常反向变化，或同步关系很弱。
+    example: 若最高价从10元逐步升到11元，同时成交均价/最高价从0.95升到0.98，相关性会偏高。
+    watch_out: 相关性不代表因果；零成交、停牌和极端价格会影响结果，而且未扣交易费用。
+direction:
+  expected: positive
+  selection: high
+  meaning: 正式样本RankIC为+0.0476，因此当前样本优选高值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/additional_daily_report_factors.py
+  callable: calculate_huatai28_a1 / huatai28_a1_vwap_high_corr_10d
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/huatai28_a1_vwap_high_corr_10d/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/huatai28_a1_vwap_high_corr_10d/factor_values.parquet
+assessment:
+  verdict: promising_but_high_turnover
+  summary: RankIC +0.0476，raw RankICIR +0.635，平均覆盖率99.72%；Q5费前年化超额3.06%，年单边换手33.92倍。优选档自身有正的费前年化超额，但尚未计入费用。
+  most_important_risk: 年单边换手约34倍，3%费前优选档超额可能无法覆盖成本。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- 年单边换手约34倍，3%费前优选档超额可能无法覆盖成本。

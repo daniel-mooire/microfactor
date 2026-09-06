@@ -1,0 +1,77 @@
+schema_version: 2
+id: price_volume_corr_20d
+display_name: 价格-换手相关性（20日）
+version: 1.0.0
+status: evaluated
+category: price_volume
+tags:
+- 日频
+- 微盘
+- 价量
+- 换手率
+- 相关性
+research_sources:
+- role: formula_provenance
+  kind: internal_research
+  title: 价格-换手相关性因子研究
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-suite/experiments/price-volume-correlation-factor/README.md
+  url: null
+  verification_status: verified
+  notes: 公式、数据语义和实现均可在项目内核对。
+- role: original_report
+  kind: broker_report
+  title: 原始券商研报待补
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: null
+  url: null
+  verification_status: pending
+  notes: 当前仓库未保存能够核验的研报标题、作者、机构或发布日期。
+formula:
+  expression: 'r[i,t] = ln(TRI[i,t] / TRI[i,t-1])
+
+    dv[i,t] = ln(1 + turnover_pct[i,t] / 100) - ln(1 + turnover_pct[i,t-1] / 100)
+
+    factor[i,t] = -Corr_20(r[i,*], dv[i,*])'
+  variables:
+  - name: TRI
+    meaning: 后复权总回报价格指数
+  - name: turnover_pct
+    meaning: 自由流通换手率百分数，进入log1p前除以100
+  - name: Corr_20
+    meaning: 要求20对完整观测的时序相关系数
+  interpretation: 比较最近20天股价涨跌与换手率冷热变化是否同步，再把相关系数取反；高值代表两者较不同步。
+  beginner_explanation:
+    one_sentence: 看一只股票最近的涨跌，是不是总要靠突然放大的换手热度来推动。
+    steps:
+    - 先算每天股价相对前一天涨了还是跌了。
+    - 再算每天换手率相对前一天变热了还是变冷了。
+    - 观察最近20天里，这两种变化是否经常同方向出现。
+    - 最后加一个负号，让“股价较少跟着换手热度走”的股票得到更高分。
+    high_value: 股价涨跌和换手率冷热变化不太同步，可能不是单纯靠短期资金追捧推动。
+    low_value: 股价一涨就明显放量换手、转冷时又容易下跌，价格对交易热度的依赖更强。
+    example: 某股票每次换手率突然升高就上涨、换手降温就回落，原始相关性会较高；取负后，它的因子分数反而较低。
+    watch_out: 高分只表示价量关系较独立，不等于公司更好或下一天一定上涨。
+direction:
+  expected: positive
+  selection: high
+  meaning: 因子越高预期未来相对收益越高；正式样本RankIC为正，方向一致。
+implementation:
+  path: research/factor-suite/experiments/price-volume-correlation-factor/scripts/price_volume_corr_factor.py
+  callable: calculate_price_volume_corr
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/price_volume_corr_20d/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/price_volume_corr_20d/factor_values.parquet
+assessment:
+  verdict: promising_research_signal
+  summary: RankIC明显高于单因子暂定数量级，IC方向稳定且五档总体较单调，但高分档费前年化超额只有约3%，尚不足以证明扣费后可交易。
+  most_important_risk: 可能混入流动性、拥挤度和残余市值暴露；需中性化、分期和成本检验。
+risks:
+- 换手率缺失会通过一阶差分扩大为连续窗口缺失。
+- 不含交易费用和冲击成本。
+- 当前没有已核实的原始券商研报归属。

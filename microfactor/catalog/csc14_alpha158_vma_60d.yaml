@@ -1,0 +1,67 @@
+schema_version: 2
+id: csc14_alpha158_vma_60d
+display_name: 中信建投 Alpha158：VMA60
+version: 1.0.0
+status: candidate
+category: liquidity
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 逐鹿Alpha专题报告14
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 逐鹿Alpha专题报告14：基本面因子与量价因子融合模型
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_29829dcbc80e322e.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=29829dcbc80e322e00b0039b81ec7a08fec83fce344d5b74d284cdf3111ccd93；人工核对页码=6,7。PDF保留在用户只读外部目录。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/review_batch_11_18_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: Mean($volume,60)/($volume+1e-12)
+  variables:
+  - name: volume
+    meaning: 当日成交股数
+  interpretation: 用过去60天平均成交量除以今天成交量，判断今天是放量还是缩量。
+  beginner_explanation:
+    one_sentence: 用过去60天平均成交量除以今天成交量，判断今天是放量还是缩量。
+    steps:
+    - 计算最近60个交易日成交股数的平均值。
+    - 用60日平均成交量除以今天成交量。
+    high_value: 今天成交量低于60日平均，属于相对缩量。
+    low_value: 今天成交量高于60日平均，属于相对放量。
+    example: 60日平均每天成交100万股，今天成交50万股时因子为2；今天成交200万股时为0.5。
+    watch_out: Q5费前年化超额4.14%、年单边换手约25倍；成交量使用原始股数，除权时的口径影响和交易成本尚未验证。
+direction:
+  expected: unspecified
+  selection: high
+  meaning: 正式样本RankIC为+0.0689，因此当前样本优选高值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/review_batch_11_18_factors.py
+  callable: calculate_alpha158 / csc14_alpha158_vma_60d
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/csc14_alpha158_vma_60d/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/csc14_alpha158_vma_60d/factor_values.parquet
+assessment:
+  verdict: promising_but_high_turnover
+  summary: RankIC +0.0689，raw RankICIR +0.664，平均覆盖率98.33%；Q5费前年化超额4.14%，年单边换手24.58倍。优选档自身有正的费前年化超额，但尚未计入费用。
+  most_important_risk: Q5费前年化超额4.14%，但年换手约25倍且原始成交股数的复权口径未披露。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- Q5费前年化超额4.14%，但年换手约25倍且原始成交股数的复权口径未披露。

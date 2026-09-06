@@ -1,0 +1,73 @@
+schema_version: 2
+id: turnover_stability_20d
+display_name: 量稳换手率（20日）
+version: 1.0.0
+status: evaluated
+category: liquidity
+tags:
+- 日频
+- 微盘
+- 换手率
+- 稳定性
+- 拥挤度
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: “技术分析系拥抱选股因子”系列研究(七)：量稳换手率选股因子 量小、量缩 都不如量稳？
+  institution: 东吴证券股份有限公司
+  authors:
+  - 高子剑
+  - 沈芷琦
+  publication_date: '2021-05-17'
+  local_path: null
+  url: http://stock.finance.sina.com.cn/stock/go.php/vReport_Show/kind/lastest/rptid/674533759656/index.phtml
+  verification_status: verified
+  notes: 研报页面的标题、机构、研究员、日期和量稳换手率研究结论已核验。
+- role: implementation_reference
+  kind: internal_research
+  title: 研报衍生日频微盘因子
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/README.md
+  url: null
+  verification_status: verified
+  notes: 本实现使用自由流通换手率的20日总体标准差。
+formula:
+  expression: factor[i,t] = Std_20(turnover_percent[i,*], ddof=0)
+  variables:
+  - name: turnover_percent
+    meaning: 当日成交股数占自由流通股本的比例
+  - name: Std_20
+    meaning: 最近20个完整交易日换手率的总体标准差
+  interpretation: 衡量交易热度是否忽冷忽热；标准差小代表每天换手比较稳定，标准差大代表有时冷清、有时突然爆量。
+  beginner_explanation:
+    one_sentence: 看一只股票最近一个月的交易热度稳不稳，数值越小越平稳。
+    steps:
+    - 计算最近20天每天有多少流通筹码被买卖，也就是换手率。
+    - 比较这20个换手率彼此差得有多远。
+    - 差得越小，因子值越低，说明交易热度越稳定。
+    high_value: 换手率忽高忽低，股票可能在热点和冷门之间快速切换，也可能出现短期拥挤。
+    low_value: 每天换手率比较接近，筹码交换节奏稳定；本样本中低值端表现更好。
+    example: 一只股票20天换手率一直在2%左右，标准差很小；另一只在0.5%到15%之间跳动，标准差会很大。
+    watch_out: 稳定不等于容易成交；一只股票可以长期稳定地低换手，实盘仍可能有冲击成本和退出困难。
+direction:
+  expected: negative
+  selection: low
+  meaning: 先验与正式样本都偏好低标准差，正式RankIC显著为负，优选Q1。
+implementation:
+  path: research/factor-provenance/reports/scripts/report_factors.py
+  callable: turnover_stability_20d / registry:turnover_stability_20d
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/turnover_stability_20d/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/turnover_stability_20d/factor_values.parquet
+assessment:
+  verdict: strong_but_capacity_limited
+  summary: RankIC约-0.0875、raw ICIR约-0.694、HAC t约-11.10，Q1费前年化超额约6.7%，但强度异常高且年单边换手约12.8倍。
+  most_important_risk: 结果很可能混合低流动性折价和拥挤度暴露；微盘实盘冲击成本可能吞噬费前超额。
+risks:
+- 单因子绝对RankIC超过0.06，应优先审计数据泄漏、股票池和暴露。
+- 自由流通股本缺失时上游使用过去值填充，会影响换手率。
+- 未做市值、成交额或行业中性化，不能证明这是纯稳定性Alpha。
+- 年单边换手较高，且低换手股票本身容量有限。

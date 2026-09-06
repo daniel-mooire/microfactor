@@ -1,0 +1,70 @@
+schema_version: 2
+id: huatai28_a2_rank_high_low_corr_sum_20d
+display_name: 华泰AI28 A2：高低价相关性截面排名20日累加
+version: 1.0.0
+status: rejected
+category: price_volume
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 华泰人工智能系列28
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 华泰人工智能系列28：基于量价的人工智能选股体系概览
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_0fa1140e33b17a48.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=0fa1140e33b17a4804ca479906caa38bec8a5b1ada9a2fb07aea8afef69f13cb；人工核对页码=10,11。PDF保留在用户只读外部目录。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/additional_daily_report_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: ts_sum(rank_cross_section(ts_corr(high, low, 20)), 20)
+  variables:
+  - name: high
+    meaning: 当日未复权最高价
+  - name: low
+    meaning: 当日未复权最低价
+  interpretation: 看一只股票的最高价和最低价是否长期同步变化，并把它每天在全市场的相对名次累加起来。
+  beginner_explanation:
+    one_sentence: 看一只股票的最高价和最低价是否长期同步变化，并把它每天在全市场的相对名次累加起来。
+    steps:
+    - 对每只股票计算最近20天最高价与最低价的相关性；越接近1，说明两者越常同涨同跌。
+    - 在同一天把所有股票的相关性从低到高排名，并换成0到1之间的百分位名次。
+    - 把最近20天的百分位名次相加，得到最终分数。
+    high_value: 这只股票连续多天都属于高低价同步性较强的一组。
+    low_value: 这只股票的高低价同步性长期弱于同日其他股票。
+    example: 若一只股票连续20天的百分位名次平均为0.80，累加分数约为16；平均为0.30则约为6。
+    watch_out: 嵌套窗口至少需要39个交易日，而且名次会随股票池变化；本样本RankIC仅+0.0091，Q5费前年化超额为-0.87%。
+direction:
+  expected: positive
+  selection: high
+  meaning: 正式样本RankIC为+0.0091，因此当前样本优选高值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/additional_daily_report_factors.py
+  callable: calculate_huatai28_a2 / huatai28_a2_rank_high_low_corr_sum_20d
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/huatai28_a2_rank_high_low_corr_sum_20d/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/huatai28_a2_rank_high_low_corr_sum_20d/factor_values.parquet
+assessment:
+  verdict: no_standalone_long_alpha
+  summary: RankIC +0.0091，raw RankICIR +0.096，平均覆盖率98.90%；Q5费前年化超额-0.87%，年单边换手14.97倍。优选档自身费前年化超额为负，当前更像排除高风险尾部。
+  most_important_risk: RankIC仅+0.0091，且Q5费前年化超额为-0.87%。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- RankIC仅+0.0091，且Q5费前年化超额为-0.87%。

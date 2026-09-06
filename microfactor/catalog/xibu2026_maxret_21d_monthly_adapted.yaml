@@ -1,0 +1,90 @@
+schema_version: 2
+id: xibu2026_maxret_21d_monthly_adapted
+display_name: 西部2026：21日最高单日收益（月末日频适配）
+version: 1.0.0
+status: evaluated
+category: volatility
+tags:
+- 日频
+- 微盘
+- 最新公开研报
+- 月度持有
+research_sources:
+- role: original_report
+  kind: public_web_report
+  title: 因子手工作坊系列（6）：日度量价因子的统一线性框架
+  institution: 西部证券
+  authors: []
+  publication_date: '2026-05-08'
+  local_path: research/factor-provenance/reports/catalog/public-web-latest-20260809-source-ledger.yaml
+  url: https://finance.sina.com.cn/wm/2026-05-13/doc-inhxtkrt4623267.shtml
+  verification_status: verified
+  notes: 发布方转载HTML快照SHA-256=a13179cd2f66d2574707b05d64159d80d26e833f495e34be4c0c1199c4e15ae0；完整券商PDF未公开；公式由归档网页中的图片核对。
+- role: formula_provenance
+  kind: internal_research
+  title: 最新公开研报批次因子与来源总账
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/public-web-latest-20260809-factor-ledger.yaml
+  url: null
+  verification_status: verified
+  notes: 保留来源定位、披露边界、日频可实现性和同族因子关系。
+- role: implementation_reference
+  kind: internal_research
+  title: 最新公开研报日频因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/public_web_latest_daily_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、信号时点、缺失值和日频适配边界固定在研究项目内。
+- role: evaluation_benchmark
+  kind: internal_research
+  title: 最新公开研报幸存因子平均日截面Spearman去重审计
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: null
+  url: null
+  verification_status: verified
+  notes: 审计指纹=e1201035434cb43c61498f0333f96c459158000844fc7e52051a04fcb9705942；三个晋级候选与全部比较项均未触发0.80高相关门槛。 原本地证据未随当前归档保留，当前仅保留文字来源记录。
+formula:
+  expression: MaxRet[i,t] = max(d=1..21, r[i,t-d])
+  variables:
+  - name: r[i,d]
+    meaning: 股票 i 在交易日 d 的后复权收盘到收盘简单收益率，小数表示
+  - name: t
+    meaning: 上一个已经结束的自然月最后一个交易日
+  interpretation: 每月末找过去21个交易日里最大的一次单日上涨。数值越高，说明近期出现过更强的冲高或投机热度；来源研究偏向低值端。
+  beginner_explanation:
+    one_sentence: 找最近一个月涨得最猛的那一天，用那天的涨幅当分数。
+    steps:
+    - 在上个自然月末，列出此前21个交易日的每日涨跌幅。
+    - 从中挑出最大的单日涨幅，直接作为因子值。
+    - 把这个值沿用到当前自然月，下个月末再重新寻找。
+    high_value: 高分表示近期出现过一次很强的单日冲高，交易情绪可能较热。
+    low_value: 低分表示过去21天没有特别强的单日上涨，来源研究更偏向这一端。
+    example: 若21天里最高单日上涨是8%，因子值就是0.08。
+    watch_out: 它只看最好的一天，不代表整个月都在上涨；正式结果也是低值端相对更好。
+direction:
+  expected: negative
+  selection: low
+  meaning: 正式样本RankIC为-0.0431，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/public_web_latest_daily_factors.py
+  callable: calculate_xibu_maxret_21d / xibu2026_maxret_21d_monthly_adapted
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/xibu2026_maxret_21d_monthly_adapted/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/xibu2026_maxret_21d_monthly_adapted/factor_values.parquet
+assessment:
+  verdict: exclusion_signal_only
+  summary: RankIC -0.0431，raw RankICIR -0.385，平均覆盖率100.00%；Q1费前年化超额0.15%，年单边换手10.01倍。保留严格按研报公式形成、使用上一完整月末信号的最高单日收益基础项。
+  most_important_risk: Q1费前年化超额仅0.15%，主要证据是Q5为-8.82%；当前更像过热排除信号，不是独立买入信号。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- Q1费前年化超额仅0.15%，主要证据是Q5为-8.82%；当前更像过热排除信号，不是独立买入信号。

@@ -1,0 +1,79 @@
+schema_version: 2
+id: huatai5_turn_1m
+display_name: 日均换手率1个月
+version: 1.0.0
+status: evaluated
+category: liquidity
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 华泰单因子测试之换手率类因子
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 华泰单因子测试之换手率类因子
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_9a5a628f98b71d85.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=9a5a628f98b71d850e73e3ef3f15a783fa3cd73fe8d0e47c67c75631e57cc109；人工核对页码=1,6。PDF保留在用户只读外部目录。
+- role: formula_provenance
+  kind: internal_research
+  title: 研报公式人工复核与可复现因子档案
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/factors/huatai5_turn_1m.yaml
+  url: null
+  verification_status: verified
+  notes: 人工复核状态=confirmed；精确日频公式指纹=750ab5afee6d51709f114e29170d78ecf34432a891223af9b6a6e3b009427db1。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/daily_report_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: Mean(turnover_d, d in (t-1m,t])
+  variables:
+  - name: turnover_percent
+    meaning: 当日换手率百分比
+  - name: is_suspended
+    meaning: 当日是否明确停牌
+  interpretation: 看最近1个月每天平均有多少流通筹码换了主人，越高越热门也越拥挤。
+  beginner_explanation:
+    one_sentence: 看最近1个月每天平均有多少流通筹码换了主人，越高越热门也越拥挤。
+    steps:
+    - 取最近N个自然月每天的换手率，明确停牌且缺失的换手记为0。
+    - 把有效日换手率求平均，得到近期平均交易热度。
+    high_value: 最近每天换手的流通筹码较多，股票更热门。
+    low_value: 最近成交相对冷清。
+    example: 三天换手率1%、2%、3%，日均换手率就是2%。
+    watch_out: 它和固定20日换手率同族，但自然月边界不同，不能当成完全相同公式。
+direction:
+  expected: negative
+  selection: low
+  meaning: 正式样本RankIC为-0.0761，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/daily_report_factors.py
+  callable: calculate_turnover_level / huatai5_turn_1m
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/huatai5_turn_1m/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/huatai5_turn_1m/factor_values.parquet
+assessment:
+  verdict: liquidity_risk_signal
+  summary: RankIC -0.0761，raw RankICIR -0.550，平均覆盖率100.00%；Q1费前年化超额3.62%，年单边换手8.15倍。优选档自身有正的费前年化超额，但尚未计入费用。
+  most_important_risk: 低换手端可能只是低流动性折价，容量和冲击成本未验证。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- 低换手端可能只是低流动性折价，容量和冲击成本未验证。

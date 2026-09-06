@@ -1,0 +1,9 @@
+# Microfactor catalog registry. The 65 non-model entries are loaded from the
+# copied provenance snapshots under microfactor/catalog.
+
+[registry]
+version = "1"
+
+[catalog]
+directory = "microfactor/catalog"
+quantiles = 10

@@ -1,0 +1,13 @@
+[microshare]
+data_dir = "../microshare/data"   # microshare 的 Parquet 数据目录
+
+[paths]
+factor_dir = "data/factors"
+db_path    = "db/factor_meta.duckdb"
+log_path   = "logs/factor.log"
+
+[factor]
+universe         = "hushen_mainboard_previous_day_bottom1000"  # 原始因子计算股票池
+process_universe = "hushen_mainboard_previous_day_bottom1000"  # 标准化 / 中性化股票池
+start_date       = "20160101"
+end_date         = ""                 # 空 = 最新交易日

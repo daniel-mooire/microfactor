@@ -1,0 +1,79 @@
+schema_version: 2
+id: vwap_volume_pressure_3d
+display_name: VWAP偏离与成交量压力（3日）
+version: 1.0.0
+status: evaluated
+category: price_volume
+tags:
+- 日频
+- 微盘
+- VWAP
+- 成交量
+- 截面排名
+research_sources:
+- role: formula_provenance
+  kind: user_supplied_image
+  title: 用户提供的研报公式图片（原图未归档）
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-suite/experiments/vwap-volume-pressure-factor/README.md
+  url: null
+  verification_status: pending
+  notes: 项目README保留了公式转录，但原图、研报标题、机构、作者和日期未归档，无法完成原始来源核验。
+- role: implementation_reference
+  kind: internal_research
+  title: VWAP收盘偏离与成交量变化因子
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-suite/experiments/vwap-volume-pressure-factor/README.md
+  url: null
+  verification_status: verified
+  notes: 公式解释、边界和已有跨股票池研究结论可在项目内核对。
+formula:
+  expression: 'vwap[i,t] = amount[i,t] / volume[i,t]
+
+    p[i,t] = Rank_t(TsMax_3(vwap-close)) + Rank_t(TsMin_3(vwap-close))
+
+    q[i,t] = Rank_t(volume[i,t] - volume[i,t-3])
+
+    factor[i,t] = p[i,t] * q[i,t]'
+  variables:
+  - name: Rank_t
+    meaning: 同一交易日完整候选行情截面的百分位排名
+  - name: TsMax_3 / TsMin_3
+    meaning: 同一股票最近3个交易日的最大值和最小值
+  - name: amount / volume
+    meaning: 日成交额除以成交股数得到的日级VWAP代理
+  interpretation: 比较最近3天收盘价相对当日平均成交价的位置，并结合成交量相对3天前的变化；各部分先在当日股票中排名，再相乘。
+  beginner_explanation:
+    one_sentence: 看股票最近收盘时是偏强还是偏弱，同时确认成交量有没有跟着变大。
+    steps:
+    - 用当天成交额除以成交量，估算大家当天买卖的平均价格，也就是VWAP。
+    - 比较最近3天的收盘价和这个平均价格；收盘价越低于平均价，vwap减close越大。
+    - 比较今天成交量和3个交易日前成交量的差值。
+    - 把价格位置和成交量变化分别与当天其他股票排名，再把排名结果相乘。
+    high_value: 最近收盘价相对平均成交价偏低，同时成交量增加在全市场中也较靠前。
+    low_value: 收盘价没有明显低于平均成交价，或者成交量没有明显增加，至少有一项排名靠后。
+    example: 一只股票当天平均成交价是10.20元、收盘价是10.00元，而且成交量比3天前明显增加，它更容易得到较高分。
+    watch_out: 这个公式不是简单的“放量上涨”，高分也未在当前评估中带来足够的可交易超额收益。
+direction:
+  expected: unspecified
+  selection: high
+  meaning: 公式未预设方向；正式样本RankIC略为正，因此展示高分档。
+implementation:
+  path: research/factor-suite/experiments/vwap-volume-pressure-factor/scripts/vwap_volume_factor.py
+  callable: calculate_vwap_volume_pressure
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/vwap_volume_pressure_3d/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/vwap_volume_pressure_3d/factor_values.parquet
+assessment:
+  verdict: not_standalone
+  summary: RankIC接近日频单因子暂定数量级，但高分档费前年化超额约0.6%、五档非稳定单调且年单边换手约40倍，不接受为独立可交易Alpha。
+  most_important_risk: 效果可能来自低分尾部避雷，且日级VWAP代理与乘积交互使来源难以解释。
+risks:
+- 原始研报图片和完整书目信息未归档。
+- 高换手下未计成本的收益缺乏可实现性。
+- 日级amount/volume不等于逐笔真实VWAP。

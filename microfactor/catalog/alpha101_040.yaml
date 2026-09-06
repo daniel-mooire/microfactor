@@ -1,0 +1,62 @@
+schema_version: 2
+id: alpha101_040
+display_name: Alpha101第40号（高价波动量价背离）
+version: 1.0.0
+status: candidate
+category: price_volume
+tags:
+- Alpha101
+- 日频
+- 微盘
+- 波动
+- 量价背离
+research_sources:
+- role: original_report
+  kind: academic_paper
+  title: 101 Formulaic Alphas
+  institution: null
+  authors:
+  - Zura Kakushadze
+  publication_date: '2015-12-09'
+  local_path: research/factor-suite/experiments/alpha101-daily-microcap/config/alpha101_formulas.yaml
+  url: https://arxiv.org/pdf/1601.00991
+  verification_status: verified
+  notes: 公式见论文附录第11页；使用T日完整最高价和成交量，在T+1开盘执行。
+formula:
+  expression: factor[i,t] = -rank(stddev(high, 10)) * correlation(high, volume, 10)
+  variables:
+  - name: high
+    meaning: 当日未复权最高价
+  - name: volume
+    meaning: 当日成交股数
+  interpretation: 用10日最高价波动的截面排名作为强度，再乘最高价与成交量的10日相关性并取反；高波动且价量反向的股票得到较高正分。
+  beginner_explanation:
+    one_sentence: 寻找最近10天价格波动较大、但价格和成交量经常反着走的股票。
+    steps:
+    - 计算每只股票最近10日最高价的波动大小，并在当天股票池中排名。
+    - 计算最近10日最高价和成交量是一同变化，还是一个升、一个降。
+    - 波动排名取负后乘相关性；价量反向时负负得正，分数会升高。
+    high_value: 最高价波动较大，而且价高时量少、价低时量多等负相关现象较明显。
+    low_value: 最高价与成交量同向变化明显，尤其是在高波动股票上。
+    example: A股最高价波动排名为0.9，价量相关系数为-0.6，因子约为+0.54；B股同样波动但相关系数为+0.6，因子约为-0.54。
+    watch_out: 高分可能只是低流动性或交易拥挤的表现；强RankIC不代表扣除微盘冲击成本后仍可实现。
+direction:
+  expected: positive
+  selection: high
+  meaning: 正式RankIC为正，评估选择高分Q5。
+implementation:
+  path: research/factor-suite/experiments/alpha101-daily-microcap/scripts/alpha101_engine.py
+  callable: Alpha101Engine.compute / alpha101_040
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/alpha101_040/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/alpha101_040/factor_values.parquet
+assessment:
+  verdict: strong_but_capacity_limited
+  summary: RankIC为0.0759、raw ICIR为0.6824，显著高于单因子约0.02的暂定参考；Q5费前年化超额约8.0%、五档多空约27.7%，但年单边换手约29.9倍。控制市值、成交额和换手后诊断RankIC降至约0.027。
+  most_important_risk: 结果强到必须优先审计流动性暴露、多重检验和交易成本，当前同样本正式评估不能证明样本外有效。
+risks:
+- 未计费用、滑点和微盘冲击成本，约30倍年单边换手会大幅侵蚀收益。
+- 从83个可计算公式中按同一样本筛选，存在明显多重检验偏差。
+- 未做行业、市值或流动性中性化，部分预测力来自这些暴露。
+- 公式使用未复权最高价，跨公司行为窗口可能出现机械跳变。

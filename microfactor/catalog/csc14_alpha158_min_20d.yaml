@@ -1,0 +1,71 @@
+schema_version: 2
+id: csc14_alpha158_min_20d
+display_name: 中信建投 Alpha158：MIN20
+version: 1.0.0
+status: rejected
+category: momentum
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 逐鹿Alpha专题报告14
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 逐鹿Alpha专题报告14：基本面因子与量价因子融合模型
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_29829dcbc80e322e.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=29829dcbc80e322e00b0039b81ec7a08fec83fce344d5b74d284cdf3111ccd93；人工核对页码=6,7。PDF保留在用户只读外部目录。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/review_batch_11_18_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: Min($low,20)/$close
+  variables:
+  - name: low
+    meaning: 当日未复权最低价
+  - name: close
+    meaning: 当日未复权收盘价
+  - name: adjusted_close
+    meaning: 后复权收盘价
+  interpretation: 用过去20天的最低价除以今天收盘价，判断今天离近期低点有多远。
+  beginner_explanation:
+    one_sentence: 用过去20天的最低价除以今天收盘价，判断今天离近期低点有多远。
+    steps:
+    - 找出最近20个交易日后复权最低价中的最小值。
+    - 用这个近期最低价除以今天的后复权收盘价。
+    high_value: 比值接近1，说明今天仍靠近近期低点。
+    low_value: 今天价格已经明显高于近期低点。
+    example: 20日最低价8元，今天收10元时因子为0.80；今天收12元时只有0.67。
+    watch_out: RankIC虽为+0.0785，但Q5费前年化超额仅0.33%、年单边换手约29倍，结果主要体现低值端很差而不是高值端很强。
+direction:
+  expected: unspecified
+  selection: high
+  meaning: 正式样本RankIC为+0.0785，因此当前样本优选高值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/review_batch_11_18_factors.py
+  callable: calculate_alpha158 / csc14_alpha158_min_20d
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/csc14_alpha158_min_20d/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/csc14_alpha158_min_20d/factor_values.parquet
+assessment:
+  verdict: exclusion_signal_only
+  summary: RankIC +0.0785，raw RankICIR +0.665，平均覆盖率99.43%；Q5费前年化超额0.33%，年单边换手28.92倍。优选档自身有正的费前年化超额，但尚未计入费用。
+  most_important_risk: Q5费前年化超额仅0.33%，正RankIC主要由低值尾部很差驱动。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- Q5费前年化超额仅0.33%，正RankIC主要由低值尾部很差驱动。

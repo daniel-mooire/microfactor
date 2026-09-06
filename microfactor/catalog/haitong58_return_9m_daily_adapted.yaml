@@ -1,0 +1,91 @@
+schema_version: 2
+id: haitong58_return_9m_daily_adapted
+display_name: 海通58：过去9个月收益率（日频适配）
+version: 1.0.0
+status: evaluated
+category: momentum
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 选股因子研究系列（一）
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 选股因子研究系列（一）：弱者终有逆袭日，强势几无持续时——A股市场的动量反转效应研究
+  institution: null
+  authors:
+  - shan kai jia
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_10361ec1f0ac7d24.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=10361ec1f0ac7d24928dcfa48d1207a5bf1574bbbb5ec12b6439c7bf8d8af733；人工核对页码=3,4。PDF保留在用户只读外部目录。
+- role: formula_provenance
+  kind: internal_research
+  title: 研报公式人工复核与可复现因子档案
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/factors/haitong58_return_9m_daily_adapted.yaml
+  url: null
+  verification_status: verified
+  notes: 人工复核状态=confirmed；精确日频公式指纹=df6a0aec9894144226461223819acfcdc981ea778d9db8887f703908d2551a4b。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/baidunetdisk_new_daily_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+- role: evaluation_benchmark
+  kind: internal_research
+  title: 百度网盘新增研报因子平均日截面Spearman去重审计
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: null
+  url: null
+  verification_status: verified
+  notes: 审计指纹=a3761f77f09181511c9734cb773e29262e06b20956ffb05577e33c6a97aaced9；高相关门槛=0.80；最高绝对平均相关=0.7657，对应xinghuo5_momentum_12m_skip1m_daily_adapted，未触发重复门槛。
+    原本地证据未随当前归档保留，当前仅保留文字来源记录。
+formula:
+  expression: 'for every trading day in calendar month c: close_total_return_index(month_end(c-1)) / close_total_return_index(month_end(c-10))
+    - 1'
+  variables:
+  - name: close_total_return_index
+    meaning: 包含分红、送转等公司行为影响的后复权收盘总回报价格指数
+  interpretation: 每月只更新一次，看上月末的复权价格比9个月前月末涨了还是跌了，然后整个月都用同一个分数。
+  beginner_explanation:
+    one_sentence: 每月只更新一次，看上月末的复权价格比9个月前月末涨了还是跌了，然后整个月都用同一个分数。
+    steps:
+    - 等上个自然月的最后一个交易日收盘，记下该日的总回报价格指数。
+    - 找到9个自然月前的月末总回报价格指数，用上月末数值除以它再减1。
+    - 把这个结果复制到当月的每个交易日；当月价格怎么变都不重算，下月再更新。
+    high_value: 数值越高，表示截至上月末的9个月涨得越多；研报中这一端之后反而偏弱。
+    low_value: 数值越低，表示截至上月末的9个月跌得越多；研报检验的是这些弱势股之后是否反弹。
+    example: 1月末总回报价格为10、10月末为8，则因子为8/10-1=-20%；这个-20%在11月每个交易日都保持不变。
+    watch_out: 这是将研报月末信号沿用到日频评估的明示适配；负RankIC表示低值端相对更好，不是高值越好。本次Q1费前年化超额只有1.90%，不应当成可直接做多的强Alpha。
+direction:
+  expected: negative
+  selection: low
+  meaning: 正式样本RankIC为-0.0359，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/baidunetdisk_new_daily_factors.py
+  callable: calculate_return_9m_daily_adapted / haitong58_return_9m_daily_adapted
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/haitong58_return_9m_daily_adapted/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/haitong58_return_9m_daily_adapted/factor_values.parquet
+assessment:
+  verdict: exclusion_signal_only
+  summary: RankIC -0.0359，raw RankICIR -0.323，平均覆盖率99.38%；Q1费前年化超额1.90%，年单边换手6.78倍。优选档自身有正的费前年化超额，但尚未计入费用。
+  most_important_risk: Q1费前年化超额仅1.90%，Q2和Q3更高，主要价值是回避Q5的-10.36%；不是可直接做多的强Alpha。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- Q1费前年化超额仅1.90%，Q2和Q3更高，主要价值是回避Q5的-10.36%；不是可直接做多的强Alpha。

@@ -1,0 +1,62 @@
+schema_version: 2
+id: alpha101_044
+display_name: Alpha101第44号（高价成交量背离）
+version: 1.0.0
+status: candidate
+category: price_volume
+tags:
+- Alpha101
+- 日频
+- 微盘
+- 价量背离
+- 相关性
+research_sources:
+- role: original_report
+  kind: academic_paper
+  title: 101 Formulaic Alphas
+  institution: null
+  authors:
+  - Zura Kakushadze
+  publication_date: '2015-12-09'
+  local_path: research/factor-suite/experiments/alpha101-daily-microcap/config/alpha101_formulas.yaml
+  url: https://arxiv.org/pdf/1601.00991
+  verification_status: verified
+  notes: 公式见论文附录第11页；成交量先做当日截面排名，再计算5日时序相关。
+formula:
+  expression: factor[i,t] = -correlation(high, rank(volume), 5)
+  variables:
+  - name: high
+    meaning: 当日未复权最高价
+  - name: volume
+    meaning: 当日成交股数；公式使用其在当天股票池中的排名
+  interpretation: 计算最高价与成交量截面名次近5日的相关性并取负；价量越反向，因子越高。
+  beginner_explanation:
+    one_sentence: 看最近5天股价冲高时成交是否反而冷清，并偏好这种价量不同步的股票。
+    steps:
+    - 每天把股票按成交量从低到高排队，得到相对名次。
+    - 对单只股票观察近5日最高价和成交量名次是否一起升降。
+    - 对相关性加负号，所以越反向的股票分数越高。
+    high_value: 最高价升高时成交量名次往往下降，或最高价回落时成交变活跃。
+    low_value: 最高价和成交量名次近5日经常同升同降。
+    example: 某股近5日最高价逐步抬升，但成交量从股票池前20%降到后50%，相关性约-0.7，取负后因子约+0.7。
+    watch_out: 5日窗口很短，分数变化快；高换手和流动性暴露可能吞掉纸面收益。
+direction:
+  expected: positive
+  selection: high
+  meaning: 正式RankIC为正，评估选择高分Q5。
+implementation:
+  path: research/factor-suite/experiments/alpha101-daily-microcap/scripts/alpha101_engine.py
+  callable: Alpha101Engine.compute / alpha101_044
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/alpha101_044/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/alpha101_044/factor_values.parquet
+assessment:
+  verdict: promising_research_signal
+  summary: RankIC为0.0540、raw ICIR为0.7647，五档单调性约0.94；Q5费前年化超额约6.1%、五档多空约15.1%。控制市值、成交额和换手后诊断RankIC降至约0.016，年单边换手约37.6倍。
+  most_important_risk: 预测力对流动性控制敏感且换手很高，必须先做成本和样本外验证。
+risks:
+- 年单边换手约38倍，当前收益不含费用与冲击成本。
+- 从83个可计算公式中按同一样本筛选，存在明显多重检验偏差。
+- 未做行业、市值或流动性中性化。
+- 公式使用未复权最高价，跨公司行为窗口可能出现机械跳变。

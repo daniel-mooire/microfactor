@@ -1,0 +1,85 @@
+schema_version: 2
+id: jq_price_no_fq
+display_name: 不复权收盘价
+version: 1.0.0
+status: rejected
+category: price_level
+tags:
+- 日频
+- 微盘
+- 聚宽
+- 官方命名因子
+- price_no_fq
+research_sources:
+- role: original_definition
+  kind: platform_documentation
+  title: 聚宽因子库官方定义：price_no_fq
+  institution: 聚宽
+  authors: []
+  publication_date: null
+  local_path: null
+  url: https://www.joinquant.com/help/api/getContent?name=factor_values
+  verification_status: verified
+  notes: 官方公式原文=raw unadjusted close price；抓取日期=2026-08-07；数据频率=daily; updated 05:00 for the previous day；复权说明=price-volume
+    factors use post-adjusted prices unless the row says otherwise。 原本地证据未随当前归档保留，当前仅保留文字来源记录。
+- role: local_source_evidence
+  kind: strategy_source_collection
+  title: 聚宽策略源码中的因子调用证据
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: null
+  url: null
+  verification_status: verified
+  notes: 源码出现10次，覆盖8个文件；以下内容按审计CSV原文保留。相对路径=2024年度精选策略1/1.差不多得了.txt | 2024年度精选策略1/23.wywy1995大神机器学习策略年化提升35pt.txt | 2024年度精选策略1/24.凑波热闹，也来试试多因子线性回归.txt
+    | 2024年度精选策略1/5.尝试用机器学习批量生产小盘策略.txt | 2024年度精选策略1/56.双人工智能配合，样本外夏普3.9.txt | 聚宽2026年精选/12用子账户模拟多策略分仓.txt | 聚宽2026年精选/19机器学习线性回归小市值.txt
+    | 聚宽2026年精选/33回馈社区顺便搞积分《一个完整的机器学习pipeline》.txt；证据行=2024年度精选策略1/1.差不多得了.txt:66 | 2024年度精选策略1/1.差不多得了.txt:81 | 2024年度精选策略1/23.wywy1995大神机器学习策略年化提升35pt.txt:35
+    | 2024年度精选策略1/24.凑波热闹，也来试试多因子线性回归.txt:121 | 2024年度精选策略1/24.凑波热闹，也来试试多因子线性回归.txt:74 | 2024年度精选策略1/5.尝试用机器学习批量生产小盘策略.txt:32
+    | 2024年度精选策略1/56.双人工智能配合，样本外夏普3.9.txt:57 | 聚宽2026年精选/12用子账户模拟多策略分仓.txt:598 | 聚宽2026年精选/19机器学习线性回归小市值.txt:62 | 聚宽2026年精选/19机器学习线性回归小市值.txt:73
+    | 聚宽2026年精选/33回馈社区顺便搞积分《一个完整的机器学习pipeline》.txt:85。 原本地证据未随当前归档保留，当前仅保留文字来源记录。
+- role: implementation_reference
+  kind: internal_research
+  title: 聚宽官方命名日频因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/joinquant/scripts/joinquant_named_daily_factors.py
+  url: null
+  verification_status: verified
+  notes: 固定公式、参数、复权方式、零分母与滚动窗口边界均保存在实现模块。
+formula:
+  expression: raw_close_t
+  variables:
+  - name: close
+    meaning: 当日未复权收盘价
+  interpretation: 直接拿当天行情软件显示的原始收盘价给股票打分。
+  beginner_explanation:
+    one_sentence: 直接拿当天行情软件显示的原始收盘价给股票打分。
+    steps:
+    - 读取当天未复权收盘价。
+    - 不做滚动计算，也不把分红送股造成的价格跳变接回去。
+    high_value: 股票的名义每股价格较高。
+    low_value: 股票的名义每股价格较低。
+    example: A股收盘20元、B股收盘5元时，两者因子分别就是20和5。
+    watch_out: 名义股价不等于公司贵或便宜；拆股、送股和除权会机械改变数值。 本次正式样本RankIC为-0.0172，Q1费前年化超额为0.90%。
+direction:
+  expected: unspecified
+  selection: low
+  meaning: 正式样本RankIC为-0.0172，因此当前样本优选低值端；这是样本内方向，不是未来收益保证。
+implementation:
+  path: research/factor-provenance/joinquant/scripts/joinquant_named_daily_factors.py
+  callable: calculate_price_no_fq / jq_price_no_fq
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/jq_price_no_fq/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/jq_price_no_fq/factor_values.parquet
+assessment:
+  verdict: weak_standalone_evidence
+  summary: RankIC -0.0172，raw RankICIR -0.103，平均覆盖率100.00%；Q1费前年化超额0.90%，年单边换手4.20倍。
+  most_important_risk: 绝对RankIC仅0.0172且优选档费前年化超额仅0.90%，独立证据偏弱。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 13个命名因子在同一样本集中评估，存在多重检验和样本内筛选偏差。
+- 聚宽未披露所有停牌边界和滚动算子细节，不能声称逐行完全一致。
+- 绝对RankIC仅0.0172且优选档费前年化超额仅0.90%，独立证据偏弱。

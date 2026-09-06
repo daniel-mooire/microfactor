@@ -1,0 +1,70 @@
+schema_version: 2
+id: csc14_alpha158_cord_20d
+display_name: 中信建投 Alpha158：CORD20
+version: 1.0.0
+status: candidate
+category: price_volume
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 逐鹿Alpha专题报告14
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 逐鹿Alpha专题报告14：基本面因子与量价因子融合模型
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_29829dcbc80e322e.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=29829dcbc80e322e00b0039b81ec7a08fec83fce344d5b74d284cdf3111ccd93；人工核对页码=6,7。PDF保留在用户只读外部目录。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/review_batch_11_18_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: Corr($close/Ref($close,1),Log($volume/Ref($volume,1)+1),20)
+  variables:
+  - name: adjusted_close
+    meaning: 后复权收盘价
+  - name: volume
+    meaning: 当日成交股数
+  interpretation: 看最近20天里，价格日变化和成交量日变化是否经常同方向。
+  beginner_explanation:
+    one_sentence: 看最近20天里，价格日变化和成交量日变化是否经常同方向。
+    steps:
+    - 每天用今天收盘价除以昨天收盘价，得到价格变化比。
+    - 每天计算ln(今天成交量/昨天成交量+1)，得到研报定义的成交量变化值。
+    - 对最近20天两条序列计算相关性。
+    high_value: 价格走强时成交量变化值通常也高，两条序列偏同向。
+    low_value: 价格与成交量变化偏反向；正式样本偏好这一端。
+    example: 若多数上涨日同时放量、下跌日同时缩量，两条序列通常正相关；反过来则相关性偏低或为负。
+    watch_out: Q1费前年化超额3.71%、年单边换手约20倍；公式中的成交量变换并非常见的对数收益，且仍有样本内筛选偏差。
+direction:
+  expected: unspecified
+  selection: low
+  meaning: 正式样本RankIC为-0.0532，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/review_batch_11_18_factors.py
+  callable: calculate_alpha158 / csc14_alpha158_cord_20d
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/csc14_alpha158_cord_20d/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/csc14_alpha158_cord_20d/factor_values.parquet
+assessment:
+  verdict: promising_but_high_turnover
+  summary: RankIC -0.0532，raw RankICIR -0.631，平均覆盖率99.40%；Q1费前年化超额3.71%，年单边换手19.77倍。优选档自身有正的费前年化超额，但尚未计入费用。
+  most_important_risk: Q1费前年化超额3.71%，但年换手约20倍且成交量变换口径非常见定义。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- Q1费前年化超额3.71%，但年换手约20倍且成交量变换口径非常见定义。

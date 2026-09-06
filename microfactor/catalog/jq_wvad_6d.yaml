@@ -1,0 +1,90 @@
+schema_version: 2
+id: jq_wvad_6d
+display_name: 6日威廉变异离散量
+version: 1.0.0
+status: rejected
+category: price_volume
+tags:
+- 日频
+- 微盘
+- 聚宽
+- 官方命名因子
+- WVAD
+research_sources:
+- role: original_definition
+  kind: platform_documentation
+  title: 聚宽因子库官方定义：WVAD
+  institution: 聚宽
+  authors: []
+  publication_date: null
+  local_path: null
+  url: https://www.joinquant.com/help/api/getContent?name=factor_values
+  verification_status: verified
+  notes: 官方公式原文=Sum(((C-O)/(H-L))*V,6)；抓取日期=2026-08-07；数据频率=daily; updated 05:00 for the previous day；复权说明=price-volume factors
+    use post-adjusted prices unless the row says otherwise。 原本地证据未随当前归档保留，当前仅保留文字来源记录。
+- role: local_source_evidence
+  kind: strategy_source_collection
+  title: 聚宽策略源码中的因子调用证据
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: null
+  url: null
+  verification_status: verified
+  notes: 源码出现1次，覆盖1个文件；以下内容按审计CSV原文保留。相对路径=聚宽2026年精选/52机器学习滚动训练价投策略.txt；证据行=聚宽2026年精选/52机器学习滚动训练价投策略.txt:37。 原本地证据未随当前归档保留，当前仅保留文字来源记录。
+- role: implementation_reference
+  kind: internal_research
+  title: 聚宽官方命名日频因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/joinquant/scripts/joinquant_named_daily_factors.py
+  url: null
+  verification_status: verified
+  notes: 固定公式、参数、复权方式、零分母与滚动窗口边界均保存在实现模块。
+formula:
+  expression: Sum(((adjusted_close-adjusted_open)/(adjusted_high-adjusted_low))*volume,6)
+  variables:
+  - name: open
+    meaning: 当日未复权开盘价；需要时与同日复权比例相乘得到后复权开盘价
+  - name: high
+    meaning: 当日未复权最高价；需要时与同日复权比例相乘得到后复权最高价
+  - name: low
+    meaning: 当日未复权最低价；需要时与同日复权比例相乘得到后复权最低价
+  - name: close
+    meaning: 当日未复权收盘价
+  - name: adjusted_close
+    meaning: 后复权收盘价，用来消除分红、送股等公司行为造成的机械跳变
+  - name: volume
+    meaning: 当日成交股数
+  interpretation: 根据每天收盘相对开盘的强弱、全天振幅和成交量，累加6天的多空力度。
+  beginner_explanation:
+    one_sentence: 根据每天收盘相对开盘的强弱、全天振幅和成交量，累加6天的多空力度。
+    steps:
+    - 每天用收盘价减开盘价，再除以最高价减最低价，得到收盘方向占全天振幅的比例。
+    - 把这个比例乘成交量，并将最近6天结果相加。
+    high_value: 多天收盘强于开盘且成交量大，累计值偏正。
+    low_value: 多天收盘弱于开盘且成交量大，累计值偏负。
+    example: 某日开10元、收10.5元、高11元、低9元且成交1000万股，当日贡献=(0.5/2)*1000万=250万。
+    watch_out: 最高价等于最低价时当日无法计算，并会使所在6日窗口失效；成交规模暴露也很明显。 本次正式样本RankIC为-0.0340，Q1费前年化超额为-4.15%。
+direction:
+  expected: unspecified
+  selection: low
+  meaning: 正式样本RankIC为-0.0340，因此当前样本优选低值端；这是样本内方向，不是未来收益保证。
+implementation:
+  path: research/factor-provenance/joinquant/scripts/joinquant_named_daily_factors.py
+  callable: calculate_wvad / jq_wvad_6d
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/jq_wvad_6d/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/jq_wvad_6d/factor_values.parquet
+assessment:
+  verdict: negative_preferred_tail
+  summary: RankIC -0.0340，raw RankICIR -0.304，平均覆盖率99.05%；Q1费前年化超额-4.15%，年单边换手35.32倍。
+  most_important_risk: 按RankIC方向选择的档位费前年化超额仍为-4.15%，不能支持单独做多。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 13个命名因子在同一样本集中评估，存在多重检验和样本内筛选偏差。
+- 聚宽未披露所有停牌边界和滚动算子细节，不能声称逐行完全一致。
+- 按RankIC方向选择的档位费前年化超额仍为-4.15%，不能支持单独做多。

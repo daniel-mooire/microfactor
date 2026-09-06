@@ -1,0 +1,75 @@
+schema_version: 2
+id: guangfa42_si_1d
+display_name: 振动升降指标SI（单日）
+version: 1.0.0
+status: rejected
+category: price_volume
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 广发多因子系列42
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 广发多因子系列42：海量技术指标掘金Alpha因子
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_ebb746e4e36034e7.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=ebb746e4e36034e7bb654e15858c111028f0e23b67ecbaa72ca1d3677bba07bc；人工核对页码=13,129。PDF保留在用户只读外部目录。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/guangfa_daily_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: AA=abs(H-LC); BB=abs(L-LC); CC=abs(H-L[t-1]); DD=abs(LC-O[t-1]); R=piecewise(AA,BB,CC,DD); X=C-LC+(C-O)/2+LC-O[t-1];
+    SI=16*X/R*max(AA,BB)
+  variables:
+  - name: open
+    meaning: 当日未复权开盘价
+  - name: high
+    meaning: 当日未复权最高价
+  - name: low
+    meaning: 当日未复权最低价
+  - name: close
+    meaning: 当日未复权收盘价
+  interpretation: 把今天和昨天的开高低收变化合成一个带方向的单日价格冲击分数。
+  beginner_explanation:
+    one_sentence: 把今天和昨天的开高低收变化合成一个带方向的单日价格冲击分数。
+    steps:
+    - 比较今天高低价与昨天收盘、昨天最低价和昨天开盘的距离。
+    - 按研报分支选择波动尺度R，并计算价格变化X。
+    - 用X除以R，再乘当天主要波动距离，得到SI。
+    high_value: 当天价格冲击更偏向上行。
+    low_value: 当天价格冲击更偏向下行，但本样本低值档本身没有正毛超额。
+    example: 昨天收10元，今天开10元、最高10.5元、最低9.8元、收10.3元时，SI通常为正。
+    watch_out: 这是单日信号，年单边换手接近37倍；负RankIC主要来自回避最高值端。
+direction:
+  expected: unspecified
+  selection: low
+  meaning: 正式样本RankIC为-0.0387，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/guangfa_daily_factors.py
+  callable: calculate_si / guangfa42_si_1d
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/guangfa42_si_1d/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/guangfa42_si_1d/factor_values.parquet
+assessment:
+  verdict: exclusion_signal_only
+  summary: RankIC -0.0387，raw RankICIR -0.317，平均覆盖率99.96%；Q1费前年化超额-0.24%，年单边换手37.46倍。优选档自身费前年化超额为负，当前更像排除高风险尾部。
+  most_important_risk: Q1费前年化超额为负，负RankIC主要由Q5极差驱动。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- Q1费前年化超额为负，负RankIC主要由Q5极差驱动。

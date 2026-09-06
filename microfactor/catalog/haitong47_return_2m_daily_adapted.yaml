@@ -1,0 +1,102 @@
+schema_version: 2
+id: haitong47_return_2m_daily_adapted
+display_name: 海通47：过去2个月收益率（日频适配）
+version: 1.0.0
+status: evaluated
+category: momentum
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 行业内选股策略——有色金属行业
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 行业内选股策略——有色金属行业
+  institution: null
+  authors:
+  - Administrator
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_556116f52c0e0854.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=556116f52c0e0854191293762f80eae9f095db57f1d0ce9b3aa80bc81879ca4b；人工核对页码=9,10。PDF保留在用户只读外部目录。
+- role: formula_provenance
+  kind: broker_report
+  title: 行业内选股策略——钢铁行业
+  institution: null
+  authors:
+  - Administrator
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_84adedd992ba91db.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=84adedd992ba91db34a170e913bf4c09b7b3514d7108fb59bc81eee2a003a8f7；人工核对页码=8,9。同批次报告披露相同的mom_2公式，作为重复研报来源归入本因子。
+- role: formula_provenance
+  kind: internal_research
+  title: 研报公式人工复核与可复现因子档案
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/factors/haitong47_return_2m_daily_adapted.yaml
+  url: null
+  verification_status: verified
+  notes: 人工复核状态=confirmed；精确日频公式指纹=c754cb72bb109fd0c66e29198b08bc989328d05e960a2f3b86e5df57d2873013。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/baidunetdisk_new_2m_factor.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+- role: evaluation_benchmark
+  kind: internal_research
+  title: 百度网盘新增研报因子平均日截面Spearman去重审计
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: null
+  url: null
+  verification_status: verified
+  notes: 审计指纹=a3761f77f09181511c9734cb773e29262e06b20956ffb05577e33c6a97aaced9；高相关门槛=0.80；最高绝对平均相关=0.6954，对应huatai4_return_3m，未触发重复门槛。
+    原本地证据未随当前归档保留，当前仅保留文字来源记录。
+formula:
+  expression: 'for every trading day in calendar month c: close_total_return_index(month_end(c-1)) / close_total_return_index(month_end(c-3))
+    - 1'
+  variables:
+  - name: close_total_return_index
+    meaning: 包含分红、送转等公司行为影响的后复权收盘总回报价格指数
+  interpretation: 每月只算一次，看股票在刚过去的2个月一共涨了还是跌了，然后整个月都沿用这个分数。
+  beginner_explanation:
+    one_sentence: 每月只算一次，看股票在刚过去的2个月一共涨了还是跌了，然后整个月都沿用这个分数。
+    steps:
+    - 等上个自然月最后一个交易日收盘，记下该日的总回报价格指数。
+    - 找到再往前2个月的月末指数，用上月末数值除以它再减1。
+    - 把算出的涨跌幅复制到本月每个交易日，下个月才重新计算。
+    high_value: 数值越高，表示股票在刚过去的2个月涨得越多；本研报的反转思路并不认为高值更好。
+    low_value: 数值越低，表示股票在刚过去的2个月更弱；研报检验的是弱势股随后是否更容易反弹。
+    example: 较早月末为100、上月末为90，因子就是90/100-1=-10%；这个-10%在本月内保持不变。
+    watch_out: 负RankIC表示低分股票未来相对更好，不是高分越好；Q1费前年化超额只有0.55%，不能直接当作强买入信号。
+direction:
+  expected: negative
+  selection: low
+  meaning: 正式样本RankIC为-0.0342，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/baidunetdisk_new_2m_factor.py
+  callable: calculate_return_2m_daily_adapted / haitong47_return_2m_daily_adapted
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/haitong47_return_2m_daily_adapted/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/haitong47_return_2m_daily_adapted/factor_values.parquet
+assessment:
+  verdict: exclusion_signal_only
+  summary: RankIC -0.0342，raw RankICIR -0.250，平均覆盖率100.00%；Q1费前年化超额0.55%，年单边换手10.05倍。优选档自身有正的费前年化超额，但尚未计入费用。
+  most_important_risk: Q1费前年化超额仅0.55%，Q2和Q3更高，主要价值是回避Q5的-9.36%；年单边换手10.05倍。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- Q1费前年化超额仅0.55%，Q2和Q3更高，主要价值是回避Q5的-9.36%；年单边换手10.05倍。

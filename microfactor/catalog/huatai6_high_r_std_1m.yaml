@@ -1,0 +1,86 @@
+schema_version: 2
+id: huatai6_high_r_std_1m
+display_name: 每日盘中最高价相对前一交易收盘的涨幅1个月
+version: 1.0.0
+status: candidate
+category: volatility
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 华泰单因子测试之波动率类因子
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 华泰单因子测试之波动率类因子
+  institution: null
+  authors:
+  - XiangWang
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_0e33094604f770bf.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=0e33094604f770bf8116b0006d1cfa16e70148b0b958ff9031aede526293ec78；人工核对页码=5,31,32。PDF保留在用户只读外部目录。
+- role: formula_provenance
+  kind: internal_research
+  title: 研报公式人工复核与可复现因子档案
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/factors/huatai6_high_r_std_1m.yaml
+  url: null
+  verification_status: verified
+  notes: 人工复核状态=confirmed；精确日频公式指纹=1176f90b8afc13469c603e6ade3a19f9639a9cb34572c1e808433c4b2eca63d9。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/daily_report_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: Std(adjusted_high_d / previous_adjusted_close - 1, (t-1m,t], ddof=0)
+  variables:
+  - name: high
+    meaning: 当日未复权最高价
+  - name: low
+    meaning: 当日未复权最低价
+  - name: close
+    meaning: 当日未复权收盘价
+  - name: adjusted_close
+    meaning: 当日后复权收盘价
+  - name: is_suspended
+    meaning: 当日是否明确停牌
+  interpretation: 看每天盘中最好一刻的涨幅是否忽大忽小。 观察窗口是最近1个月。
+  beginner_explanation:
+    one_sentence: 看每天盘中最好一刻的涨幅是否忽大忽小。 观察窗口是最近1个月。
+    steps:
+    - 把每日最高价按收盘复权比例调整，并和上一有效交易日复权收盘比较。
+    - 计算最近N个自然月这些盘中最高涨幅的总体标准差。
+    high_value: 每天盘中最好一刻的涨幅差异很大，上冲幅度不稳定。
+    low_value: 盘中最高涨幅较稳定。
+    example: 若三天最高涨幅为1%、3%、8%，其标准差会明显高于都在2%左右的股票。
+    watch_out: 停牌日剔除，普通缺失不填；公司行为通过复权比例处理。
+direction:
+  expected: negative
+  selection: low
+  meaning: 正式样本RankIC为-0.0923，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/daily_report_factors.py
+  callable: calculate_intraday_volatility / huatai6_high_r_std_1m
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/huatai6_high_r_std_1m/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/huatai6_high_r_std_1m/factor_values.parquet
+assessment:
+  verdict: strong_but_audit_required
+  summary: RankIC -0.0923，raw RankICIR -0.717，平均覆盖率100.00%；Q1费前年化超额5.60%，年单边换手14.75倍。优选档自身有正的费前年化超额，但尚未计入费用。
+  most_important_risk: 单因子绝对RankIC接近0.10，必须优先排查暴露和样本选择。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- 单因子绝对RankIC接近0.10，必须优先排查暴露和样本选择。

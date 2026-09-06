@@ -1,0 +1,4 @@
+interface:
+  display_name: "Factor Eval HTML"
+  short_description: "Standardize Microfactor evaluation HTML reports"
+default_prompt: "Use $factor-eval-html to generate or review a Microfactor factor-evaluation HTML report."

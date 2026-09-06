@@ -1,0 +1,73 @@
+schema_version: 2
+id: csc14_alpha158_imxd_20d
+display_name: 中信建投 Alpha158：IMXD20
+version: 1.0.0
+status: rejected
+category: momentum
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 逐鹿Alpha专题报告14
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 逐鹿Alpha专题报告14：基本面因子与量价因子融合模型
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_29829dcbc80e322e.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=29829dcbc80e322e00b0039b81ec7a08fec83fce344d5b74d284cdf3111ccd93；人工核对页码=6,7。PDF保留在用户只读外部目录。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/review_batch_11_18_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: (IdxMax($high,20)-IdxMin($low,20))/20
+  variables:
+  - name: high
+    meaning: 当日未复权最高价
+  - name: low
+    meaning: 当日未复权最低价
+  - name: close
+    meaning: 当日未复权收盘价
+  - name: adjusted_close
+    meaning: 后复权收盘价
+  interpretation: 比较最近20天最高点和最低点出现的先后顺序，区分先跌后涨还是先涨后跌。
+  beginner_explanation:
+    one_sentence: 比较最近20天最高点和最低点出现的先后顺序，区分先跌后涨还是先涨后跌。
+    steps:
+    - 从旧到新给最近20天编号1到20，并找出最高价和最低价第一次出现的位置。
+    - 用最高点位置减去最低点位置，再除以20。
+    high_value: 最低点先出现、最高点后出现，更像先跌后涨。
+    low_value: 最高点先出现、最低点后出现，更像先涨后跌。
+    example: 最低点在第4天、最高点在第16天，因子=(16-4)/20=0.60；顺序相反则为-0.60。
+    watch_out: 离散位置会产生大量并列值和空分档警告；Q1费前年化超额为-1.98%，不能把负RankIC当成可做多信号。
+direction:
+  expected: unspecified
+  selection: low
+  meaning: 正式样本RankIC为-0.0553，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/review_batch_11_18_factors.py
+  callable: calculate_alpha158 / csc14_alpha158_imxd_20d
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/csc14_alpha158_imxd_20d/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/csc14_alpha158_imxd_20d/factor_values.parquet
+assessment:
+  verdict: no_standalone_long_alpha
+  summary: RankIC -0.0553，raw RankICIR -0.520，平均覆盖率99.43%；Q1费前年化超额-1.98%，年单边换手29.53倍。优选档自身费前年化超额为负，当前更像排除高风险尾部。
+  most_important_risk: Q1费前年化超额为-1.98%，离散位置还造成大量并列值和空分档。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- Q1费前年化超额为-1.98%，离散位置还造成大量并列值和空分档。

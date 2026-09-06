@@ -1,0 +1,70 @@
+schema_version: 2
+id: log_amount_20
+display_name: 对数成交额（20日）
+version: 1.0.0
+status: evaluated
+category: liquidity
+tags:
+- 日频
+- 微盘
+- 成交额
+- 流动性
+- 拥挤度
+research_sources:
+- role: implementation_reference
+  kind: internal_research
+  title: 常见因子对比研究
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-suite/experiments/daily-microcap-factor-suite/README.md
+  url: null
+  verification_status: verified
+  notes: 公式、数据字段和研究定位可在项目内核对。
+- role: original_report
+  kind: classic_factor
+  title: 常见流动性因子；唯一原始研报待指定
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: null
+  url: null
+  verification_status: pending
+  notes: 当前仓库没有保存可核验的原始券商研报或论文归属。
+formula:
+  expression: factor[i,t] = ln(Mean_20(amount[i,*]))
+  variables:
+  - name: amount
+    meaning: 单日成交额，要求为正
+  - name: Mean_20
+    meaning: 最近20个完整交易日的算术平均
+  interpretation: 先算最近20天平均每天成交了多少钱，再取自然对数压缩股票之间过大的金额差距。
+  beginner_explanation:
+    one_sentence: 看一只股票最近每天大约有多少钱在里面买卖。
+    steps:
+    - 统计股票最近20个交易日每天的成交金额。
+    - 算出20天的日均成交额。
+    - 对平均成交额取对数，压缩几百万元和几亿元之间的巨大差距，但不改变大小顺序。
+    high_value: 最近日均成交金额较大，通常更活跃、关注度更高，也更容易买卖。
+    low_value: 最近日均成交金额较小，通常更冷门，买卖容量也更有限。
+    example: 日均成交1亿元的股票仍会比日均成交1000万元的股票分数高；取对数只是把两者的数值差距压小。
+    watch_out: 当前样本中低成交额股票表现更好，但这类股票往往最难大额成交，回测收益可能被冲击成本吃掉。
+direction:
+  expected: unspecified
+  selection: low
+  meaning: 正式样本RankIC显著为负，低成交额端未来相对收益更高。
+implementation:
+  path: research/factor-suite/experiments/daily-microcap-factor-suite/scripts/mondane_factors.py
+  callable: _log_amount_20 / registry:log_amount_20
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/log_amount_20/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/log_amount_20/factor_values.parquet
+assessment:
+  verdict: strong_but_capacity_limited
+  summary: 本批因子中绝对RankIC最高，五档单调，低成交额Q1费前年化超额约10.6%且换手相对较低；仍未达到项目20%目标。
+  most_important_risk: 因子很可能是微盘池内部残余规模和不可交易容量的直接代理，费前统计优势未必能变成可实现收益。
+risks:
+- 成交额越低通常冲击成本越高，容量与收益方向冲突。
+- 未做市值、流动性或行业中性化。
+- 未核实唯一原始研报来源。

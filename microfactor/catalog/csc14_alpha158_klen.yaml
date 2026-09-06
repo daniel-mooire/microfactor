@@ -1,0 +1,75 @@
+schema_version: 2
+id: csc14_alpha158_klen
+display_name: 中信建投 Alpha158：KLEN
+version: 1.0.0
+status: rejected
+category: price_shape
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 逐鹿Alpha专题报告14
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 逐鹿Alpha专题报告14：基本面因子与量价因子融合模型
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_29829dcbc80e322e.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=29829dcbc80e322e00b0039b81ec7a08fec83fce344d5b74d284cdf3111ccd93；人工核对页码=6。PDF保留在用户只读外部目录。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/review_batch_11_18_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: ($high-$low)/$open
+  variables:
+  - name: open
+    meaning: 当日未复权开盘价
+  - name: high
+    meaning: 当日未复权最高价
+  - name: low
+    meaning: 当日未复权最低价
+  - name: close
+    meaning: 当日未复权收盘价
+  - name: adjusted_close
+    meaning: 后复权收盘价
+  interpretation: 用当天最高价到最低价的完整振幅，除以开盘价，衡量这一天有多剧烈。
+  beginner_explanation:
+    one_sentence: 用当天最高价到最低价的完整振幅，除以开盘价，衡量这一天有多剧烈。
+    steps:
+    - 用当天最高价减去最低价，得到全天价格跨度。
+    - 再除以当天开盘价，让不同股价水平的股票可以比较。
+    high_value: 当天振幅相对开盘价很大，盘中波动剧烈。
+    low_value: 当天价格活动范围较窄，盘中相对平稳。
+    example: 开盘10元、最高10.50元、最低9.50元时，KLEN=(10.50-9.50)/10=0.10。
+    watch_out: 负RankIC主要伴随高值端表现很差；Q1费前年化超额仅1.15%、年单边换手约32倍，不足以证明低振幅端可交易。
+direction:
+  expected: unspecified
+  selection: low
+  meaning: 正式样本RankIC为-0.0842，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/review_batch_11_18_factors.py
+  callable: calculate_alpha158 / csc14_alpha158_klen
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/csc14_alpha158_klen/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/csc14_alpha158_klen/factor_values.parquet
+assessment:
+  verdict: exclusion_signal_only
+  summary: RankIC -0.0842，raw RankICIR -0.654，平均覆盖率99.96%；Q1费前年化超额1.15%，年单边换手32.12倍。优选档自身有正的费前年化超额，但尚未计入费用。
+  most_important_risk: Q1费前年化超额仅1.15%且年换手约32倍，负RankIC更像排除高振幅尾部。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- Q1费前年化超额仅1.15%且年换手约32倍，负RankIC更像排除高振幅尾部。

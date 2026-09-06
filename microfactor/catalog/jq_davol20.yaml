@@ -1,0 +1,83 @@
+schema_version: 2
+id: jq_davol20
+display_name: 20日对120日换手率比
+version: 1.0.0
+status: evaluated
+category: liquidity
+tags:
+- 日频
+- 微盘
+- 聚宽
+- 官方命名因子
+- DAVOL20
+research_sources:
+- role: original_definition
+  kind: platform_documentation
+  title: 聚宽因子库官方定义：DAVOL20
+  institution: 聚宽
+  authors: []
+  publication_date: null
+  local_path: null
+  url: https://www.joinquant.com/help/api/getContent?name=factor_values
+  verification_status: verified
+  notes: 官方公式原文=MA(turnover_pct,20)/MA(turnover_pct,120)；抓取日期=2026-08-07；数据频率=daily; updated 05:00 for the previous day；复权说明=price-volume
+    factors use post-adjusted prices unless the row says otherwise。 原本地证据未随当前归档保留，当前仅保留文字来源记录。
+- role: local_source_evidence
+  kind: strategy_source_collection
+  title: 聚宽策略源码中的因子调用证据
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: null
+  url: null
+  verification_status: verified
+  notes: 源码出现5次，覆盖5个文件；以下内容按审计CSV原文保留。相对路径=2022年度精选策略/93.因子看板多因子模型---由量化课堂多因子模型修改.txt | 2024年度精选策略1/1.差不多得了.txt | 2024年度精选策略1/24.凑波热闹，也来试试多因子线性回归.txt
+    | 聚宽2026年精选/12用子账户模拟多策略分仓.txt | 聚宽2026年精选/19机器学习线性回归小市值.txt；证据行=2022年度精选策略/93.因子看板多因子模型---由量化课堂多因子模型修改.txt:38 | 2024年度精选策略1/1.差不多得了.txt:80
+    | 2024年度精选策略1/24.凑波热闹，也来试试多因子线性回归.txt:120 | 2024年度精选策略1/24.凑波热闹，也来试试多因子线性回归.txt:73 | 聚宽2026年精选/12用子账户模拟多策略分仓.txt:597 |
+    聚宽2026年精选/19机器学习线性回归小市值.txt:72。 原本地证据未随当前归档保留，当前仅保留文字来源记录。
+- role: implementation_reference
+  kind: internal_research
+  title: 聚宽官方命名日频因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/joinquant/scripts/joinquant_named_daily_factors.py
+  url: null
+  verification_status: verified
+  notes: 固定公式、参数、复权方式、零分母与滚动窗口边界均保存在实现模块。
+formula:
+  expression: Mean(jq_turnover_ratio_pct, 20)_t / Mean(jq_turnover_ratio_pct, 120)_t
+  variables:
+  - name: jq_turnover_ratio_pct
+    meaning: 成交股数 / 流通股本股数 * 100；分母是 float_share，不是自由流通股本 free_share
+  interpretation: 比较最近一个月和过去半年的换手热度，判断交易是在升温还是降温。
+  beginner_explanation:
+    one_sentence: 比较最近一个月和过去半年的换手热度，判断交易是在升温还是降温。
+    steps:
+    - 分别计算最近20日和最近120日的平均流通股本换手率。
+    - 用20日均值除以120日均值；长期均值为0时不计算。
+    high_value: 近期换手明显高于半年常态，交易热度正在上升。
+    low_value: 近期换手低于半年常态，交易热度正在下降。
+    example: 20日平均换手率4%、120日平均2%时，因子=4%/2%=2，表示近期约是常态的两倍。
+    watch_out: 突然放量可能来自利好，也可能来自出货；换手率仍严格使用 float_share 口径。 本次正式样本RankIC为-0.0566，Q1费前年化超额为5.45%。
+direction:
+  expected: unspecified
+  selection: low
+  meaning: 正式样本RankIC为-0.0566，因此当前样本优选低值端；这是样本内方向，不是未来收益保证。
+implementation:
+  path: research/factor-provenance/joinquant/scripts/joinquant_named_daily_factors.py
+  callable: calculate_davol20 / jq_davol20
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/jq_davol20/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/jq_davol20/factor_values.parquet
+assessment:
+  verdict: moderate_positive_evidence
+  summary: RankIC -0.0566，raw RankICIR -0.499，平均覆盖率96.78%；Q1费前年化超额5.45%，年单边换手10.42倍。
+  most_important_risk: 绝对RankIC为0.0566、优选档费前年化超额为5.45%，证据温和但仍未计成本。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 13个命名因子在同一样本集中评估，存在多重检验和样本内筛选偏差。
+- 聚宽未披露所有停牌边界和滚动算子细节，不能声称逐行完全一致。
+- 绝对RankIC为0.0566、优选档费前年化超额为5.45%，证据温和但仍未计成本。

@@ -1,0 +1,67 @@
+schema_version: 2
+id: momentum
+display_name: 总回报动量（20日）
+version: 1.0.0
+status: evaluated
+category: technical
+tags:
+- 日频
+- 微盘
+- 动量
+- 总回报
+research_sources:
+- role: implementation_reference
+  kind: internal_research
+  title: quant-hive正式因子注册表
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: src/quant_hive/factor.py
+  url: null
+  verification_status: verified
+  notes: 公式实现和默认参数可在注册表核对。
+- role: original_report
+  kind: classic_factor
+  title: 经典动量因子；唯一原始研报待指定
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-suite/experiments/daily-microcap-factor-suite/README.md
+  url: null
+  verification_status: pending
+  notes: 当前项目将其作为常见基线，不能据此认定唯一研报来源。
+formula:
+  expression: factor[i,t] = TRI[i,t] / TRI[i,t-20] - 1
+  variables:
+  - name: TRI
+    meaning: 后复权总回报价格指数
+  interpretation: 用今天的复权价格除以20个交易日前的复权价格再减1，直接衡量最近20日累计涨跌幅。
+  beginner_explanation:
+    one_sentence: 看一只股票过去大约一个月是涨得多，还是跌得多。
+    steps:
+    - 找到今天和20个交易日前的复权价格。
+    - 用今天价格除以过去价格，再减去1，得到这20天的累计涨跌幅。
+    - 涨得越多分数越高，跌得越多分数越低。
+    high_value: 股票最近20个交易日涨幅较大，属于近期强势股。
+    low_value: 股票最近20个交易日涨幅较小，甚至出现明显下跌。
+    example: 复权价格从10元涨到11元，动量约为10%；从10元跌到9元，动量约为-10%。
+    watch_out: 这个名字虽然叫动量，但当前微盘样本中反而是低分股票未来表现更好，不能机械追涨。
+direction:
+  expected: positive
+  selection: low
+  meaning: 正式微盘样本RankIC为负，实际有效方向是低动量端，与预设动量方向相反。
+implementation:
+  path: src/quant_hive/factor.py
+  callable: _momentum / registry:momentum
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/momentum/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/momentum/factor_values.parquet
+assessment:
+  verdict: direction_mismatch
+  summary: 绝对RankIC较高但符号为负，说明20日动量在该微盘池表现为中期反转；低分档费前年化超额约1.6%，不能按原正向动量假设使用。
+  most_important_risk: 因子方向与先验相反，可能高度依赖微盘股票池、样本阶段和拥挤交易。
+risks:
+- 未做行业或市值中性化。
+- 负RankIC不能直接解释为正向动量有效。
+- 未核实唯一原始研报来源。

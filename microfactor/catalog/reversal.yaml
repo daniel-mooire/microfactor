@@ -1,0 +1,67 @@
+schema_version: 2
+id: reversal
+display_name: 短期反转（5日）
+version: 1.0.0
+status: evaluated
+category: technical
+tags:
+- 日频
+- 微盘
+- 反转
+- 总回报
+research_sources:
+- role: implementation_reference
+  kind: internal_research
+  title: quant-hive正式因子注册表
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: src/quant_hive/factor.py
+  url: null
+  verification_status: verified
+  notes: 公式实现和默认参数可在注册表核对。
+- role: original_report
+  kind: classic_factor
+  title: 经典短期反转因子；唯一原始研报待指定
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-suite/experiments/daily-microcap-factor-suite/README.md
+  url: null
+  verification_status: pending
+  notes: 当前项目将其作为常见基线，不能据此认定唯一研报来源。
+formula:
+  expression: factor[i,t] = -(TRI[i,t] / TRI[i,t-5] - 1)
+  variables:
+  - name: TRI
+    meaning: 后复权总回报价格指数
+  interpretation: 先算最近5日累计涨跌幅，再乘以负1，让近期跌得多的股票得到更高分。
+  beginner_explanation:
+    one_sentence: 专门寻找最近几天跌得较多、可能出现短期反弹的股票。
+    steps:
+    - 计算股票最近5个交易日的累计涨跌幅。
+    - 给这个涨跌幅加上负号，也就是把正负方向反过来。
+    - 最近下跌的股票因此得到正分，最近上涨的股票得到负分。
+    high_value: 股票最近5日跌幅较大，公式认为它可能有短期回弹机会。
+    low_value: 股票最近5日涨幅较大，公式认为它继续上涨的吸引力较低。
+    example: 股价从10元跌到9元，5日收益是-10%；取负后因子是+10%。从10元涨到11元时，因子则是-10%。
+    watch_out: 跌得多也可能是基本面变差，并非所有下跌都会反弹；当前高分档本身仍跑输等权基准。
+direction:
+  expected: positive
+  selection: high
+  meaning: 正式样本RankIC为正，方向与短期反转先验一致。
+implementation:
+  path: src/quant_hive/factor.py
+  callable: _reversal / registry:reversal
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/reversal/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/reversal/factor_values.parquet
+assessment:
+  verdict: not_standalone
+  summary: RankIC为正，但优选Q5费前年化超额约-2.4%；正IC和多空差主要由极差的Q1推动，不支持直接做多最高分组。
+  most_important_risk: 截面相关显著不代表long-only尾部收益为正，尾部结构必须单独检查。
+risks:
+- 年单边换手约40倍，费用压力高。
+- 五档收益并非理想单调结构。
+- 未核实唯一原始研报来源。

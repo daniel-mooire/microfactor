@@ -1,0 +1,90 @@
+schema_version: 2
+id: jq_mfi14
+display_name: 14日资金流量指标
+version: 1.0.0
+status: candidate
+category: price_volume
+tags:
+- 日频
+- 微盘
+- 聚宽
+- 官方命名因子
+- MFI14
+research_sources:
+- role: original_definition
+  kind: platform_documentation
+  title: 聚宽因子库官方定义：MFI14
+  institution: 聚宽
+  authors: []
+  publication_date: null
+  local_path: null
+  url: https://www.joinquant.com/help/api/getContent?name=factor_values
+  verification_status: verified
+  notes: 官方公式原文=TP=(H+L+C)/3; MF=TP*V; MR=Sum(positive MF,14)/Sum(negative MF,14); MFI=100-100/(1+MR)；抓取日期=2026-08-07；数据频率=daily;
+    updated 05:00 for the previous day；复权说明=price-volume factors use post-adjusted prices unless the row says otherwise。 原本地证据未随当前归档保留，当前仅保留文字来源记录。
+- role: local_source_evidence
+  kind: strategy_source_collection
+  title: 聚宽策略源码中的因子调用证据
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: null
+  url: null
+  verification_status: verified
+  notes: 源码出现2次，覆盖2个文件；以下内容按审计CSV原文保留。相对路径=2024年度精选策略1/56.双人工智能配合，样本外夏普3.9.txt | 聚宽2026年精选/33回馈社区顺便搞积分《一个完整的机器学习pipeline》.txt；证据行=2024年度精选策略1/56.双人工智能配合，样本外夏普3.9.txt:56
+    | 聚宽2026年精选/33回馈社区顺便搞积分《一个完整的机器学习pipeline》.txt:84。 原本地证据未随当前归档保留，当前仅保留文字来源记录。
+- role: implementation_reference
+  kind: internal_research
+  title: 聚宽官方命名日频因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/joinquant/scripts/joinquant_named_daily_factors.py
+  url: null
+  verification_status: verified
+  notes: 固定公式、参数、复权方式、零分母与滚动窗口边界均保存在实现模块。
+formula:
+  expression: TP=(adjusted_high+adjusted_low+adjusted_close)/3; MF=TP*volume; MR=Sum(MF where TP>TP[-1],14)/Sum(MF where TP<TP[-1],14);
+    MFI=100-100/(1+MR)
+  variables:
+  - name: high
+    meaning: 当日未复权最高价；需要时与同日复权比例相乘得到后复权最高价
+  - name: low
+    meaning: 当日未复权最低价；需要时与同日复权比例相乘得到后复权最低价
+  - name: close
+    meaning: 当日未复权收盘价
+  - name: adjusted_close
+    meaning: 后复权收盘价，用来消除分红、送股等公司行为造成的机械跳变
+  - name: volume
+    meaning: 当日成交股数
+  interpretation: 把价格上涨日和下跌日的成交资金作比较，看近14天哪一边更占优势。
+  beginner_explanation:
+    one_sentence: 把价格上涨日和下跌日的成交资金作比较，看近14天哪一边更占优势。
+    steps:
+    - 每天用最高、最低、收盘价的平均值乘成交量，估算资金流量。
+    - 代表价格上涨时计入正向流量，下跌时计入负向流量，再用14日两者之比换算成0到100的指标。
+    high_value: 上涨日承载的成交资金明显多于下跌日，数值接近100。
+    low_value: 下跌日承载的成交资金占优，数值接近0。
+    example: 14日正向资金为3000万元、负向为1000万元时，资金比=3，MFI=100-100/(1+3)=75。
+    watch_out: 这只是用典型价格乘成交量作近似，不是账户资金净流入；负向流量为0时会落在公式极限。 本次正式样本RankIC为-0.0443，Q1费前年化超额为1.89%。
+direction:
+  expected: unspecified
+  selection: low
+  meaning: 正式样本RankIC为-0.0443，因此当前样本优选低值端；这是样本内方向，不是未来收益保证。
+implementation:
+  path: research/factor-provenance/joinquant/scripts/joinquant_named_daily_factors.py
+  callable: calculate_mfi14 / jq_mfi14
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/jq_mfi14/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/jq_mfi14/factor_values.parquet
+assessment:
+  verdict: promising_but_high_turnover
+  summary: RankIC -0.0443，raw RankICIR -0.430，平均覆盖率99.59%；Q1费前年化超额1.89%，年单边换手27.14倍。
+  most_important_risk: 优选档有正超额，但年单边换手27.14倍，费用和冲击可能吞噬收益。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 13个命名因子在同一样本集中评估，存在多重检验和样本内筛选偏差。
+- 聚宽未披露所有停牌边界和滚动算子细节，不能声称逐行完全一致。
+- 优选档有正超额，但年单边换手27.14倍，费用和冲击可能吞噬收益。

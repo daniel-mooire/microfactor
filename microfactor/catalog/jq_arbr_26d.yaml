@@ -1,0 +1,93 @@
+schema_version: 2
+id: jq_arbr_26d
+display_name: AR与BR情绪差
+version: 1.0.0
+status: rejected
+category: price_volume
+tags:
+- 日频
+- 微盘
+- 聚宽
+- 官方命名因子
+- ARBR
+research_sources:
+- role: original_definition
+  kind: platform_documentation
+  title: 聚宽因子库官方定义：ARBR
+  institution: 聚宽
+  authors: []
+  publication_date: null
+  local_path: null
+  url: https://www.joinquant.com/help/api/getContent?name=factor_values
+  verification_status: verified
+  notes: 官方公式原文=AR26-BR26; AR26=100*Sum(H-O,26)/Sum(O-L,26); BR26=100*Sum(H-C[-1],26)/Sum(C[-1]-L,26)；抓取日期=2026-08-07；数据频率=daily;
+    updated 05:00 for the previous day；复权说明=price-volume factors use post-adjusted prices unless the row says otherwise。 原本地证据未随当前归档保留，当前仅保留文字来源记录。
+- role: local_source_evidence
+  kind: strategy_source_collection
+  title: 聚宽策略源码中的因子调用证据
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: null
+  url: null
+  verification_status: verified
+  notes: 源码出现6次，覆盖5个文件；以下内容按审计CSV原文保留。相对路径=2024年度精选策略1/1.差不多得了.txt | 2024年度精选策略1/15.10年52倍，年化59%，全新因子方法超稳定.txt | 2024年度精选策略1/24.凑波热闹，也来试试多因子线性回归.txt
+    | 聚宽2026年精选/12用子账户模拟多策略分仓.txt | 聚宽2026年精选/19机器学习线性回归小市值.txt；证据行=2024年度精选策略1/1.差不多得了.txt:40 | 2024年度精选策略1/15.10年52倍，年化59%，全新因子方法超稳定.txt:36
+    | 2024年度精选策略1/15.10年52倍，年化59%，全新因子方法超稳定.txt:39 | 2024年度精选策略1/24.凑波热闹，也来试试多因子线性回归.txt:45 | 2024年度精选策略1/24.凑波热闹，也来试试多因子线性回归.txt:92
+    | 聚宽2026年精选/12用子账户模拟多策略分仓.txt:569 | 聚宽2026年精选/19机器学习线性回归小市值.txt:44。 原本地证据未随当前归档保留，当前仅保留文字来源记录。
+- role: implementation_reference
+  kind: internal_research
+  title: 聚宽官方命名日频因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/joinquant/scripts/joinquant_named_daily_factors.py
+  url: null
+  verification_status: verified
+  notes: 固定公式、参数、复权方式、零分母与滚动窗口边界均保存在实现模块。
+formula:
+  expression: 100*Sum(adjusted_high-adjusted_open,26)/Sum(adjusted_open-adjusted_low,26) - 100*Sum(adjusted_high-prev_adjusted_close,26)/Sum(prev_adjusted_close-adjusted_low,26)
+  variables:
+  - name: open
+    meaning: 当日未复权开盘价；需要时与同日复权比例相乘得到后复权开盘价
+  - name: high
+    meaning: 当日未复权最高价；需要时与同日复权比例相乘得到后复权最高价
+  - name: low
+    meaning: 当日未复权最低价；需要时与同日复权比例相乘得到后复权最低价
+  - name: close
+    meaning: 当日未复权收盘价
+  - name: adjusted_close
+    meaning: 后复权收盘价，用来消除分红、送股等公司行为造成的机械跳变
+  - name: is_suspended
+    meaning: 当日是否明确停牌
+  interpretation: 把开盘后的上冲力量和相对昨收的上冲力量作比较，观察两种短期情绪谁更强。
+  beginner_explanation:
+    one_sentence: 把开盘后的上冲力量和相对昨收的上冲力量作比较，观察两种短期情绪谁更强。
+    steps:
+    - 用26天的最高价减开盘价与开盘价减最低价，计算AR。
+    - 再用最高价减前收盘与前收盘减最低价计算BR，最后用AR减BR。
+    high_value: 相对开盘价计算的上冲力量明显强于相对昨收计算的力量。
+    low_value: BR相对更强，或者开盘后的上冲力量较弱。
+    example: 若AR=140、BR=90，则ARBR=140-90=50；若AR=80、BR=120，则为-40。
+    watch_out: 它不是简单的涨跌幅；分母为0时没有数值，停牌和一字板也会影响窗口。 本次正式样本RankIC为-0.0277，Q1费前年化超额为-1.42%。
+direction:
+  expected: unspecified
+  selection: low
+  meaning: 正式样本RankIC为-0.0277，因此当前样本优选低值端；这是样本内方向，不是未来收益保证。
+implementation:
+  path: research/factor-provenance/joinquant/scripts/joinquant_named_daily_factors.py
+  callable: calculate_arbr / jq_arbr_26d
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/jq_arbr_26d/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/jq_arbr_26d/factor_values.parquet
+assessment:
+  verdict: negative_preferred_tail
+  summary: RankIC -0.0277，raw RankICIR -0.369，平均覆盖率99.28%；Q1费前年化超额-1.42%，年单边换手16.80倍。
+  most_important_risk: 按RankIC方向选择的档位费前年化超额仍为-1.42%，不能支持单独做多。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 13个命名因子在同一样本集中评估，存在多重检验和样本内筛选偏差。
+- 聚宽未披露所有停牌边界和滚动算子细节，不能声称逐行完全一致。
+- 按RankIC方向选择的档位费前年化超额仍为-1.42%，不能支持单独做多。

@@ -1,0 +1,63 @@
+schema_version: 2
+id: alpha101_050
+display_name: Alpha101第50号（价量相关峰值取反）
+version: 1.0.0
+status: candidate
+category: price_volume
+tags:
+- Alpha101
+- 日频
+- 微盘
+- 价量
+- 相关性
+- 流动性
+research_sources:
+- role: original_report
+  kind: academic_paper
+  title: 101 Formulaic Alphas
+  institution: null
+  authors:
+  - Zura Kakushadze
+  publication_date: '2015-12-09'
+  local_path: research/factor-suite/experiments/alpha101-daily-microcap/config/alpha101_formulas.yaml
+  url: https://arxiv.org/pdf/1601.00991
+  verification_status: verified
+  notes: 公式见论文附录第12页；VWAP由当日成交额除以成交量得到。
+formula:
+  expression: factor[i,t] = -ts_max(rank(correlation(rank(volume), rank(vwap), 5)), 5)
+  variables:
+  - name: volume
+    meaning: 当日成交股数
+  - name: vwap
+    meaning: 当日成交量加权平均价，由成交额除以成交量得到
+  interpretation: 先算成交量排名与VWAP排名的5日相关性并做截面排名，再取该排名近5日最高值并加负号；近期价量同步峰值越低，因子越高。
+  beginner_explanation:
+    one_sentence: 寻找最近一段时间里，成交变活跃却没有伴随平均成交价同步走高的股票。
+    steps:
+    - 每天分别给成交量和平均成交价排队。
+    - 对每只股票计算两种名次近5日是否同步，再比较它在当天所有股票中的位置。
+    - 查看这个位置近5日最高到哪里并加负号；连“最高一次”都不高的股票得分更高。
+    high_value: 最近5日价量同步程度一直偏低，数值通常是较接近0的负数。
+    low_value: 最近5日曾出现很强的价量同步，取负后数值更接近-1。
+    example: A股近5日价量相关排名最高只有0.2，因子为-0.2；B股最高到0.9，因子为-0.9，所以A股分数更高。
+    watch_out: 分数高低是“负数里谁更接近0”，不能只看正负；大部分预测力会在控制成交额和换手后消失。
+direction:
+  expected: positive
+  selection: high
+  meaning: 正式RankIC为正，评估选择数值较高、也就是更接近0的Q5。
+implementation:
+  path: research/factor-suite/experiments/alpha101-daily-microcap/scripts/alpha101_engine.py
+  callable: Alpha101Engine.compute / alpha101_050
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/alpha101_050/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/alpha101_050/factor_values.parquet
+assessment:
+  verdict: promising_research_signal
+  summary: RankIC为0.0492、raw ICIR为0.7813，年度方向均为正；Q5费前年化超额约4.5%、五档多空约11.4%，年单边换手约34.5倍。控制市值、成交额和换手后诊断RankIC降至0.0134。
+  most_important_risk: 信号主要是流动性相关暴露，不能把未中性化结果直接解释为独立价量异常收益。
+risks:
+- 年单边换手约35倍，当前收益不含费用、滑点和微盘冲击成本。
+- 从83个可计算公式中按同一样本筛选，存在明显多重检验偏差。
+- 未做行业、市值或流动性中性化。
+- VWAP依赖成交额与成交量单位保持一致，数据源切换时必须重新验收。

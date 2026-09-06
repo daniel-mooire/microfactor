@@ -1,0 +1,68 @@
+schema_version: 2
+id: guangfa42_roc_6d
+display_name: 价格变动速率ROC（6日）
+version: 1.0.0
+status: rejected
+category: price_volume
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 广发多因子系列42
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 广发多因子系列42：海量技术指标掘金Alpha因子
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_ebb746e4e36034e7.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=ebb746e4e36034e7bb654e15858c111028f0e23b67ecbaa72ca1d3677bba07bc；人工核对页码=21,128。PDF保留在用户只读外部目录。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/guangfa_daily_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: ROC_6=100*(close/close[t-6]-1)
+  variables:
+  - name: close
+    meaning: 当日未复权收盘价
+  interpretation: 直接看今天收盘价相对6个交易日前涨跌了多少。
+  beginner_explanation:
+    one_sentence: 直接看今天收盘价相对6个交易日前涨跌了多少。
+    steps:
+    - 找到今天和6个交易日前的收盘价。
+    - 用今天价格除以过去价格再减1。
+    - 乘100得到6日涨跌百分比。
+    high_value: 最近6天涨幅较大，属于短期强势。
+    low_value: 最近6天涨幅较小或下跌；本样本低值档本身仍未取得正毛超额。
+    example: 收盘价从10元涨到11元，ROC6为10%；跌到9元则为-10%。
+    watch_out: 公式使用未复权收盘价，跨除权窗口可能失真；高换手和费用风险也很大。
+direction:
+  expected: unspecified
+  selection: low
+  meaning: 正式样本RankIC为-0.0474，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/guangfa_daily_factors.py
+  callable: calculate_roc / guangfa42_roc_6d
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/guangfa42_roc_6d/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/guangfa42_roc_6d/factor_values.parquet
+assessment:
+  verdict: exclusion_signal_only
+  summary: RankIC -0.0474，raw RankICIR -0.356，平均覆盖率99.87%；Q1费前年化超额-0.60%，年单边换手37.67倍。优选档自身费前年化超额为负，当前更像排除高风险尾部。
+  most_important_risk: Q1费前年化超额为负，当前证据只支持回避高值端。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- Q1费前年化超额为负，当前证据只支持回避高值端。

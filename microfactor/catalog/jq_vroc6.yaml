@@ -1,0 +1,81 @@
+schema_version: 2
+id: jq_vroc6
+display_name: 6日成交量变化率
+version: 1.0.0
+status: candidate
+category: liquidity
+tags:
+- 日频
+- 微盘
+- 聚宽
+- 官方命名因子
+- VROC6
+research_sources:
+- role: original_definition
+  kind: platform_documentation
+  title: 聚宽因子库官方定义：VROC6
+  institution: 聚宽
+  authors: []
+  publication_date: null
+  local_path: null
+  url: https://www.joinquant.com/help/api/getContent?name=factor_values
+  verification_status: verified
+  notes: 官方公式原文=100*(V-V[-6])/V[-6]；抓取日期=2026-08-07；数据频率=daily; updated 05:00 for the previous day；复权说明=price-volume factors
+    use post-adjusted prices unless the row says otherwise。 原本地证据未随当前归档保留，当前仅保留文字来源记录。
+- role: local_source_evidence
+  kind: strategy_source_collection
+  title: 聚宽策略源码中的因子调用证据
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: null
+  url: null
+  verification_status: verified
+  notes: 源码出现1次，覆盖1个文件；以下内容按审计CSV原文保留。相对路径=聚宽2026年精选/33回馈社区顺便搞积分《一个完整的机器学习pipeline》.txt；证据行=聚宽2026年精选/33回馈社区顺便搞积分《一个完整的机器学习pipeline》.txt:54。
+    原本地证据未随当前归档保留，当前仅保留文字来源记录。
+- role: implementation_reference
+  kind: internal_research
+  title: 聚宽官方命名日频因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/joinquant/scripts/joinquant_named_daily_factors.py
+  url: null
+  verification_status: verified
+  notes: 固定公式、参数、复权方式、零分母与滚动窗口边界均保存在实现模块。
+formula:
+  expression: 100*(volume_t-volume_t[-6])/volume_t[-6]
+  variables:
+  - name: volume
+    meaning: 当日成交股数
+  interpretation: 比较今天和6个交易日前的成交量，看短期是放量还是缩量。
+  beginner_explanation:
+    one_sentence: 比较今天和6个交易日前的成交量，看短期是放量还是缩量。
+    steps:
+    - 用今天成交量减去6个交易日前的成交量。
+    - 再除以6日前成交量并乘100，得到百分比变化。
+    high_value: 今天相对6日前明显放量。
+    low_value: 今天相对6日前明显缩量，可能为负数。
+    example: 成交量从6日前的1000万股升到1500万股时，VROC6=100*(1500-1000)/1000=50。
+    watch_out: 只比较两个日期，容易被单日异常成交放大；6日前成交量为0时没有结果。 本次正式样本RankIC为-0.0332，Q1费前年化超额为0.70%。
+direction:
+  expected: unspecified
+  selection: low
+  meaning: 正式样本RankIC为-0.0332，因此当前样本优选低值端；这是样本内方向，不是未来收益保证。
+implementation:
+  path: research/factor-provenance/joinquant/scripts/joinquant_named_daily_factors.py
+  callable: calculate_vroc6 / jq_vroc6
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/jq_vroc6/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/jq_vroc6/factor_values.parquet
+assessment:
+  verdict: promising_but_high_turnover
+  summary: RankIC -0.0332，raw RankICIR -0.362，平均覆盖率99.91%；Q1费前年化超额0.70%，年单边换手41.31倍。
+  most_important_risk: 优选档有正超额，但年单边换手41.31倍，费用和冲击可能吞噬收益。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 13个命名因子在同一样本集中评估，存在多重检验和样本内筛选偏差。
+- 聚宽未披露所有停牌边界和滚动算子细节，不能声称逐行完全一致。
+- 优选档有正超额，但年单边换手41.31倍，费用和冲击可能吞噬收益。

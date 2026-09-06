@@ -1,0 +1,68 @@
+schema_version: 2
+id: guangfa42_bias_6d
+display_name: 乖离率BIAS（6日）
+version: 1.0.0
+status: rejected
+category: price_volume
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 广发多因子系列42
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 广发多因子系列42：海量技术指标掘金Alpha因子
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_ebb746e4e36034e7.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=ebb746e4e36034e7bb654e15858c111028f0e23b67ecbaa72ca1d3677bba07bc；人工核对页码=14,127。PDF保留在用户只读外部目录。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/guangfa_daily_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: BIAS_6=100*(close-MA_6(close))/MA_6(close)
+  variables:
+  - name: close
+    meaning: 当日未复权收盘价
+  interpretation: 看今天股价比最近6天平均价高或低多少百分比。
+  beginner_explanation:
+    one_sentence: 看今天股价比最近6天平均价高或低多少百分比。
+    steps:
+    - 计算最近6个交易日收盘价的平均值。
+    - 用今天收盘价减去均价。
+    - 再除以均价并乘100，得到乖离率。
+    high_value: 今天价格明显站在6日均线上方，短期涨幅较大。
+    low_value: 今天价格低于6日均线，短期相对偏弱。
+    example: 6日均价10元、今天收11元，BIAS6等于10%；收9元则为-10%。
+    watch_out: 低值端费前超额仍为负，当前结果更像排除过热股票，不能理解成抄底必赚。
+direction:
+  expected: unspecified
+  selection: low
+  meaning: 正式样本RankIC为-0.0391，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/guangfa_daily_factors.py
+  callable: calculate_bias / guangfa42_bias_6d
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/guangfa42_bias_6d/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/guangfa42_bias_6d/factor_values.parquet
+assessment:
+  verdict: exclusion_signal_only
+  summary: RankIC -0.0391，raw RankICIR -0.292，平均覆盖率99.84%；Q1费前年化超额-1.76%，年单边换手39.98倍。优选档自身费前年化超额为负，当前更像排除高风险尾部。
+  most_important_risk: Q1费前年化超额为负，且年单边换手接近40倍。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- Q1费前年化超额为负，且年单边换手接近40倍。

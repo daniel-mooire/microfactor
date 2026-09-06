@@ -1,0 +1,72 @@
+schema_version: 2
+id: huatai28_alpha125_open_free_turn_corr_10d
+display_name: 华泰AI28 alpha125：开盘价减自由流通换手率与收盘价相关性
+version: 1.0.0
+status: candidate
+category: price_volume
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 华泰人工智能系列28
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 华泰人工智能系列28：基于量价的人工智能选股体系概览
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_0fa1140e33b17a48.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=0fa1140e33b17a4804ca479906caa38bec8a5b1ada9a2fb07aea8afef69f13cb；人工核对页码=10,17,18。PDF保留在用户只读外部目录。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/additional_daily_report_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: ts_corr(open - free_turn_percent, close, 10)
+  variables:
+  - name: open
+    meaning: 当日未复权开盘价
+  - name: close
+    meaning: 当日未复权收盘价
+  - name: turnover_percent
+    meaning: 当日自由流通换手率百分比
+  interpretation: 看“开盘价减换手率”这条序列，过去10天是否和收盘价同步。
+  beginner_explanation:
+    one_sentence: 看“开盘价减换手率”这条序列，过去10天是否和收盘价同步。
+    steps:
+    - 每天从开盘价中减去自由流通换手率的百分数。
+    - 取最近10天的差值序列和收盘价序列。
+    - 计算两条序列的相关性，越同步分数越高。
+    high_value: 差值序列与收盘价大多同向变化；正式样本偏好高值端。
+    low_value: 两条序列反向或缺少稳定同步关系。
+    example: 某日开盘10元、换手率2%，公式先得到8；连续10天的这些数再与收盘价做相关。
+    watch_out: 价格和百分数直接相减的量纲不自然，这是研报原式；结果强到必须检查流动性和市值暴露。
+direction:
+  expected: positive
+  selection: high
+  meaning: 正式样本RankIC为+0.0714，因此当前样本优选高值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/additional_daily_report_factors.py
+  callable: calculate_huatai28_alpha125 / huatai28_alpha125_open_free_turn_corr_10d
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/huatai28_alpha125_open_free_turn_corr_10d/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/huatai28_alpha125_open_free_turn_corr_10d/factor_values.parquet
+assessment:
+  verdict: strong_but_audit_required
+  summary: RankIC +0.0714，raw RankICIR +0.830，平均覆盖率99.72%；Q5费前年化超额5.40%，年单边换手30.36倍。优选档自身有正的费前年化超额，但尚未计入费用。
+  most_important_risk: 结果强且公式量纲不自然，需要独立样本和暴露审计。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- 结果强且公式量纲不自然，需要独立样本和暴露审计。

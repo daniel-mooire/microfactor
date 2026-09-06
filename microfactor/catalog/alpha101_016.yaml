@@ -1,0 +1,62 @@
+schema_version: 2
+id: alpha101_016
+display_name: Alpha101第16号（高价量协方差）
+version: 1.0.0
+status: candidate
+category: price_volume
+tags:
+- Alpha101
+- 日频
+- 微盘
+- 价量
+- 协方差
+research_sources:
+- role: original_report
+  kind: academic_paper
+  title: 101 Formulaic Alphas
+  institution: null
+  authors:
+  - Zura Kakushadze
+  publication_date: '2015-12-09'
+  local_path: research/factor-suite/experiments/alpha101-daily-microcap/config/alpha101_formulas.yaml
+  url: https://arxiv.org/pdf/1601.00991
+  verification_status: verified
+  notes: 公式见论文附录第9页；截面排名只使用当日股票池成员。
+formula:
+  expression: factor[i,t] = -rank(covariance(rank(high), rank(volume), 5))
+  variables:
+  - name: high
+    meaning: 当日未复权最高价
+  - name: volume
+    meaning: 当日成交股数
+  interpretation: 每天先比较股票的最高价排名和成交量排名，再观察两种排名近5日是否同步变化；最后做一次全市场排名并取负。
+  beginner_explanation:
+    one_sentence: 观察一只股票的“价格位置”和“成交活跃度”最近5天是不是总在一起升降，并偏好不同步的股票。
+    steps:
+    - 每天分别给股票的最高价和成交量排队，得到两个相对名次。
+    - 对每只股票计算这两个名次近5日共同变化的程度。
+    - 再把结果在当天股票池中排名并加负号，让同步程度较低的股票分数更高。
+    high_value: 最高价排名与成交量排名近5日较少同涨同跌，或者呈反向变化。
+    low_value: 最高价排名与成交量排名近5日高度同步。
+    example: 某股价格名次从前20%升到前10%，成交量名次却从前10%降到中游，两者同步程度较低，取负排名后会比“价量一起上升”的股票得分高。
+    watch_out: 公式主要描述相对价量结构，不等于公司价值改善；控制市值、成交额和换手后预测力明显下降。
+direction:
+  expected: positive
+  selection: high
+  meaning: 正式RankIC为正，评估选择高分Q5。
+implementation:
+  path: research/factor-suite/experiments/alpha101-daily-microcap/scripts/alpha101_engine.py
+  callable: Alpha101Engine.compute / alpha101_016
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/alpha101_016/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/alpha101_016/factor_values.parquet
+assessment:
+  verdict: promising_research_signal
+  summary: RankIC为0.0556、raw ICIR为0.8065，Q5费前年化超额约3.9%，五档多空约15.6%；但年单边换手约37.9倍，且控制流动性变量后的诊断RankIC仅约0.013。
+  most_important_risk: 表面强度大部分可能来自成交活跃度暴露，而不是可独立交易的价量异常收益。
+risks:
+- 年单边换手接近38倍，未计费用、滑点和微盘冲击成本。
+- 从83个可计算公式中按同一样本筛选，存在明显多重检验偏差。
+- 未做行业、市值或流动性中性化。
+- 与Alpha101第13号高度相似，组合使用前必须去重。

@@ -1,0 +1,73 @@
+schema_version: 2
+id: inverse_pe_ttm
+display_name: 盈利收益率（PE_TTM倒数）
+version: 1.0.0
+status: evaluated
+category: valuation
+tags:
+- 日频
+- 微盘
+- 价值
+- PE_TTM
+- 盈利收益率
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 微盘股指数周报：基本面与量价共振，如遇回调即是买点
+  institution: 中邮证券
+  authors:
+  - 肖承志
+  publication_date: '2025-04-21'
+  local_path: null
+  url: https://reportify.cn/reports/1111737666082312192
+  verification_status: verified
+  notes: 页面标题、机构、作者、发布日期和微盘股基本面因子脉络已核验；本项目使用经典EP定义独立复测。
+- role: formula_provenance
+  kind: broker_report
+  title: 开源量化评论：估值因子坏了怎么修？
+  institution: 开源证券股份有限公司
+  authors:
+  - 魏建榕
+  publication_date: '2020-06-16'
+  local_path: null
+  url: http://stock.finance.sina.com.cn/stock/go.php/vReport_Show/kind/lastest/rptid/645639287061/index.phtml
+  verification_status: verified
+  notes: 提供传统估值因子与改进估值因子的研究背景。
+formula:
+  expression: factor[i,t] = 1 / PE_TTM[i,t], only when PE_TTM[i,t] > 0
+  variables:
+  - name: PE_TTM
+    meaning: 股价相对于最近12个月每股利润的倍数
+  - name: 1 / PE_TTM
+    meaning: 每1元股价对应多少元最近12个月利润，也称盈利收益率
+  interpretation: 在盈利公司中，PE越低，倒数越高，代表为同样一元近期利润支付的价格越少。
+  beginner_explanation:
+    one_sentence: 同样赚1元利润，市场给的价格越低，这个因子分数越高。
+    steps:
+    - 查看公司最近12个月利润对应的PE_TTM。
+    - 只有PE_TTM为正时才取倒数；亏损公司直接留空。
+    - 倒数越大，表示每1元股价对应的近期利润越多。
+    high_value: 正PE公司相对便宜，盈利收益率较高；这可能是低估，也可能是市场在补偿风险。
+    low_value: 正PE公司相对昂贵，每1元股价对应的近期利润较少。
+    example: PE_TTM为10倍时因子是10%，20倍时是5%；前者分数更高。
+    watch_out: 低PE不保证便宜，周期高点的利润、一次性收益或公司风险都可能让PE暂时看起来很低。
+direction:
+  expected: positive
+  selection: high
+  meaning: 先验与正式样本RankIC均为正，优选高盈利收益率Q5。
+implementation:
+  path: research/factor-provenance/reports/scripts/report_factors.py
+  callable: inverse_pe_ttm / registry:inverse_pe_ttm
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/inverse_pe_ttm/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/inverse_pe_ttm/factor_values.parquet
+assessment:
+  verdict: not_standalone
+  summary: RankIC约0.0241、raw ICIR约0.231，方向符合价值直觉，但Q5费前年化超额仅约0.23%，独立收益较弱。
+  most_important_risk: 只覆盖正PE盈利公司，约68.6%的平均覆盖率会产生盈利公司样本选择。
+risks:
+- 亏损和非正PE公司留空，不能把缺失理解为低分。
+- 未处理一次性利润、周期利润高点和会计质量。
+- 未做行业中性化，金融、周期等行业估值不可直接横比。
+- 费前long-only超额接近零，更适合作为组合中的弱信息。

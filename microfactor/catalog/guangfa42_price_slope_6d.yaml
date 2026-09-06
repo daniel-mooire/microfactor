@@ -1,0 +1,68 @@
+schema_version: 2
+id: guangfa42_price_slope_6d
+display_name: 价格线性回归斜率（6日）
+version: 1.0.0
+status: rejected
+category: price_volume
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 广发多因子系列42
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 广发多因子系列42：海量技术指标掘金Alpha因子
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_ebb746e4e36034e7.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=ebb746e4e36034e7bb654e15858c111028f0e23b67ecbaa72ca1d3677bba07bc；人工核对页码=24,127。PDF保留在用户只读外部目录。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/guangfa_daily_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: OLS_slope(close[t-5:t] ~ ordinal[1:6])
+  variables:
+  - name: close
+    meaning: 当日未复权收盘价
+  interpretation: 用一条直线概括最近6天收盘价每天大约上涨或下跌多少元。
+  beginner_explanation:
+    one_sentence: 用一条直线概括最近6天收盘价每天大约上涨或下跌多少元。
+    steps:
+    - 按先后顺序排列最近6天收盘价。
+    - 用普通最小二乘拟合价格对时间的直线。
+    - 取直线斜率作为因子值。
+    high_value: 拟合直线向上，近期价格趋势偏强。
+    low_value: 拟合直线向下，近期价格趋势偏弱。
+    example: 价格从10元大致匀速涨到11元，斜率约为每天0.2元；反向下跌则为负。
+    watch_out: 用“元/天”计量会受股价高低影响，且Q1毛超额仅约0.46%、年换手约38倍。
+direction:
+  expected: unspecified
+  selection: low
+  meaning: 正式样本RankIC为-0.0404，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/guangfa_daily_factors.py
+  callable: calculate_price_slope / guangfa42_price_slope_6d
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/guangfa42_price_slope_6d/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/guangfa42_price_slope_6d/factor_values.parquet
+assessment:
+  verdict: too_weak_after_turnover
+  summary: RankIC -0.0404，raw RankICIR -0.309，平均覆盖率99.84%；Q1费前年化超额0.46%，年单边换手38.00倍。优选档自身有正的费前年化超额，但尚未计入费用。
+  most_important_risk: Q1费前年化超额仅约0.46%，不足以支撑约38倍年换手。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- Q1费前年化超额仅约0.46%，不足以支撑约38倍年换手。

@@ -1,0 +1,83 @@
+schema_version: 2
+id: jq_single_day_vpt
+display_name: 单日量价趋势
+version: 1.0.0
+status: rejected
+category: price_volume
+tags:
+- 日频
+- 微盘
+- 聚宽
+- 官方命名因子
+- single_day_VPT
+research_sources:
+- role: original_definition
+  kind: platform_documentation
+  title: 聚宽因子库官方定义：single_day_VPT
+  institution: 聚宽
+  authors: []
+  publication_date: null
+  local_path: null
+  url: https://www.joinquant.com/help/api/getContent?name=factor_values
+  verification_status: verified
+  notes: 官方公式原文=((C-C[-1])/C[-1])*V; official note uses adjustment based on the current date；抓取日期=2026-08-07；数据频率=daily; updated
+    05:00 for the previous day；复权说明=price-volume factors use post-adjusted prices unless the row says otherwise。 原本地证据未随当前归档保留，当前仅保留文字来源记录。
+- role: local_source_evidence
+  kind: strategy_source_collection
+  title: 聚宽策略源码中的因子调用证据
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: null
+  url: null
+  verification_status: verified
+  notes: 源码出现1次，覆盖1个文件；以下内容按审计CSV原文保留。相对路径=聚宽2026年精选/33回馈社区顺便搞积分《一个完整的机器学习pipeline》.txt；证据行=聚宽2026年精选/33回馈社区顺便搞积分《一个完整的机器学习pipeline》.txt:64。
+    原本地证据未随当前归档保留，当前仅保留文字来源记录。
+- role: implementation_reference
+  kind: internal_research
+  title: 聚宽官方命名日频因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/joinquant/scripts/joinquant_named_daily_factors.py
+  url: null
+  verification_status: verified
+  notes: 固定公式、参数、复权方式、零分母与滚动窗口边界均保存在实现模块。
+formula:
+  expression: ((adjusted_close_t-adjusted_close_t[-1])/adjusted_close_t[-1])*volume_t
+  variables:
+  - name: adjusted_close
+    meaning: 后复权收盘价，用来消除分红、送股等公司行为造成的机械跳变
+  - name: volume
+    meaning: 当日成交股数
+  interpretation: 把当天涨跌幅乘以成交量，同时表示价格方向和交易力度。
+  beginner_explanation:
+    one_sentence: 把当天涨跌幅乘以成交量，同时表示价格方向和交易力度。
+    steps:
+    - 用今天与昨天的后复权收盘价计算单日收益率。
+    - 把收益率乘以今天的成交股数。
+    high_value: 股票放量上涨，正值较大。
+    low_value: 股票放量下跌，负值绝对值较大。
+    example: 股价从10元涨到10.20元且成交1000万股时，因子=2%*1000万=20万。
+    watch_out: 数值量纲受公司成交规模影响，未做流动性中性化时可能主要是在比较大成交量股票。 本次正式样本RankIC为-0.0148，Q1费前年化超额为-8.51%。
+direction:
+  expected: unspecified
+  selection: low
+  meaning: 正式样本RankIC为-0.0148，因此当前样本优选低值端；这是样本内方向，不是未来收益保证。
+implementation:
+  path: research/factor-provenance/joinquant/scripts/joinquant_named_daily_factors.py
+  callable: calculate_single_day_vpt / jq_single_day_vpt
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/jq_single_day_vpt/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/jq_single_day_vpt/factor_values.parquet
+assessment:
+  verdict: negative_preferred_tail
+  summary: RankIC -0.0148，raw RankICIR -0.122，平均覆盖率99.97%；Q1费前年化超额-8.51%，年单边换手36.98倍。
+  most_important_risk: 按RankIC方向选择的档位费前年化超额仍为-8.51%，不能支持单独做多。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 13个命名因子在同一样本集中评估，存在多重检验和样本内筛选偏差。
+- 聚宽未披露所有停牌边界和滚动算子细节，不能声称逐行完全一致。
+- 按RankIC方向选择的档位费前年化超额仍为-8.51%，不能支持单独做多。

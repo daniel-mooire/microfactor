@@ -1,0 +1,70 @@
+schema_version: 2
+id: turnover_20
+display_name: 自由流通换手率（20日）
+version: 1.0.0
+status: evaluated
+category: liquidity
+tags:
+- 日频
+- 微盘
+- 换手率
+- 流动性
+- 拥挤度
+research_sources:
+- role: implementation_reference
+  kind: internal_research
+  title: 常见因子对比研究
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-suite/experiments/daily-microcap-factor-suite/README.md
+  url: null
+  verification_status: verified
+  notes: 公式、数据字段和研究定位可在项目内核对。
+- role: original_report
+  kind: classic_factor
+  title: 常见换手率因子；唯一原始研报待指定
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: null
+  url: null
+  verification_status: pending
+  notes: 当前仓库没有保存可核验的原始券商研报或论文归属。
+formula:
+  expression: factor[i,t] = Mean_20(turnover_pct[i,*])
+  variables:
+  - name: turnover_pct
+    meaning: 成交量除以自由流通股本的换手率百分数，要求非负
+  - name: Mean_20
+    meaning: 最近20个完整交易日的算术平均
+  interpretation: 先算每天成交股数占自由流通股本的比例，再取最近20天平均值，衡量股票筹码换手有多频繁。
+  beginner_explanation:
+    one_sentence: 看一只股票的流通筹码最近换手有多勤快，是热门还是冷门。
+    steps:
+    - 用每天成交股数除以可自由交易的流通股数，得到当日换手率。
+    - 把最近20个交易日的换手率加总后取平均。
+    - 平均换手越频繁，因子分数越高。
+    high_value: 很多流通筹码近期反复被买卖，股票较热门，也可能比较拥挤。
+    low_value: 流通筹码很少换手，股票较冷门，也可能不容易成交。
+    example: 自由流通股有1亿股，当天成交500万股，当日换手率约为5%；连续20天平均后得到本因子。
+    watch_out: 低换手在回测中表现较好，不代表实盘容易赚钱；成交太冷清会增加买卖冲击和退出难度。
+direction:
+  expected: unspecified
+  selection: low
+  meaning: 正式样本RankIC显著为负，低换手端未来相对收益更高。
+implementation:
+  path: research/factor-suite/experiments/daily-microcap-factor-suite/scripts/mondane_factors.py
+  callable: _turnover_20 / registry:turnover_20
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/turnover_20/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/turnover_20/factor_values.parquet
+assessment:
+  verdict: promising_research_signal
+  summary: 绝对RankIC较高、五档较单调，低换手Q1费前年化超额约5.1%；但它与成交额和容量高度相关，不能直接当作低成本Alpha。
+  most_important_risk: 低换手优势可能由流动性折价补偿构成，实际建仓冲击可能吞噬费前收益。
+risks:
+- 自由流通股本缺失的上游填充会影响换手率。
+- 未做市值、流动性或行业中性化。
+- 未核实唯一原始研报来源。

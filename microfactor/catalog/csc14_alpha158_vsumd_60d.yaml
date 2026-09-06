@@ -1,0 +1,68 @@
+schema_version: 2
+id: csc14_alpha158_vsumd_60d
+display_name: 中信建投 Alpha158：VSUMD60
+version: 1.0.0
+status: candidate
+category: liquidity
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 逐鹿Alpha专题报告14
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 逐鹿Alpha专题报告14：基本面因子与量价因子融合模型
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_29829dcbc80e322e.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=29829dcbc80e322e00b0039b81ec7a08fec83fce344d5b74d284cdf3111ccd93；人工核对页码=6,7。PDF保留在用户只读外部目录。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/review_batch_11_18_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: (Sum(Greater($volume-Ref($volume,1),0),60)-Sum(Greater(Ref($volume,1)-$volume,0),60))/(Sum(Abs($volume-Ref($volume,1)),60)+1e-12)
+  variables:
+  - name: volume
+    meaning: 当日成交股数
+  interpretation: 比较过去60天成交量增加和减少的总幅度，看缩量还是放量变化占主导。
+  beginner_explanation:
+    one_sentence: 比较过去60天成交量增加和减少的总幅度，看缩量还是放量变化占主导。
+    steps:
+    - 逐日计算成交量比前一天增加或减少了多少股。
+    - 分别加总60天内所有增加量和所有减少量。
+    - 用“增加总量减减少总量”除以两者之和，结果大致在-1到1之间。
+    high_value: 成交量增加的累计幅度占主导，近期整体偏放量。
+    low_value: 成交量减少的累计幅度占主导，近期整体偏缩量；正式样本偏好这一端。
+    example: 增加总量300万股、减少总量100万股时，因子=(300-100)/(300+100)=0.50。
+    watch_out: 计算60段变化实际需要61天数据；Q1费前年化超额3.54%、年单边换手约28倍，费用压力较大。
+direction:
+  expected: unspecified
+  selection: low
+  meaning: 正式样本RankIC为-0.0661，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/review_batch_11_18_factors.py
+  callable: calculate_alpha158 / csc14_alpha158_vsumd_60d
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/csc14_alpha158_vsumd_60d/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/csc14_alpha158_vsumd_60d/factor_values.parquet
+assessment:
+  verdict: promising_but_high_turnover
+  summary: RankIC -0.0661，raw RankICIR -0.703，平均覆盖率98.31%；Q1费前年化超额3.54%，年单边换手27.78倍。优选档自身有正的费前年化超额，但尚未计入费用。
+  most_important_risk: Q1费前年化超额3.54%，但年换手约28倍，交易费用可能吞噬信号。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- Q1费前年化超额3.54%，但年换手约28倍，交易费用可能吞噬信号。

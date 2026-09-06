@@ -1,0 +1,68 @@
+schema_version: 2
+id: csc14_alpha158_resi_60d
+display_name: 中信建投 Alpha158：RESI60
+version: 1.0.0
+status: evaluated
+category: momentum
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 逐鹿Alpha专题报告14
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 逐鹿Alpha专题报告14：基本面因子与量价因子融合模型
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_29829dcbc80e322e.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=29829dcbc80e322e00b0039b81ec7a08fec83fce344d5b74d284cdf3111ccd93；人工核对页码=6,7。PDF保留在用户只读外部目录。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/review_batch_11_18_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: Resi($close,60)/$close
+  variables:
+  - name: adjusted_close
+    meaning: 后复权收盘价
+  interpretation: 用一条直线描述过去60天的价格趋势，再看今天价格比这条趋势线高或低多少。
+  beginner_explanation:
+    one_sentence: 用一条直线描述过去60天的价格趋势，再看今天价格比这条趋势线高或低多少。
+    steps:
+    - 对最近60天后复权收盘价按时间拟合一条直线。
+    - 用今天实际收盘价减去趋势线对今天的估计价，得到残差。
+    - 再用残差除以今天收盘价，使不同价位股票可比较。
+    high_value: 今天价格高于60日趋势线，短期跑到了长期直线上方。
+    low_value: 今天价格低于60日趋势线；正式样本偏好这一端。
+    example: 趋势线估计今天应为10元，实际收盘10.20元，则残差为0.20元，因子约为0.20/10.20=1.96%。
+    watch_out: Q1费前年化超额仅1.35%、年单边换手约21倍；它与BIAS24的平均日截面相关绝对值达0.7943，接近0.80冗余阈值。
+direction:
+  expected: unspecified
+  selection: low
+  meaning: 正式样本RankIC为-0.0526，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/review_batch_11_18_factors.py
+  callable: calculate_alpha158 / csc14_alpha158_resi_60d
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/csc14_alpha158_resi_60d/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/csc14_alpha158_resi_60d/factor_values.parquet
+assessment:
+  verdict: borderline_redundancy_and_cost
+  summary: RankIC -0.0526，raw RankICIR -0.388，平均覆盖率98.33%；Q1费前年化超额1.35%，年单边换手21.39倍。优选档自身有正的费前年化超额，但尚未计入费用。
+  most_important_risk: Q1费前年化超额仅1.35%，与BIAS24的相关绝对值0.7943接近去重阈值。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- Q1费前年化超额仅1.35%，与BIAS24的相关绝对值0.7943接近去重阈值。

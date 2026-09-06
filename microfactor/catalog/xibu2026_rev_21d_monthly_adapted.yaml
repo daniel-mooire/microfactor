@@ -1,0 +1,90 @@
+schema_version: 2
+id: xibu2026_rev_21d_monthly_adapted
+display_name: 西部2026：21日短期反转（月末日频适配）
+version: 1.0.0
+status: evaluated
+category: momentum
+tags:
+- 日频
+- 微盘
+- 最新公开研报
+- 月度持有
+research_sources:
+- role: original_report
+  kind: public_web_report
+  title: 因子手工作坊系列（6）：日度量价因子的统一线性框架
+  institution: 西部证券
+  authors: []
+  publication_date: '2026-05-08'
+  local_path: research/factor-provenance/reports/catalog/public-web-latest-20260809-source-ledger.yaml
+  url: https://finance.sina.com.cn/wm/2026-05-13/doc-inhxtkrt4623267.shtml
+  verification_status: verified
+  notes: 发布方转载HTML快照SHA-256=a13179cd2f66d2574707b05d64159d80d26e833f495e34be4c0c1199c4e15ae0；完整券商PDF未公开；公式由归档网页中的图片核对。
+- role: formula_provenance
+  kind: internal_research
+  title: 最新公开研报批次因子与来源总账
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/public-web-latest-20260809-factor-ledger.yaml
+  url: null
+  verification_status: verified
+  notes: 保留来源定位、披露边界、日频可实现性和同族因子关系。
+- role: implementation_reference
+  kind: internal_research
+  title: 最新公开研报日频因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/public_web_latest_daily_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、信号时点、缺失值和日频适配边界固定在研究项目内。
+- role: evaluation_benchmark
+  kind: internal_research
+  title: 最新公开研报幸存因子平均日截面Spearman去重审计
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: null
+  url: null
+  verification_status: verified
+  notes: 审计指纹=e1201035434cb43c61498f0333f96c459158000844fc7e52051a04fcb9705942；三个晋级候选与全部比较项均未触发0.80高相关门槛。 原本地证据未随当前归档保留，当前仅保留文字来源记录。
+formula:
+  expression: REV[i,t] = -sum(d=1..21, r[i,t-d])
+  variables:
+  - name: r[i,d]
+    meaning: 股票 i 在交易日 d 的后复权收盘到收盘简单收益率，小数表示
+  - name: t
+    meaning: 上一个已经结束的自然月最后一个交易日
+  interpretation: 每月末观察过去21个交易日整体涨跌并取反。近期跌得越多，分数越高，用于识别可能跌过头的股票；分数在下一个自然月内保持不变。
+  beginner_explanation:
+    one_sentence: 看一只股票最近一个月是不是跌得比较多，跌得越多分数越高。
+    steps:
+    - 在上个自然月最后一个交易日收盘后，取此前21个交易日的每日涨跌幅。
+    - 把21个涨跌幅相加，再把正负号反过来。
+    - 把这个分数沿用到当前自然月的每个交易日，下个月再更新。
+    high_value: 高分表示此前21天累计表现更弱，可能存在短期超跌。
+    low_value: 低分表示此前21天累计上涨更多，不是这个反转信号偏好的方向。
+    example: 若21天每日收益相加为-8%，取反后因子就是+8%，也就是0.08。
+    watch_out: 它每月只更新一次，而且高分只代表近期跌得多，不保证随后一定反弹。
+direction:
+  expected: positive
+  selection: high
+  meaning: 正式样本RankIC为0.0280，因此当前样本优选高值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/public_web_latest_daily_factors.py
+  callable: calculate_xibu_rev_21d / xibu2026_rev_21d_monthly_adapted
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/xibu2026_rev_21d_monthly_adapted/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/xibu2026_rev_21d_monthly_adapted/factor_values.parquet
+assessment:
+  verdict: exclusion_signal_only
+  summary: RankIC 0.0280，raw RankICIR 0.211，平均覆盖率100.00%；Q5费前年化超额0.06%，年单边换手12.25倍。保留严格按研报公式形成、使用上一完整月末信号的21日反转基础项。
+  most_important_risk: Q5费前年化超额仅0.06%，主要证据是Q1为-8.94%；更适合作为排除弱端的信号，而不是独立做多依据。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- Q5费前年化超额仅0.06%，主要证据是Q1为-8.94%；更适合作为排除弱端的信号，而不是独立做多依据。

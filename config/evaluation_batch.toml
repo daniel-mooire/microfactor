@@ -1,0 +1,14 @@
+[evaluation]
+factor_source = "registry"
+registry_path = "config/factors.toml"
+enabled_only = true
+start_date = "20160101"
+end_date = ""
+periods = [1]
+quantiles = 10
+return_type = "open_t1"
+max_loss = 0.35
+universe = "hushen_mainboard_previous_day_bottom1000"
+transaction_cost_bps = 10.0
+output_dir = "data/evaluations"
+generate_tearsheets = true

@@ -1,0 +1,79 @@
+schema_version: 2
+id: huatai5_bias_turn_1m
+display_name: 日均换手率偏离1个月
+version: 1.0.0
+status: rejected
+category: liquidity
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 华泰单因子测试之换手率类因子
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 华泰单因子测试之换手率类因子
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_9a5a628f98b71d85.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=9a5a628f98b71d850e73e3ef3f15a783fa3cd73fe8d0e47c67c75631e57cc109；人工核对页码=1,6。PDF保留在用户只读外部目录。
+- role: formula_provenance
+  kind: internal_research
+  title: 研报公式人工复核与可复现因子档案
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/factors/huatai5_bias_turn_1m.yaml
+  url: null
+  verification_status: verified
+  notes: 人工复核状态=confirmed；精确日频公式指纹=bde898d4973cb0b194240c5cff8a50baeb8c13686160fd4ab9be3f0985545069。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/daily_report_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: turn_1m / turn_24m - 1
+  variables:
+  - name: turnover_percent
+    meaning: 当日换手率百分比
+  - name: is_suspended
+    meaning: 当日是否明确停牌
+  interpretation: 把最近1个月的热度与自己过去两年的常态相比，正数说明近期明显变热。
+  beginner_explanation:
+    one_sentence: 把最近1个月的热度与自己过去两年的常态相比，正数说明近期明显变热。
+    steps:
+    - 分别计算最近N个月和最近24个月的日均换手率。
+    - 用短期均值除以24个月均值再减1，比较近期热度与长期常态。
+    high_value: 股票近期比自己过去两年明显更热门、更拥挤。
+    low_value: 近期交易热度低于自己的长期常态。
+    example: 近1个月日均换手3%，24个月日均2%，因子值为3/2-1=50%。
+    watch_out: 这是和股票自身历史比较，不是直接比较两只股票的绝对换手率。
+direction:
+  expected: negative
+  selection: low
+  meaning: 正式样本RankIC为-0.0656，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/daily_report_factors.py
+  callable: calculate_turnover_bias / huatai5_bias_turn_1m
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/huatai5_bias_turn_1m/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/huatai5_bias_turn_1m/factor_values.parquet
+assessment:
+  verdict: no_standalone_long_alpha
+  summary: RankIC -0.0656，raw RankICIR -0.626，平均覆盖率73.58%；Q1费前年化超额-1.79%，年单边换手7.05倍。优选档自身费前年化超额为负，当前更像排除高风险尾部。
+  most_important_risk: 覆盖率仅约74%，且优选档费前年化超额为负。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- 覆盖率仅约74%，且优选档费前年化超额为负。

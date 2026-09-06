@@ -1,0 +1,81 @@
+schema_version: 2
+id: huatai4_exp_wgt_return_6m
+display_name: 指数衰减换手率加权收益6个月
+version: 1.0.0
+status: candidate
+category: momentum
+tags:
+- 日频
+- 微盘
+- 研报复现
+- 华泰单因子测试之动量类因子
+research_sources:
+- role: original_report
+  kind: broker_report
+  title: 华泰单因子测试之动量类因子
+  institution: null
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/reports/report_cc110ef024e02077.yaml
+  url: null
+  verification_status: verified
+  notes: 源PDF SHA-256=cc110ef024e02077528d3c5715af610b110d831c769ecf30e8a308a859f0c76a；人工核对页码=6,10,13。PDF保留在用户只读外部目录。
+- role: formula_provenance
+  kind: internal_research
+  title: 研报公式人工复核与可复现因子档案
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/catalog/factors/huatai4_exp_wgt_return_6m.yaml
+  url: null
+  verification_status: verified
+  notes: 人工复核状态=confirmed；精确日频公式指纹=101a10213c1bc735980c99e078da17691a9a8ee0522341eaddeee3c52293fce8。
+- role: implementation_reference
+  kind: internal_research
+  title: 量化研报合集因子复现实现
+  institution: quant-hive
+  authors: []
+  publication_date: null
+  local_path: research/factor-provenance/reports/scripts/daily_report_factors.py
+  url: null
+  verification_status: verified
+  notes: 公式参数、边界条件和日频适配说明均固定在研究项目内。
+formula:
+  expression: sum(w_d * total_return_1d_d) / sum(w_d), w_d = turnover_d * exp(-x_d / 6 / 4)
+  variables:
+  - name: close_to_close_total_return_1d
+    meaning: 当日收盘到前一交易日收盘的总收益率
+  - name: turnover_percent
+    meaning: 当日换手率百分比
+  - name: is_suspended
+    meaning: 当日是否明确停牌
+  interpretation: 在换手率加权上再让越靠近今天的日子权重越大，观察近6个月近期且放量的涨跌。
+  beginner_explanation:
+    one_sentence: 在换手率加权上再让越靠近今天的日子权重越大，观察近6个月近期且放量的涨跌。
+    steps:
+    - 取最近N个自然月每天的总收益率和换手率；只有明确停牌且换手缺失时才把换手记为0。
+    - 先给越靠近今天的交易日乘上exp(-x/N/4)衰减，再按换手率做加权平均。
+    high_value: 成交活跃的日子整体上涨较多，数值会偏高。
+    low_value: 成交活跃的日子整体下跌较多，研报主要检验低值端是否反转。
+    example: 两天收益为-2%和+1%，换手率为3%和1%，普通加权值约为(-2%×3+1%×1)/4=-1.25%。
+    watch_out: 普通缺失不能填0；指数衰减中的N按研报写法取1、3、6、12，x是距信号日的交易日数。
+direction:
+  expected: negative
+  selection: low
+  meaning: 正式样本RankIC为-0.0876，因此当前样本优选低值端；这不是未来收益保证。
+implementation:
+  path: research/factor-provenance/reports/scripts/daily_report_factors.py
+  callable: calculate_turnover_weighted_return / huatai4_exp_wgt_return_6m
+evaluation:
+  suite_id: base_panel_bottom1000_5d
+  result_path: research/model-pipeline/output/evaluations/huatai4_exp_wgt_return_6m/factor_result.json
+  factor_values_path: research/model-pipeline/output/evaluations/huatai4_exp_wgt_return_6m/factor_values.parquet
+assessment:
+  verdict: strong_but_audit_required
+  summary: RankIC -0.0876，raw RankICIR -0.836，平均覆盖率99.98%；Q1费前年化超额7.81%，年单边换手14.65倍。优选档自身有正的费前年化超额，但尚未计入费用。
+  most_important_risk: 异常强且可能混合反转、换手率和流动性暴露。
+risks:
+- 未做行业、市值或流动性中性化，不能把相关暴露自动解释成纯Alpha。
+- 五档收益未扣手续费、滑点和微盘冲击成本。
+- 同一批研报和参数在同一样本反复筛选，存在多重检验偏差。
+- 异常强且可能混合反转、换手率和流动性暴露。
