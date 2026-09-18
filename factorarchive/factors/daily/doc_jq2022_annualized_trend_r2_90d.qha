@@ -1,0 +1,18 @@
+version = 1
+name = "doc_jq2022_annualized_trend_r2_90d"
+frequency = "1d"
+formula = "(exp(250*OLS_slope(log(close),x=0..89))-1)*OLS_R2"
+inputs = ["adjusted_close"]
+min_window = 90
+direction = "positive"
+category = "momentum"
+adjust = "qfq"
+implementation = "microfactor.factors.document_extended:_compute/doc_jq2022_annualized_trend_r2_90d"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "31.-趋势永存-持续16年跑赢大盘的真正靠谱策略-2269ac1c"
+reference = "2269ac1c706a04e9fdb0867c31c81f7975a6ae1de521de35d6e7e4d095261bd2"
+adaptation = "The source ranks CSI 300 constituents weekly, then applies a 100-day price filter, a two-day gap filter, a 200-day index regime filter, and ATR-based position sizing. The implementation exposes only the source's transparent 90-day continuous score across the current daily stock universe. JoinQuant's attribute_history price adjustment is not pinned, so the project uses qfq."
+tags = ["document", "daily", "momentum", "trend", "ols", "r_squared"]
+parameters_json = "{\"annualization_days\":250,\"dependent_variable\":\"log_adjusted_close\",\"include_intercept\":true,\"source_index\":\"399300.XSHE\",\"source_rebalance\":\"weekly\",\"window_days\":90}"

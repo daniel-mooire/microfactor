@@ -1,0 +1,443 @@
+version = 1
+name = "document-factors-v1"
+snapshot = "371002b6b63b7760dce3f88b9e7a4eb7bd8369a9f24ac9e7d00e0ce9ef1e6030"
+reference = "b23f83435ee412a5f08bb1f77352916dc0697942dad3fb278ec3b60b91dfb46f"
+contract = "configs/evaluation/daily-v1.toml"
+contract_sha256 = "6326f4c1628c98ece804e91de7e9f272771c8c92b062af07b0f54b1b294afe26"
+evaluation = "evaluations/factor-evaluation.csv"
+evaluation_sha256 = "eda327036507d2fab47b744ef4059cf208880326922dbc156b384b23f311c739"
+sources = "sources"
+source_file_count = 60
+source_bytes = 117435301
+evaluation_run_id = "20260917_231028_ee6693d0"
+factor_snapshot_id = "snapshot_e3e73aa97706fd71f27ad486"
+start = "2016-01-04"
+end = "2026-09-15"
+factor_count = 393
+source_count = 60
+exact_count = 247
+approximate_count = 146
+published_count = 332
+passed_count = 84
+rejected_count = 248
+unpublished_count = 61
+
+[[archives]]
+name = "10.多因子宽基ETF择时轮动改进版-高收益大资金低回撤-95faba69-v1"
+manifest = "archives/10.多因子宽基ETF择时轮动改进版-高收益大资金低回撤-95faba69/manifest.toml"
+factor_count = 1
+snapshot = "1da413935c51e056111ec00bdd7dfad2b2bea898add4722dc3637aa3c021c486"
+reference = "95faba69b82ac6b29bc9d7eb30ced65e02a17f6a4115969bd15818f1ad15bb4c"
+
+[[archives]]
+name = "10.多因子选股-48ae1e45-v1"
+manifest = "archives/10.多因子选股-48ae1e45/manifest.toml"
+factor_count = 2
+snapshot = "12042c402a5e83f1240b50b43f97d2b25565f11dca01fb73fdc5eaed56e21bcc"
+reference = "48ae1e45825a57fc52ba1b184201b065ad66940b2cdaaa8668cfa0bc7f583393"
+
+[[archives]]
+name = "12.机器学习用于量化分析-aaea71f8-v1"
+manifest = "archives/12.机器学习用于量化分析-aaea71f8/manifest.toml"
+factor_count = 6
+snapshot = "92d48ae241a7db317b28d63c41a8658ce7a1039cebafa5b3e3aa9cfbf93943df"
+reference = "aaea71f8581f89cff4654e2f17d972152ca862b2ce2b4c7c1ff757f0d6d98874"
+
+[[archives]]
+name = "14.2020年-267-年化-13-回撤-上涨趋势策略修改版-8c25fa8e-v1"
+manifest = "archives/14.2020年-267-年化-13-回撤-上涨趋势策略修改版-8c25fa8e/manifest.toml"
+factor_count = 1
+snapshot = "241b033cff3eadd241e937d52b88257b81ea7559448c64f0a98ff6318b4b7728"
+reference = "8c25fa8e099088efd28e76dc42218da025b7a4c79a44ca27f7fec38a07d85bfc"
+
+[[archives]]
+name = "18-均值回归策略分享-3cd29da8-v1"
+manifest = "archives/18-均值回归策略分享-3cd29da8/manifest.toml"
+factor_count = 1
+snapshot = "9bdaaa93bcedf78418d00e9c5335cbc0524f41ce3fa1e1c54569771d56953e8d"
+reference = "3cd29da86ab46708040d777560d8205b2968a50a00d056f2c97ab788beaf2886"
+
+[[archives]]
+name = "2.-7年40倍-策略扩容到50只-62003df2-v1"
+manifest = "archives/2.-7年40倍-策略扩容到50只-62003df2/manifest.toml"
+factor_count = 1
+snapshot = "df978239b7786da3556c4ce33defc411c4b67a81faf9fd72d96aeb3f337487e5"
+reference = "62003df231c7c1ed97de76b6c3478e9fce87f5e6a30f3f5bd488784d6c6543ad"
+
+[[archives]]
+name = "3.苦咖啡-默默赚钱系列-改-e9eb4c47-v1"
+manifest = "archives/3.苦咖啡-默默赚钱系列-改-e9eb4c47/manifest.toml"
+factor_count = 1
+snapshot = "412795edaea923fc020f8fa96a790eb14ed3f1d6451ae7b8cb712f816a285c08"
+reference = "e9eb4c47cdbd819d9d6200d1ecae58837ca81aa7cc78ec061eac5afd600e7cd3"
+
+[[archives]]
+name = "31.-趋势永存-持续16年跑赢大盘的真正靠谱策略-2269ac1c-v1"
+manifest = "archives/31.-趋势永存-持续16年跑赢大盘的真正靠谱策略-2269ac1c/manifest.toml"
+factor_count = 1
+snapshot = "c061aa12fa46f8d42b1085b0e36f660d7e3f1274a7d3c788d1b9f85484c58313"
+reference = "2269ac1c706a04e9fdb0867c31c81f7975a6ae1de521de35d6e7e4d095261bd2"
+
+[[archives]]
+name = "32.非线性市值-非小市值-组合4只-e3bb3402-v1"
+manifest = "archives/32.非线性市值-非小市值-组合4只-e3bb3402/manifest.toml"
+factor_count = 1
+snapshot = "53af358e338baa35b0de0179ed684c938818f0db5d9654f47434c6dd851ff593"
+reference = "e3bb3402afe70b0933d40f6962edda66c595cf2aed33ba256eae3314752eb970"
+
+[[archives]]
+name = "37.处置效应的CGO因子-行为金融学因子-bdd2afe7-v1"
+manifest = "archives/37.处置效应的CGO因子-行为金融学因子-bdd2afe7/manifest.toml"
+factor_count = 1
+snapshot = "080a6023d5ae0c49398ebf6954da1bbe3164d40934761b154989769508625440"
+reference = "bdd2afe74b8cb9c64406ca3652f79280747be21a75e467b608d68fe5675e15b4"
+
+[[archives]]
+name = "40.14年初到23年7月-年化37-夏普1.25-稳健高收益-2b2871e4-v1"
+manifest = "archives/40.14年初到23年7月-年化37-夏普1.25-稳健高收益-2b2871e4/manifest.toml"
+factor_count = 1
+snapshot = "8ea37bfa0a484f1fd1fd77b06f4963a22bde4623d4bc82f5a6ac08fea79bcb70"
+reference = "2b2871e404aea9cd8590c5c6656ef28db8d5fb05f621b7307836f3cd72d7a7b0"
+
+[[archives]]
+name = "40.基于遗传算法挖掘因子2-77c87a1f-v1"
+manifest = "archives/40.基于遗传算法挖掘因子2-77c87a1f/manifest.toml"
+factor_count = 1
+snapshot = "e1d343820c09bbb9b46c0c2e7e5e583d167cb9d116b9b856256e9dda8afe70c7"
+reference = "77c87a1fb7c854fbb2e6acc9b0a6caa1ab72212990382d05a83d1ca823d128a0"
+
+[[archives]]
+name = "43.ETF动量因子评估-803d0afa-v1"
+manifest = "archives/43.ETF动量因子评估-803d0afa/manifest.toml"
+factor_count = 6
+snapshot = "95e336b1e7c49fa54ef6f30b1d28d42333fccef932d2c2dced5feb49cc3cb4ec"
+reference = "803d0afa67862c0ab4060ed88de841463120c7d8f26989d4a68c0c5b09d2e057"
+
+[[archives]]
+name = "49.-7日趋势-交易策略-4a9e21d0-v1"
+manifest = "archives/49.-7日趋势-交易策略-4a9e21d0/manifest.toml"
+factor_count = 1
+snapshot = "db794092e026806bbe2e3f9dddd1a6516ab47dd5ef8f6f5d564f7a0996e9a16f"
+reference = "4a9e21d05fb014d129ea24928cec287311511cfadc6c5ff8c308e26b52277989"
+
+[[archives]]
+name = "50.新策略-一种新思路-超额376-08b40615-v1"
+manifest = "archives/50.新策略-一种新思路-超额376-08b40615/manifest.toml"
+factor_count = 1
+snapshot = "5c1011727156fb31001ea0c63086018ce9571da6920f56d2510044894ac2743a"
+reference = "08b406153fe2f50a704f7f7b0d0a53f93c40510ec8c048b543752f50acecf490"
+
+[[archives]]
+name = "51.-复现-行业有效量价因子与行业轮动策略-5db03cbb-v1"
+manifest = "archives/51.-复现-行业有效量价因子与行业轮动策略-5db03cbb/manifest.toml"
+factor_count = 3
+snapshot = "e943f1c4067e779b665e42ed1e7b96ebd692e4fe8885a14d416bc00d2dccc0e9"
+reference = "5db03cbbdddd5cf6077e6cac313ad8d6c8768a5a5d4a8ebff772fd4bde1bd7d6"
+
+[[archives]]
+name = "55.-分享-券商金股组合增强-6c7edf0e-v1"
+manifest = "archives/55.-分享-券商金股组合增强-6c7edf0e/manifest.toml"
+factor_count = 3
+snapshot = "ed8d216782af98aaa948f965af1814450ebc009ade97d45c67dbc153fba2b92d"
+reference = "6c7edf0ef4bcee88cd335ade773e2edaf5aaf8617300d6b6c22804066a9aeacd"
+
+[[archives]]
+name = "57.韶华研究之四-菲阿里四阶在T-1的短线策略应用-b3cbb8cb-v1"
+manifest = "archives/57.韶华研究之四-菲阿里四阶在T-1的短线策略应用-b3cbb8cb/manifest.toml"
+factor_count = 1
+snapshot = "cfd46971e9acf2c2e7bd2050647d7c527aa911053dd0181523be0e97d1b94578"
+reference = "b3cbb8cb957298328a09e4fa9f632d907d27956644634640bec5015a253eb974"
+
+[[archives]]
+name = "59.年化62-的动量策略-31ede8b8-v1"
+manifest = "archives/59.年化62-的动量策略-31ede8b8/manifest.toml"
+factor_count = 1
+snapshot = "ee6eefcc3ff6e55dc309cb1bad9628f81211fbd7db8887cdc7eab76e0f4587b8"
+reference = "31ede8b8c288864c2315ab32addd7efde4ca88031ef8832b170731d03ec7639c"
+
+[[archives]]
+name = "71-投资学-CAPM单因子回归模型-ROE股票池-含止损-6a812af5-v1"
+manifest = "archives/71-投资学-CAPM单因子回归模型-ROE股票池-含止损-6a812af5/manifest.toml"
+factor_count = 1
+snapshot = "be29066008b1148010ca449ad78b15e10498a49bcac0c375b1817824584d98e3"
+reference = "6a812af5a6d5ef36b7893d4de3b3d61023a9bec85f257cfd3f815f67ca9127e5"
+
+[[archives]]
+name = "75.-复现-个股动量效应的识别及球队硬币因子-332bb89e-v1"
+manifest = "archives/75.-复现-个股动量效应的识别及球队硬币因子-332bb89e/manifest.toml"
+factor_count = 4
+snapshot = "f521be46470218e7676f983beaf3faa8a4ad8ade95d508b8c1bfb92aa95c51b7"
+reference = "332bb89efd664a20d5d7ec86ac0a814c73d693a396aac9834b2201e3af56f820"
+
+[[archives]]
+name = "77.-复现-筹码分布因子-46bd5b33-v1"
+manifest = "archives/77.-复现-筹码分布因子-46bd5b33/manifest.toml"
+factor_count = 4
+snapshot = "5e22533eae36695f6de58bd9d4165754838fd8a38a636725810ac7e366c65566"
+reference = "46bd5b33db08d587a0887ea9af57c944677a65ebba14ac824ae3902d6307b427"
+
+[[archives]]
+name = "82.势的度量-0d97a4f8-v1"
+manifest = "archives/82.势的度量-0d97a4f8/manifest.toml"
+factor_count = 1
+snapshot = "c93d43a210173b7d5b3543296a8a09d65635f7b3f4260bbc6fdad05953978e83"
+reference = "0d97a4f872dd4e6c5973b618b9b9a2096d3a21afd49435bacb2ea6a94c4145be"
+
+[[archives]]
+name = "90.-复现-凸显度因子-7ad18e92-v1"
+manifest = "archives/90.-复现-凸显度因子-7ad18e92/manifest.toml"
+factor_count = 2
+snapshot = "bdd109cba192cbe12ede2143d8d6be13e738791b73b30e7e9840659df349f4a4"
+reference = "7ad18e923eafb60adef1a9d7f7fb88cd1b9777e58089d026519694edcd277377"
+
+[[archives]]
+name = "96.分享一个简单的选股器-9f157db1-v1"
+manifest = "archives/96.分享一个简单的选股器-9f157db1/manifest.toml"
+factor_count = 1
+snapshot = "48e881e0317b3a781adeaa08524ad7ff696ebaa847041414ad8c1ae24f8d6252"
+reference = "9f157db1512273a91515b8fbcb0f9b8386651fee5412ab2fe558b09363b1e0de"
+
+[[archives]]
+name = "97.-涨停研究一-具有哪些因子的股票更容易涨停-9cd87e21-v1"
+manifest = "archives/97.-涨停研究一-具有哪些因子的股票更容易涨停-9cd87e21/manifest.toml"
+factor_count = 2
+snapshot = "30118ca2d02ed336c7ec067fbb88af9bef8f606bc84abc3369012c69feceaaa6"
+reference = "9cd87e21efc53f85c9178c54bfeb78df28c32125c6c565744df21f76215698c8"
+
+[[archives]]
+name = "Alpha101-华泰海量技术因子与原始论文-2fe2a190-v1"
+manifest = "archives/Alpha101-华泰海量技术因子与原始论文-2fe2a190/manifest.toml"
+factor_count = 78
+snapshot = "1184096a86d0d4fedbb787de27b0f5d880c0ca6f422580c45f54a68e4f91487b"
+reference = "2fe2a1906be2da0ebc22e655e652cbb495027a0b859b18a0284b9014cb04dc8e"
+
+[[archives]]
+name = "Alpha191-9f867946-v1"
+manifest = "archives/Alpha191-9f867946/manifest.toml"
+factor_count = 39
+snapshot = "72defd656606565ae403a4a405d30950886af23ff4ae6be948e890904afae146"
+reference = "9f867946daeec1a1a84d0e3e7edff93a96485a94effe240d85f0d8c3f3a3f13e"
+
+[[archives]]
+name = "fator-70e55740-v1"
+manifest = "archives/fator-70e55740/manifest.toml"
+factor_count = 1
+snapshot = "265fde344d62e8383ad44340244e8fe805f94af821b223bf94baed1da7d1ec59"
+reference = "70e557409f69eedc0b33b308de901d04503b611aa94621b86e95ff08750dcf47"
+
+[[archives]]
+name = "中信因子深度研究系列1-特质波动率纯因子组合在A股的实证与研究-b4a89b48-v1"
+manifest = "archives/中信因子深度研究系列1-特质波动率纯因子组合在A股的实证与研究-b4a89b48/manifest.toml"
+factor_count = 1
+snapshot = "c0c94fd112675d889ab4f270d9a56fe8b39ad36403b2a3171dfb350f40dbc489"
+reference = "b4a89b481293b596dcdf9b60aaf70a809665a607da4f4c347d2406a261ebe3e9"
+
+[[archives]]
+name = "华泰人工智能系列21-基于遗传规划的选股因子挖掘-b201c5ff-v1"
+manifest = "archives/华泰人工智能系列21-基于遗传规划的选股因子挖掘-b201c5ff/manifest.toml"
+factor_count = 4
+snapshot = "244d9ca6859b2d56b0db2cfa09c074b3f052414653ff3856b55015d5863c32c8"
+reference = "b201c5ffae98c44a7d14c3cab40e031a9a925b74fc9315fbd00bb38310319073"
+
+[[archives]]
+name = "华泰人工智能系列23-再探基于遗传规划的选股因子挖掘-bd8a7160-v1"
+manifest = "archives/华泰人工智能系列23-再探基于遗传规划的选股因子挖掘-bd8a7160/manifest.toml"
+factor_count = 24
+snapshot = "df503a829b04e5697a32456547f1b8d627f2b910c295b201e0e2801e270345a2"
+reference = "bd8a7160e81d27798a5ac9a18ae35085b947abe0cd4ee708c67cb5d83d26667e"
+
+[[archives]]
+name = "华泰人工智能系列32-AlphaNet-因子挖掘神经网络-3ddfa830-v1"
+manifest = "archives/华泰人工智能系列32-AlphaNet-因子挖掘神经网络-3ddfa830/manifest.toml"
+factor_count = 3
+snapshot = "18a90630ba46ea563299f3c673b4d84b557afc05953ed8db892bede82911b5eb"
+reference = "3ddfa83027df1c9a66f1c7af5c7c262eac6c1297cc7612d1fc5c17d7bc812858"
+
+[[archives]]
+name = "华泰多因子系列13-单因子测试之历史分位数因子-9ebaf366-v1"
+manifest = "archives/华泰多因子系列13-单因子测试之历史分位数因子-9ebaf366/manifest.toml"
+factor_count = 1
+snapshot = "053b1e78177548b7ca09a35520cdabf3996ddeb51ec3b5c01cf38af0dddcb7f1"
+reference = "9ebaf366e928205cb406d3dca6f92e685e97121d14f9d1ac1a3c99f54ddd1072"
+
+[[archives]]
+name = "华泰多因子系列2-单因子测试之估值类因子-9277b8bc-v1"
+manifest = "archives/华泰多因子系列2-单因子测试之估值类因子-9277b8bc/manifest.toml"
+factor_count = 4
+snapshot = "45fd4cfddf1e2c1962ed325bf1485be64eba4b4f726303c6719cc774549b9dcf"
+reference = "9277b8bc329a0057a0b96249c3108b6ccfff36023e4ecee5638078edc6fab5dc"
+
+[[archives]]
+name = "华泰多因子系列4-单因子测试之动量类因子-cc110ef0-v1"
+manifest = "archives/华泰多因子系列4-单因子测试之动量类因子-cc110ef0/manifest.toml"
+factor_count = 11
+snapshot = "66228303e7abb120b5d2cf91344ac06d86795841371755f80d04c1bd13936c19"
+reference = "cc110ef024e02077528d3c5715af610b110d831c769ecf30e8a308a859f0c76a"
+
+[[archives]]
+name = "华泰多因子系列5-单因子测试之换手率类因子-9a5a628f-v1"
+manifest = "archives/华泰多因子系列5-单因子测试之换手率类因子-9a5a628f/manifest.toml"
+factor_count = 8
+snapshot = "77b025ccd65da73cde6fcbf9133e30eeaaa205ff4c76b8ddd0fd911a454c1d75"
+reference = "9a5a628f98b71d850e73e3ef3f15a783fa3cd73fe8d0e47c67c75631e57cc109"
+
+[[archives]]
+name = "华泰多因子系列6-单因子测试之波动率类因子-0e330946-v1"
+manifest = "archives/华泰多因子系列6-单因子测试之波动率类因子-0e330946/manifest.toml"
+factor_count = 6
+snapshot = "ac78fcc3ec4f8c2513d5202da001e73643d92a7584d8e7c02222035393ef22cc"
+reference = "0e33094604f770bf8116b0006d1cfa16e70148b0b958ff9031aede526293ec78"
+
+[[archives]]
+name = "华泰多因子系列基础换手率与波动率因子-a280d26b-v1"
+manifest = "archives/华泰多因子系列基础换手率与波动率因子-a280d26b/manifest.toml"
+factor_count = 8
+snapshot = "3c9cc12f5f11d49df6037be9c83853acf79d881560b044fa361c991bc79fd8e7"
+reference = "a280d26bc424b0eecfa985bfebf14a4a4a6d02c7e992eed3593ac476b1d20edc"
+
+[[archives]]
+name = "国盛多因子系列8-日间量价模型研究-aec2c2d8-v1"
+manifest = "archives/国盛多因子系列8-日间量价模型研究-aec2c2d8/manifest.toml"
+factor_count = 1
+snapshot = "33bff04fc725942ec8ef9967b6788d9395ecb8ffb4a1e0d2398d08c1bbd75493"
+reference = "aec2c2d80cd1d97b5eba4e25ffbf1eaffb50d58bf89a5a5b797c163739cb5392"
+
+[[archives]]
+name = "广发多因子系列25-反转因子再优化-更精准把握拐点-29cc5029-v1"
+manifest = "archives/广发多因子系列25-反转因子再优化-更精准把握拐点-29cc5029/manifest.toml"
+factor_count = 1
+snapshot = "21af3d8d5533a6c3348b9ef241450ad28758cc51f8f403205cd49b45615a9c38"
+reference = "29cc5029e1f0b82301afd2e652cdca408c8da8c7cd47ce3f460ad46e18236af6"
+
+[[archives]]
+name = "广发多因子系列3-估值与动量结合的选股模型-ef6222b7-v1"
+manifest = "archives/广发多因子系列3-估值与动量结合的选股模型-ef6222b7/manifest.toml"
+factor_count = 2
+snapshot = "0b01ce0ca1bc45a9141bd01b27b8ad67d274cb63b4b61c9cab86bc5e0e28d2b0"
+reference = "ef6222b786240a355dfacabffb1639a91d2f987f8c50f92af8ce7d2b56cabc3b"
+
+[[archives]]
+name = "广发多因子系列34-基于多期限的选股策略研究-fb49c5d2-v1"
+manifest = "archives/广发多因子系列34-基于多期限的选股策略研究-fb49c5d2/manifest.toml"
+factor_count = 2
+snapshot = "8521e83cc456dc3c5ff6c34f78a3767d7f550815555458971a987b794d1ac19a"
+reference = "fb49c5d26099b31e1693d682df11f90df68e047ba14c1cca7c0b0c7179e49b83"
+
+[[archives]]
+name = "广发多因子系列4-沪深300成份股的应用分析上-6622acfe-v1"
+manifest = "archives/广发多因子系列4-沪深300成份股的应用分析上-6622acfe/manifest.toml"
+factor_count = 1
+snapshot = "8a7f388624c205f84868b52ed6f3b6afc94480ed7632fd5db9476634a4c3ba63"
+reference = "6622acfe1b1bb78906aafce208a4d3f90a02f23be08556d8b852dba25d607569"
+
+[[archives]]
+name = "广发多因子系列42-海量技术指标掘金Alpha因子-ebb746e4-v1"
+manifest = "archives/广发多因子系列42-海量技术指标掘金Alpha因子-ebb746e4/manifest.toml"
+factor_count = 103
+snapshot = "4d7e22af8ee3b97eb49031f56447d9a92310ff1999ef00ac0b083e689a1ad1f7"
+reference = "ebb746e4e36034e7bb654e15858c111028f0e23b67ecbaa72ca1d3677bba07bc"
+
+[[archives]]
+name = "广发多因子系列45-基于SemiBeta的因子研究-868965b9-v1"
+manifest = "archives/广发多因子系列45-基于SemiBeta的因子研究-868965b9/manifest.toml"
+factor_count = 1
+snapshot = "47ecf1a86c187f281122c4c46f850d499c3146af8a96c36b8668892f85e66300"
+reference = "868965b9f7b42007aab42343529990f582f45d4d8c2e1e0e337c6e395554bad9"
+
+[[archives]]
+name = "星火多因子专题报告10-如何对Beta因子进行稳健估计-fbb29e69-v1"
+manifest = "archives/星火多因子专题报告10-如何对Beta因子进行稳健估计-fbb29e69/manifest.toml"
+factor_count = 4
+snapshot = "ba4211a55a68faff2ade57a3a34d67e89de763ec2a292f691e636c01f7ad7b63"
+reference = "fbb29e6962ff6a40a588beca87626866b36177d11dd7e9b0a8511d5bded3e36d"
+
+[[archives]]
+name = "星火多因子专题报告5-源于动量-超越动量-特质动量因子全解析-74c564c8-v1"
+manifest = "archives/星火多因子专题报告5-源于动量-超越动量-特质动量因子全解析-74c564c8/manifest.toml"
+factor_count = 1
+snapshot = "d9b799435f9775fb1c9e24389e6b591a0d423419a5623e6a09a0544b0754b488"
+reference = "74c564c8dca402dac3c4d0c24ad8e290eefd2b6f6b2daee62be643fed9bf4f92"
+
+[[archives]]
+name = "海通选股因子系列研究12-量-与-价-的结合-905efca3-v1"
+manifest = "archives/海通选股因子系列研究12-量-与-价-的结合-905efca3/manifest.toml"
+factor_count = 1
+snapshot = "9f25ed7c349d28fc790b2ee84b55fb43205527788fa561af6ebc7a3d997800f4"
+reference = "905efca3c8b04870074e3a90a0c46f185f46ec58fb663dfee03d70faf28646b0"
+
+[[archives]]
+name = "海通选股因子系列研究13-因子大讲坛-056746cd-v1"
+manifest = "archives/海通选股因子系列研究13-因子大讲坛-056746cd/manifest.toml"
+factor_count = 10
+snapshot = "c85e093c47ed07e87b1667fbd932eb3835f7c55696fd9e5cfa95edd37ac94781"
+reference = "056746cd34bd9546995868555b8418149e8519e10649c8c12365f99f77d1de4a"
+
+[[archives]]
+name = "海通选股因子系列研究14-交易行为的波动和股票预期收益-51d86214-v1"
+manifest = "archives/海通选股因子系列研究14-交易行为的波动和股票预期收益-51d86214/manifest.toml"
+factor_count = 1
+snapshot = "b3c8427fbaf86143747b1cc75d080156e96fc3d747dcb8508b22a83c1f0f550c"
+reference = "51d862144c612132d6144f1c05aa8e8b2b36c63347cee014a4ef9872f983ee4e"
+
+[[archives]]
+name = "海通选股因子系列研究15-博彩型-股票的预期收益-1a86ed21-v1"
+manifest = "archives/海通选股因子系列研究15-博彩型-股票的预期收益-1a86ed21/manifest.toml"
+factor_count = 1
+snapshot = "e390af662d8033d2aa2fa9ac9900e9d526163bf4ffbba0b78356e18a721e213c"
+reference = "1a86ed21a9e36e9270880c9919081401dc1daeab3e05b1f5c9e53119bfc60427"
+
+[[archives]]
+name = "海通选股因子系列研究18-价格形态选股因子-d695dd3c-v1"
+manifest = "archives/海通选股因子系列研究18-价格形态选股因子-d695dd3c/manifest.toml"
+factor_count = 5
+snapshot = "f16c7443a996dd7b448c78d7fe4153de84df70819c2bc72ee4e3ccdced6b3df3"
+reference = "d695dd3c8ad7708faeff9fde0b7b5a434387df81b0b148f58b1210f0b94a71f0"
+
+[[archives]]
+name = "海通选股因子系列研究37-A股是否存在异质动量效应-2c87c85e-v1"
+manifest = "archives/海通选股因子系列研究37-A股是否存在异质动量效应-2c87c85e/manifest.toml"
+factor_count = 1
+snapshot = "fc37ac10f6b0f806ae683888fcea24d474a3d092363abae90622895b8f0cb76b"
+reference = "2c87c85e608d686eb7f4416885c4e4628673013ca95cd9bef47583b0aa9b9264"
+
+[[archives]]
+name = "海通选股因子系列研究53-上市公司股价关系网因子-ae93c28c-v1"
+manifest = "archives/海通选股因子系列研究53-上市公司股价关系网因子-ae93c28c/manifest.toml"
+factor_count = 1
+snapshot = "3bd0f1582082c436495afba13ac2496223bdcaddfd313da972b632db8d8894f8"
+reference = "ae93c28c192c28488c8fbf5258e377ffdfc0af3f67a951420487239afa2da845"
+
+[[archives]]
+name = "渤海多因子模型研究系列1-单因子测试-c5ae5c29-v1"
+manifest = "archives/渤海多因子模型研究系列1-单因子测试-c5ae5c29/manifest.toml"
+factor_count = 4
+snapshot = "e02a82457884bac6f6fb41d886060fa615eb6105946d72971d0bf6fe38e0ada1"
+reference = "c5ae5c29e21e52e7c6c8d283c718f29cdb7e41cc5ed4eb08effb26b0ffebde75"
+
+[[archives]]
+name = "渤海多因子模型研究系列8-Barra风险模型-CNE6-单因子检测-7cf37173-v1"
+manifest = "archives/渤海多因子模型研究系列8-Barra风险模型-CNE6-单因子检测-7cf37173/manifest.toml"
+factor_count = 4
+snapshot = "19eaa9bb86bb73b67cd2bcadc9e7a2785ae0d6882c939fa0abc92039b0648fd8"
+reference = "7cf37173e8dc79a552b0139bd5f7706c1745b74a9193dad912e25c0a17b4e9c1"
+
+[[archives]]
+name = "渤海系列14-Alpha101横截面调整-4bb9ed92-v1"
+manifest = "archives/渤海系列14-Alpha101横截面调整-4bb9ed92/manifest.toml"
+factor_count = 5
+snapshot = "f4275e8256ed60d9c65aeeaa8f27d976d300e7012163d9edc62bc59e3dd82487"
+reference = "4bb9ed92da9a96e8e7729b94346898cc4b14c6adede3d1dc1535331c69479fe9"
+
+[[archives]]
+name = "逐鹿Alpha专题报告12-AlphaZero-基于AutoML_Zero的-f86b9e83-v1"
+manifest = "archives/逐鹿Alpha专题报告12-AlphaZero-基于AutoML_Zero的-f86b9e83/manifest.toml"
+factor_count = 1
+snapshot = "ed283f060ac0fc278ad6824bedbe41691b6e21f05a7ad5e916c1689b5d048e28"
+reference = "f86b9e838809d9e78b39a587a3cbcdaaf4dc52ed90ab3ee0c3be1d04db081e14"
+
+[[archives]]
+name = "逐鹿Alpha专题报告14-基本面因子与量价因子融合模型-29829dcb-v1"
+manifest = "archives/逐鹿Alpha专题报告14-基本面因子与量价因子融合模型-29829dcb/manifest.toml"
+factor_count = 6
+snapshot = "7a6886c7244fcb317d04a4bf66846b4a163816c30eaf5dc2411348c3c465058d"
+reference = "29829dcbc80e322e00b0039b81ec7a08fec83fce344d5b74d284cdf3111ccd93"

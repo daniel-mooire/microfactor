@@ -1,0 +1,18 @@
+version = 1
+name = "salience_stv_20d"
+frequency = "1d"
+formula = "cov20(weight20(STV), return); STV=abs(r)*100 when abs(r)>=0.1 else turnover"
+inputs = ["close", "pre_close", "turnover_rate"]
+min_window = 58
+direction = "reversal"
+category = "behavioral"
+adjust = "hfq"
+implementation = "microfactor.factors.document_factors::salience_stv_20d"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "90.-复现-凸显度因子-7ad18e92"
+reference = "7ad18e923eafb60adef1a9d7f7fb88cd1b9777e58089d026519694edcd277377"
+adaptation = "Source prose says multiplier 1000 but executable code uses 100; executable code is followed."
+tags = ["document", "reproduced"]
+parameters_json = "{}"

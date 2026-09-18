@@ -1,0 +1,27 @@
+version = 1
+name = "渤海多因子模型研究系列8-Barra风险模型-CNE6-单因子检测-7cf37173-v1"
+snapshot = "19eaa9bb86bb73b67cd2bcadc9e7a2785ae0d6882c939fa0abc92039b0648fd8"
+reference = "7cf37173e8dc79a552b0139bd5f7706c1745b74a9193dad912e25c0a17b4e9c1"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_bohai8_cmra_252d"
+formula = "../../factors/daily/doc_bohai8_cmra_252d.qha"
+idea = "IDEA-doc_bohai8_cmra_252d.md"
+
+[[factors]]
+name = "doc_bohai8_stoa_252d"
+formula = "../../factors/daily/doc_bohai8_stoa_252d.qha"
+idea = "IDEA-doc_bohai8_stoa_252d.md"
+
+[[factors]]
+name = "doc_bohai8_stom_21d"
+formula = "../../factors/daily/doc_bohai8_stom_21d.qha"
+idea = "IDEA-doc_bohai8_stom_21d.md"
+
+[[factors]]
+name = "doc_bohai8_stoq_63d"
+formula = "../../factors/daily/doc_bohai8_stoq_63d.qha"
+idea = "IDEA-doc_bohai8_stoq_63d.md"

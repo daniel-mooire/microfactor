@@ -1,0 +1,12 @@
+version = 1
+name = "海通选股因子系列研究15-博彩型-股票的预期收益-1a86ed21-v1"
+snapshot = "e390af662d8033d2aa2fa9ac9900e9d526163bf4ffbba0b78356e18a721e213c"
+reference = "1a86ed21a9e36e9270880c9919081401dc1daeab3e05b1f5c9e53119bfc60427"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_haitong15_mean_top5_return_monthly"
+formula = "../../factors/daily/doc_haitong15_mean_top5_return_monthly.qha"
+idea = "IDEA-doc_haitong15_mean_top5_return_monthly.md"

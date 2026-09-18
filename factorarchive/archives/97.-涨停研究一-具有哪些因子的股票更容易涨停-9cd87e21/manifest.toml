@@ -1,0 +1,17 @@
+version = 1
+name = "97.-涨停研究一-具有哪些因子的股票更容易涨停-9cd87e21-v1"
+snapshot = "30118ca2d02ed336c7ec067fbb88af9bef8f606bc84abc3369012c69feceaaa6"
+reference = "9cd87e21efc53f85c9178c54bfeb78df28c32125c6c565744df21f76215698c8"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_jq2022_limit_up_count_250d"
+formula = "../../factors/daily/doc_jq2022_limit_up_count_250d.qha"
+idea = "IDEA-doc_jq2022_limit_up_count_250d.md"
+
+[[factors]]
+name = "doc_jq2022_price_position_250d"
+formula = "../../factors/daily/doc_jq2022_price_position_250d.qha"
+idea = "IDEA-doc_jq2022_price_position_250d.md"

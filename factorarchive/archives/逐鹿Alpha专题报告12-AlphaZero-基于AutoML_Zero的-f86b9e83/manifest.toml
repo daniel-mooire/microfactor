@@ -1,0 +1,12 @@
+version = 1
+name = "逐鹿Alpha专题报告12-AlphaZero-基于AutoML_Zero的-f86b9e83-v1"
+snapshot = "ed283f060ac0fc278ad6824bedbe41691b6e21f05a7ad5e916c1689b5d048e28"
+reference = "f86b9e838809d9e78b39a587a3cbcdaaf4dc52ed90ab3ee0c3be1d04db081e14"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_zhulu12_alphazero_high_norm_20d"
+formula = "../../factors/daily/doc_zhulu12_alphazero_high_norm_20d.qha"
+idea = "IDEA-doc_zhulu12_alphazero_high_norm_20d.md"

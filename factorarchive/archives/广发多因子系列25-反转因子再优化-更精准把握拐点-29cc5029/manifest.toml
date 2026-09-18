@@ -1,0 +1,12 @@
+version = 1
+name = "广发多因子系列25-反转因子再优化-更精准把握拐点-29cc5029-v1"
+snapshot = "21af3d8d5533a6c3348b9ef241450ad28758cc51f8f403205cd49b45615a9c38"
+reference = "29cc5029e1f0b82301afd2e652cdca408c8da8c7cd47ce3f460ad46e18236af6"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_guangfa25_slp_reversal_delta40"
+formula = "../../factors/daily/doc_guangfa25_slp_reversal_delta40.qha"
+idea = "IDEA-doc_guangfa25_slp_reversal_delta40.md"

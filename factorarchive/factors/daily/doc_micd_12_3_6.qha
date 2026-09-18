@@ -1,0 +1,18 @@
+version = 1
+name = "doc_micd_12_3_6"
+frequency = "1d"
+formula = "MTM=C-REF(C,1); MTMMA=SMA(MTM,12,1); DIF=MA(REF(MTMMA,1),3)-MA(REF(MTMMA,1),6); MICD=SMA(DIF,10,1)"
+inputs = ["close"]
+min_window = 28
+direction = "unspecified"
+category = "momentum"
+adjust = "hfq"
+implementation = "microfactor.factors.document_indicators::doc_micd_12_3_6"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "广发多因子系列42-海量技术指标掘金Alpha因子-ebb746e4"
+reference = "ebb746e4e36034e7bb654e15858c111028f0e23b67ecbaa72ca1d3677bba07bc"
+adaptation = "原文公式将 MTM 误排为 MI 且未列 N/N1/N2 默认值；按 MTM 语义采用 12/3/6，并保留末级 10 日 SMA。"
+tags = ["document", "daily", "technical"]
+parameters_json = "{\"N\":12,\"N1\":3,\"N2\":6,\"signal_window\":10}"

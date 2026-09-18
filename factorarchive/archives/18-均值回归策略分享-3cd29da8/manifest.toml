@@ -1,0 +1,12 @@
+version = 1
+name = "18-均值回归策略分享-3cd29da8-v1"
+snapshot = "9bdaaa93bcedf78418d00e9c5335cbc0524f41ce3fa1e1c54569771d56953e8d"
+reference = "3cd29da86ab46708040d777560d8205b2968a50a00d056f2c97ab788beaf2886"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_jq2020_ma20_residual_zscore_60d"
+formula = "../../factors/daily/doc_jq2020_ma20_residual_zscore_60d.qha"
+idea = "IDEA-doc_jq2020_ma20_residual_zscore_60d.md"

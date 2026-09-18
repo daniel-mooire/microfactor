@@ -1,0 +1,18 @@
+version = 1
+name = "alpha191_167"
+frequency = "1d"
+formula = "sum(((close - delay(close, 1)) > 0) ? (close - delay(close, 1)) : 0, 12)"
+inputs = ["close"]
+min_window = 13
+direction = "unspecified"
+category = "price_volume"
+adjust = "none"
+implementation = "microfactor.factors.alpha191_document::alpha191_167"
+implementation_status = "exact"
+status = "candidate"
+source_type = "document"
+source_group = "Alpha191-9f867946"
+reference = "9f867946daeec1a1a84d0e3e7edff93a96485a94effe240d85f0d8c3f3a3f13e"
+adaptation = "The formula is evaluated in the source-supported fq=None mode so OHLC and VWAP remain in the same unadjusted price units. The signal uses information through the T-day close and is evaluated against the standard T+1 open return. Normalization audit: Closed the source's missing final parenthesis; the condition, positive price change, and twelve-day sum are unchanged."
+tags = ["document", "alpha191", "daily"]
+parameters_json = "{\"alpha191_number\":167,\"normalization\":\"Closed the source's missing final parenthesis; the condition, positive price change, and twelve-day sum are unchanged.\",\"normalized_expression\":\"sum(((close - delay(close, 1)) > 0) ? (close - delay(close, 1)) : 0, 12)\",\"recursive_stability_window\":null,\"source_expression\":\"SUM((CLOSE-DELAY(CLOSE,1)>0?CLOSE-DELAY(CLOSE,1):0),12\",\"source_fq\":null}"

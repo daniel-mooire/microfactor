@@ -1,0 +1,18 @@
+version = 1
+name = "doc_huatai_ai32_high_return_corr_10d"
+frequency = "1d"
+formula = "ts_corr(high,return1,10)"
+inputs = ["high", "close_to_close_total_return_1d"]
+min_window = 10
+direction = "unspecified"
+category = "price_volume"
+adjust = "hfq"
+implementation = "microfactor.factors.document_extended:_compute/doc_huatai_ai32_high_return_corr_10d"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "华泰人工智能系列32-AlphaNet-因子挖掘神经网络-3ddfa830"
+reference = "3ddfa83027df1c9a66f1c7af5c7c262eac6c1297cc7612d1fc5c17d7bc812858"
+adaptation = "The report exposes these transformations as AlphaNet-v1 intermediate features, then applies trainable batch normalization and a neural-network ensemble whose learned gamma, beta, batch moments, weights, and random seeds are not published. The implementation therefore publishes the transparent pre-BN daily feature as a standalone factor, maps return1 to close_to_close_total_return_1d and free_turn to turnover_rate_f, uses pandas Pearson correlation or sample standard deviation (ddof=1), and uses hfq high/low to avoid corporate-action discontinuities. It is not a reproduction of the AlphaNet composite prediction."
+tags = ["document", "daily", "alphanet", "huatai_ai32", "pre_bn"]
+parameters_json = "{\"correlation\":\"pearson\",\"feature_stage\":\"pre_bn\",\"free_turn\":\"turnover_rate_f\",\"return1\":\"close_to_close_total_return_1d\",\"std_ddof\":1,\"window\":10}"

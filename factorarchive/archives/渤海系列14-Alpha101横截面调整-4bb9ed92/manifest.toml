@@ -1,0 +1,32 @@
+version = 1
+name = "渤海系列14-Alpha101横截面调整-4bb9ed92-v1"
+snapshot = "f4275e8256ed60d9c65aeeaa8f27d976d300e7012163d9edc62bc59e3dd82487"
+reference = "4bb9ed92da9a96e8e7729b94346898cc4b14c6adede3d1dc1535331c69479fe9"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_bohai14_adj_alpha008"
+formula = "../../factors/daily/doc_bohai14_adj_alpha008.qha"
+idea = "IDEA-doc_bohai14_adj_alpha008.md"
+
+[[factors]]
+name = "doc_bohai14_adj_alpha011"
+formula = "../../factors/daily/doc_bohai14_adj_alpha011.qha"
+idea = "IDEA-doc_bohai14_adj_alpha011.md"
+
+[[factors]]
+name = "doc_bohai14_adj_alpha019"
+formula = "../../factors/daily/doc_bohai14_adj_alpha019.qha"
+idea = "IDEA-doc_bohai14_adj_alpha019.md"
+
+[[factors]]
+name = "doc_bohai14_adj_alpha025"
+formula = "../../factors/daily/doc_bohai14_adj_alpha025.qha"
+idea = "IDEA-doc_bohai14_adj_alpha025.md"
+
+[[factors]]
+name = "doc_bohai14_adj_alpha047"
+formula = "../../factors/daily/doc_bohai14_adj_alpha047.qha"
+idea = "IDEA-doc_bohai14_adj_alpha047.md"

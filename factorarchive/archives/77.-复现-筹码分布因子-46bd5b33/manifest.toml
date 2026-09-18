@@ -1,0 +1,27 @@
+version = 1
+name = "77.-复现-筹码分布因子-46bd5b33-v1"
+snapshot = "5e22533eae36695f6de58bd9d4165754838fd8a38a636725810ac7e366c65566"
+reference = "46bd5b33db08d587a0887ea9af57c944677a65ebba14ac824ae3902d6307b427"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "chip_arc_60d"
+formula = "../../factors/daily/chip_arc_60d.qha"
+idea = "IDEA-chip_arc_60d.md"
+
+[[factors]]
+name = "chip_krc_60d"
+formula = "../../factors/daily/chip_krc_60d.qha"
+idea = "IDEA-chip_krc_60d.md"
+
+[[factors]]
+name = "chip_src_60d"
+formula = "../../factors/daily/chip_src_60d.qha"
+idea = "IDEA-chip_src_60d.md"
+
+[[factors]]
+name = "chip_vrc_60d"
+formula = "../../factors/daily/chip_vrc_60d.qha"
+idea = "IDEA-chip_vrc_60d.md"

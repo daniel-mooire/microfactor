@@ -1,0 +1,18 @@
+version = 1
+name = "doc_uos_7_14_28"
+frequency = "1d"
+formula = "TH=MAX(H,REF(C,1)); TL=MIN(L,REF(C,1)); UOS=100*(ACC1*14*28+ACC2*7*28+ACC3*7*14)/(7*14+7*28+14*28)"
+inputs = ["high", "low", "close"]
+min_window = 29
+direction = "positive"
+category = "volatility"
+adjust = "hfq"
+implementation = "microfactor.factors.document_indicators::doc_uos_7_14_28"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "广发多因子系列42-海量技术指标掘金Alpha因子-ebb746e4"
+reference = "ebb746e4e36034e7bb654e15858c111028f0e23b67ecbaa72ca1d3677bba07bc"
+adaptation = "原文未列具体周期，采用常见 7/14/28 组合；TH/TL 按 MAX/MIN 的逐日定义计算，所有 SUM 均使用当日及历史可见窗口。"
+tags = ["document", "daily", "technical"]
+parameters_json = "{\"N1\":7,\"N2\":14,\"N3\":28}"

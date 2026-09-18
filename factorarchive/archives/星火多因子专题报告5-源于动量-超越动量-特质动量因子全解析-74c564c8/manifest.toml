@@ -1,0 +1,12 @@
+version = 1
+name = "星火多因子专题报告5-源于动量-超越动量-特质动量因子全解析-74c564c8-v1"
+snapshot = "d9b799435f9775fb1c9e24389e6b591a0d423419a5623e6a09a0544b0754b488"
+reference = "74c564c8dca402dac3c4d0c24ad8e290eefd2b6f6b2daee62be643fed9bf4f92"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_xinghuo5_ff3_imom_3step_12m"
+formula = "../../factors/daily/doc_xinghuo5_ff3_imom_3step_12m.qha"
+idea = "IDEA-doc_xinghuo5_ff3_imom_3step_12m.md"

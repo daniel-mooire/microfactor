@@ -1,0 +1,18 @@
+version = 1
+name = "doc_dbcd_5_3_3"
+frequency = "1d"
+formula = "BIAS=(C-MA(C,5))/MA(C,5); DIF=BIAS-REF(BIAS,3); DBCD=SMA(DIF,3,1)"
+inputs = ["close"]
+min_window = 10
+direction = "negative"
+category = "reversal"
+adjust = "hfq"
+implementation = "microfactor.factors.document_indicators::doc_dbcd_5_3_3"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "广发多因子系列42-海量技术指标掘金Alpha因子-ebb746e4"
+reference = "ebb746e4e36034e7bb654e15858c111028f0e23b67ecbaa72ca1d3677bba07bc"
+adaptation = "原文给出 P、N、W 符号但未给测算参数；按图表复现约定采用 5/3/3，SMA(X,3,1) 使用递归平滑。"
+tags = ["document", "daily", "technical"]
+parameters_json = "{\"N\":3,\"P\":5,\"W\":3}"

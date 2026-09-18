@@ -1,0 +1,18 @@
+version = 1
+name = "doc_tri_1_14"
+frequency = "1d"
+formula = "X1=IF(C>REF(C,1),1/(C-REF(C,1)),1); X2=X1-MIN(X1); TRI=EMA(X2/(H-L)*100,14)"
+inputs = ["high", "low", "close"]
+min_window = 28
+direction = "negative"
+category = "volatility"
+adjust = "hfq"
+implementation = "microfactor.factors.document_indicators::doc_tri_1_14"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "广发多因子系列42-海量技术指标掘金Alpha因子-ebb746e4"
+reference = "ebb746e4e36034e7bb654e15858c111028f0e23b67ecbaa72ca1d3677bba07bc"
+adaptation = "原文未限定 MIN(X1) 的回看范围；为保持因果性采用 N=14 的滚动最小值，并固定 T=1。"
+tags = ["document", "daily", "technical"]
+parameters_json = "{\"N\":14,\"T\":1}"

@@ -1,0 +1,18 @@
+version = 1
+name = "doc_rvi_aup_14"
+frequency = "1d"
+formula = "AUP=SMA(IF(C>REF(C,1),STD(C,14),0),14,1)"
+inputs = ["close"]
+min_window = 27
+direction = "positive"
+category = "volatility"
+adjust = "hfq"
+implementation = "microfactor.factors.document_indicators::doc_rvi_aup_14"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "广发多因子系列42-海量技术指标掘金Alpha因子-ebb746e4"
+reference = "ebb746e4e36034e7bb654e15858c111028f0e23b67ecbaa72ca1d3677bba07bc"
+adaptation = "结果图未重复列出 N；采用常见 N=14，并按报告的递归 SMA(X,N,1) 及样本标准差实现。"
+tags = ["document", "daily", "technical"]
+parameters_json = "{\"N\":14}"

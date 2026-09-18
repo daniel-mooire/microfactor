@@ -1,0 +1,17 @@
+version = 1
+name = "10.多因子选股-48ae1e45-v1"
+snapshot = "12042c402a5e83f1240b50b43f97d2b25565f11dca01fb73fdc5eaed56e21bcc"
+reference = "48ae1e45825a57fc52ba1b184201b065ad66940b2cdaaa8668cfa0bc7f583393"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_jq2025_amount_to_market_cap_30d"
+formula = "../../factors/daily/doc_jq2025_amount_to_market_cap_30d.qha"
+idea = "IDEA-doc_jq2025_amount_to_market_cap_30d.md"
+
+[[factors]]
+name = "doc_jq2025_volume_to_float_30d"
+formula = "../../factors/daily/doc_jq2025_volume_to_float_30d.qha"
+idea = "IDEA-doc_jq2025_volume_to_float_30d.md"

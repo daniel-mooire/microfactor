@@ -1,0 +1,12 @@
+version = 1
+name = "10.多因子宽基ETF择时轮动改进版-高收益大资金低回撤-95faba69-v1"
+snapshot = "1da413935c51e056111ec00bdd7dfad2b2bea898add4722dc3637aa3c021c486"
+reference = "95faba69b82ac6b29bc9d7eb30ced65e02a17f6a4115969bd15818f1ad15bb4c"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_jq2024_ma90_bias_slope_20d"
+formula = "../../factors/daily/doc_jq2024_ma90_bias_slope_20d.qha"
+idea = "IDEA-doc_jq2024_ma90_bias_slope_20d.md"

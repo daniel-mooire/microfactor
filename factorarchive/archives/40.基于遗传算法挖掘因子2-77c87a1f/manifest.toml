@@ -1,0 +1,12 @@
+version = 1
+name = "40.基于遗传算法挖掘因子2-77c87a1f-v1"
+snapshot = "e1d343820c09bbb9b46c0c2e7e5e583d167cb9d116b9b856256e9dda8afe70c7"
+reference = "77c87a1fb7c854fbb2e6acc9b0a6caa1ab72212990382d05a83d1ca823d128a0"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_jq2025_gp_inverse_high_delta_sq_2d"
+formula = "../../factors/daily/doc_jq2025_gp_inverse_high_delta_sq_2d.qha"
+idea = "IDEA-doc_jq2025_gp_inverse_high_delta_sq_2d.md"

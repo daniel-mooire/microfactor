@@ -1,0 +1,18 @@
+version = 1
+name = "doc_ddi_diz_13"
+frequency = "1d"
+formula = "DIZ=SUM(DMZ,13)/(SUM(DMZ,13)+SUM(DMF,13))"
+inputs = ["high", "low"]
+min_window = 14
+direction = "negative"
+category = "trend"
+adjust = "hfq"
+implementation = "microfactor.factors.document_indicators::doc_ddi_diz_13"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "广发多因子系列42-海量技术指标掘金Alpha因子-ebb746e4"
+reference = "ebb746e4e36034e7bb654e15858c111028f0e23b67ecbaa72ca1d3677bba07bc"
+adaptation = "DMZ/DMF 采用报告 2021 版分支，比较当日高低价和昨日高低价之和，并以昨日最低价计算两项移动幅度。"
+tags = ["document", "daily", "technical"]
+parameters_json = "{\"N\":13,\"movement_branch\":\"2021\"}"

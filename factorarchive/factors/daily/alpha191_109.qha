@@ -1,0 +1,18 @@
+version = 1
+name = "alpha191_109"
+frequency = "1d"
+formula = "sma(high - low, 10, 2) / sma(sma(high - low, 10, 2), 10, 2)"
+inputs = ["high", "low"]
+min_window = 120
+direction = "unspecified"
+category = "price_volume"
+adjust = "none"
+implementation = "microfactor.factors.alpha191_document::alpha191_109"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "Alpha191-9f867946"
+reference = "9f867946daeec1a1a84d0e3e7edff93a96485a94effe240d85f0d8c3f3a3f13e"
+adaptation = "The formula is evaluated in the source-supported fq=None mode so OHLC and VWAP remain in the same unadjusted price units. The signal uses information through the T-day close and is evaluated against the standard T+1 open return. Normalization audit: Only case and whitespace were normalized. JoinQuant publishes the recurrence but not its server-side seed; the implementation uses the first valid observation as the seed and suppresses the first 120 input observations."
+tags = ["document", "alpha191", "daily"]
+parameters_json = "{\"alpha191_number\":109,\"normalization\":\"Only case and whitespace were normalized. JoinQuant publishes the recurrence but not its server-side seed; the implementation uses the first valid observation as the seed and suppresses the first 120 input observations.\",\"normalized_expression\":\"sma(high - low, 10, 2) / sma(sma(high - low, 10, 2), 10, 2)\",\"recursive_stability_window\":120,\"source_expression\":\"SMA(HIGH-LOW,10,2)/SMA(SMA(HIGH-LOW,10,2),10,2)\",\"source_fq\":null}"

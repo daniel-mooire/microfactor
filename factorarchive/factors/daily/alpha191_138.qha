@@ -1,0 +1,18 @@
+version = 1
+name = "alpha191_138"
+frequency = "1d"
+formula = "-1 * (rank(decaylinear(delta((low * 0.7) + (vwap * 0.3), 3), 20)) - tsrank(decaylinear(tsrank(corr(tsrank(low, 8), tsrank(mean(volume, 60), 17), 5), 19), 16), 7))"
+inputs = ["low", "volume", "vwap"]
+min_window = 119
+direction = "unspecified"
+category = "price_volume"
+adjust = "none"
+implementation = "microfactor.factors.alpha191_document::alpha191_138"
+implementation_status = "exact"
+status = "candidate"
+source_type = "document"
+source_group = "Alpha191-9f867946"
+reference = "9f867946daeec1a1a84d0e3e7edff93a96485a94effe240d85f0d8c3f3a3f13e"
+adaptation = "The formula is evaluated in the source-supported fq=None mode so OHLC and VWAP remain in the same unadjusted price units. The signal uses information through the T-day close and is evaluated against the standard T+1 open return. Normalization audit: Only case and redundant parentheses were normalized."
+tags = ["document", "alpha191", "daily"]
+parameters_json = "{\"alpha191_number\":138,\"normalization\":\"Only case and redundant parentheses were normalized.\",\"normalized_expression\":\"-1 * (rank(decaylinear(delta((low * 0.7) + (vwap * 0.3), 3), 20)) - tsrank(decaylinear(tsrank(corr(tsrank(low, 8), tsrank(mean(volume, 60), 17), 5), 19), 16), 7))\",\"recursive_stability_window\":null,\"source_expression\":\"((RANK(DECAYLINEAR(DELTA((((LOW*0.7)+(VWAP*0.3))),3),20))-TSRANK(DECAYLINEAR(TSRANK(CORR(TSRANK(LOW,8),TSRANK(MEAN(VOLUME,60),17),5),19),16),7))*-1)\",\"source_fq\":null}"

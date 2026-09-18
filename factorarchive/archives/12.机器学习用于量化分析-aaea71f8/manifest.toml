@@ -1,0 +1,37 @@
+version = 1
+name = "12.机器学习用于量化分析-aaea71f8-v1"
+snapshot = "92d48ae241a7db317b28d63c41a8658ce7a1039cebafa5b3e3aa9cfbf93943df"
+reference = "aaea71f8581f89cff4654e2f17d972152ca862b2ce2b4c7c1ff757f0d6d98874"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "atr_14d"
+formula = "../../factors/daily/atr_14d.qha"
+idea = "IDEA-atr_14d.md"
+
+[[factors]]
+name = "bollinger_position_20d"
+formula = "../../factors/daily/bollinger_position_20d.qha"
+idea = "IDEA-bollinger_position_20d.md"
+
+[[factors]]
+name = "kdj_j_9d"
+formula = "../../factors/daily/kdj_j_9d.qha"
+idea = "IDEA-kdj_j_9d.md"
+
+[[factors]]
+name = "macd_hist_12_26_9"
+formula = "../../factors/daily/macd_hist_12_26_9.qha"
+idea = "IDEA-macd_hist_12_26_9.md"
+
+[[factors]]
+name = "rsi_6d"
+formula = "../../factors/daily/rsi_6d.qha"
+idea = "IDEA-rsi_6d.md"
+
+[[factors]]
+name = "trix_12d"
+formula = "../../factors/daily/trix_12d.qha"
+idea = "IDEA-trix_12d.md"

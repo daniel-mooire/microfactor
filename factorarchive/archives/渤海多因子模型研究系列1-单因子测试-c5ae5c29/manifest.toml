@@ -1,0 +1,27 @@
+version = 1
+name = "渤海多因子模型研究系列1-单因子测试-c5ae5c29-v1"
+snapshot = "e02a82457884bac6f6fb41d886060fa615eb6105946d72971d0bf6fe38e0ada1"
+reference = "c5ae5c29e21e52e7c6c8d283c718f29cdb7e41cc5ed4eb08effb26b0ffebde75"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_bohai1_high_low_ratio_126d"
+formula = "../../factors/daily/doc_bohai1_high_low_ratio_126d.qha"
+idea = "IDEA-doc_bohai1_high_low_ratio_126d.md"
+
+[[factors]]
+name = "doc_bohai1_high_low_ratio_21d"
+formula = "../../factors/daily/doc_bohai1_high_low_ratio_21d.qha"
+idea = "IDEA-doc_bohai1_high_low_ratio_21d.md"
+
+[[factors]]
+name = "doc_bohai1_high_low_ratio_252d"
+formula = "../../factors/daily/doc_bohai1_high_low_ratio_252d.qha"
+idea = "IDEA-doc_bohai1_high_low_ratio_252d.md"
+
+[[factors]]
+name = "doc_bohai1_high_low_ratio_63d"
+formula = "../../factors/daily/doc_bohai1_high_low_ratio_63d.qha"
+idea = "IDEA-doc_bohai1_high_low_ratio_63d.md"

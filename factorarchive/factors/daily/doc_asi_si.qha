@@ -1,0 +1,18 @@
+version = 1
+name = "doc_asi_si"
+frequency = "1d"
+formula = "SI=16*X*MAX(AA,BB)/R"
+inputs = ["open", "high", "low", "close"]
+min_window = 2
+direction = "negative"
+category = "trend"
+adjust = "hfq"
+implementation = "microfactor.factors.document_indicators::doc_asi_si"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "广发多因子系列42-海量技术指标掘金Alpha因子-ebb746e4"
+reference = "ebb746e4e36034e7bb654e15858c111028f0e23b67ecbaa72ca1d3677bba07bc"
+adaptation = "报告图表命名为 ASI(SI)；此条目公开单日 SI 分量，不把累计 ASI（SUM(SI,0)）误作为同一个输出。"
+tags = ["document", "daily", "technical"]
+parameters_json = "{\"component\":\"SI\"}"

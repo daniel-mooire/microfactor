@@ -1,0 +1,12 @@
+version = 1
+name = "71-投资学-CAPM单因子回归模型-ROE股票池-含止损-6a812af5-v1"
+snapshot = "be29066008b1148010ca449ad78b15e10498a49bcac0c375b1817824584d98e3"
+reference = "6a812af5a6d5ef36b7893d4de3b3d61023a9bec85f257cfd3f815f67ca9127e5"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_jq2020_capm_alpha_120d"
+formula = "../../factors/daily/doc_jq2020_capm_alpha_120d.qha"
+idea = "IDEA-doc_jq2020_capm_alpha_120d.md"

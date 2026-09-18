@@ -1,0 +1,22 @@
+version = 1
+name = "51.-复现-行业有效量价因子与行业轮动策略-5db03cbb-v1"
+snapshot = "e943f1c4067e779b665e42ed1e7b96ebd692e4fe8885a14d416bc00d2dccc0e9"
+reference = "5db03cbbdddd5cf6077e6cac313ad8d6c8768a5a5d4a8ebff772fd4bde1bd7d6"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_jq2024_industry_long_short_balance_20d"
+formula = "../../factors/daily/doc_jq2024_industry_long_short_balance_20d.qha"
+idea = "IDEA-doc_jq2024_industry_long_short_balance_20d.md"
+
+[[factors]]
+name = "doc_jq2024_industry_price_volume_corr_20d"
+formula = "../../factors/daily/doc_jq2024_industry_price_volume_corr_20d.qha"
+idea = "IDEA-doc_jq2024_industry_price_volume_corr_20d.md"
+
+[[factors]]
+name = "doc_jq2024_industry_volume_amplitude_corr_20d"
+formula = "../../factors/daily/doc_jq2024_industry_volume_amplitude_corr_20d.qha"
+idea = "IDEA-doc_jq2024_industry_volume_amplitude_corr_20d.md"

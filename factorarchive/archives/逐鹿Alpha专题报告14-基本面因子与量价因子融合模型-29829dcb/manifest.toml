@@ -1,0 +1,37 @@
+version = 1
+name = "逐鹿Alpha专题报告14-基本面因子与量价因子融合模型-29829dcb-v1"
+snapshot = "7a6886c7244fcb317d04a4bf66846b4a163816c30eaf5dc2411348c3c465058d"
+reference = "29829dcbc80e322e00b0039b81ec7a08fec83fce344d5b74d284cdf3111ccd93"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_zhulu14_alpha158_cord_30d"
+formula = "../../factors/daily/doc_zhulu14_alpha158_cord_30d.qha"
+idea = "IDEA-doc_zhulu14_alpha158_cord_30d.md"
+
+[[factors]]
+name = "doc_zhulu14_alpha158_corr_10d"
+formula = "../../factors/daily/doc_zhulu14_alpha158_corr_10d.qha"
+idea = "IDEA-doc_zhulu14_alpha158_corr_10d.md"
+
+[[factors]]
+name = "doc_zhulu14_alpha158_klow"
+formula = "../../factors/daily/doc_zhulu14_alpha158_klow.qha"
+idea = "IDEA-doc_zhulu14_alpha158_klow.md"
+
+[[factors]]
+name = "doc_zhulu14_alpha158_rank_5d"
+formula = "../../factors/daily/doc_zhulu14_alpha158_rank_5d.qha"
+idea = "IDEA-doc_zhulu14_alpha158_rank_5d.md"
+
+[[factors]]
+name = "doc_zhulu14_alpha158_rsqr_10d"
+formula = "../../factors/daily/doc_zhulu14_alpha158_rsqr_10d.qha"
+idea = "IDEA-doc_zhulu14_alpha158_rsqr_10d.md"
+
+[[factors]]
+name = "doc_zhulu14_alpha158_vma_10d"
+formula = "../../factors/daily/doc_zhulu14_alpha158_vma_10d.qha"
+idea = "IDEA-doc_zhulu14_alpha158_vma_10d.md"

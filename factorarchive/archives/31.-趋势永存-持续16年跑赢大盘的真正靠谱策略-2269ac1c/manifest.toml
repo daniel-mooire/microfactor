@@ -1,0 +1,12 @@
+version = 1
+name = "31.-趋势永存-持续16年跑赢大盘的真正靠谱策略-2269ac1c-v1"
+snapshot = "c061aa12fa46f8d42b1085b0e36f660d7e3f1274a7d3c788d1b9f85484c58313"
+reference = "2269ac1c706a04e9fdb0867c31c81f7975a6ae1de521de35d6e7e4d095261bd2"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_jq2022_annualized_trend_r2_90d"
+formula = "../../factors/daily/doc_jq2022_annualized_trend_r2_90d.qha"
+idea = "IDEA-doc_jq2022_annualized_trend_r2_90d.md"

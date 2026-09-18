@@ -1,0 +1,47 @@
+version = 1
+name = "华泰多因子系列5-单因子测试之换手率类因子-9a5a628f-v1"
+snapshot = "77b025ccd65da73cde6fcbf9133e30eeaaa205ff4c76b8ddd0fd911a454c1d75"
+reference = "9a5a628f98b71d850e73e3ef3f15a783fa3cd73fe8d0e47c67c75631e57cc109"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_huatai5_bias_std_turn_3m"
+formula = "../../factors/daily/doc_huatai5_bias_std_turn_3m.qha"
+idea = "IDEA-doc_huatai5_bias_std_turn_3m.md"
+
+[[factors]]
+name = "doc_huatai5_bias_std_turn_6m"
+formula = "../../factors/daily/doc_huatai5_bias_std_turn_6m.qha"
+idea = "IDEA-doc_huatai5_bias_std_turn_6m.md"
+
+[[factors]]
+name = "doc_huatai5_bias_turn_3m"
+formula = "../../factors/daily/doc_huatai5_bias_turn_3m.qha"
+idea = "IDEA-doc_huatai5_bias_turn_3m.md"
+
+[[factors]]
+name = "doc_huatai5_bias_turn_6m"
+formula = "../../factors/daily/doc_huatai5_bias_turn_6m.qha"
+idea = "IDEA-doc_huatai5_bias_turn_6m.md"
+
+[[factors]]
+name = "doc_huatai5_std_turn_3m"
+formula = "../../factors/daily/doc_huatai5_std_turn_3m.qha"
+idea = "IDEA-doc_huatai5_std_turn_3m.md"
+
+[[factors]]
+name = "doc_huatai5_std_turn_6m"
+formula = "../../factors/daily/doc_huatai5_std_turn_6m.qha"
+idea = "IDEA-doc_huatai5_std_turn_6m.md"
+
+[[factors]]
+name = "doc_huatai5_turn_3m"
+formula = "../../factors/daily/doc_huatai5_turn_3m.qha"
+idea = "IDEA-doc_huatai5_turn_3m.md"
+
+[[factors]]
+name = "doc_huatai5_turn_6m"
+formula = "../../factors/daily/doc_huatai5_turn_6m.qha"
+idea = "IDEA-doc_huatai5_turn_6m.md"

@@ -1,0 +1,17 @@
+version = 1
+name = "90.-复现-凸显度因子-7ad18e92-v1"
+snapshot = "bdd109cba192cbe12ede2143d8d6be13e738791b73b30e7e9840659df349f4a4"
+reference = "7ad18e923eafb60adef1a9d7f7fb88cd1b9777e58089d026519694edcd277377"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "salience_20d"
+formula = "../../factors/daily/salience_20d.qha"
+idea = "IDEA-salience_20d.md"
+
+[[factors]]
+name = "salience_stv_20d"
+formula = "../../factors/daily/salience_stv_20d.qha"
+idea = "IDEA-salience_stv_20d.md"

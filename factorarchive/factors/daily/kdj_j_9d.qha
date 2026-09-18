@@ -1,0 +1,18 @@
+version = 1
+name = "kdj_j_9d"
+frequency = "1d"
+formula = "J=3*K-2*D; RSV=100*(close-LLV9)/(HHV9-LLV9)"
+inputs = ["high", "low", "close"]
+min_window = 9
+direction = "positive"
+category = "technical"
+adjust = "hfq"
+implementation = "microfactor.factors.document_factors::kdj_j_9d"
+implementation_status = "exact"
+status = "candidate"
+source_type = "document"
+source_group = "12.机器学习用于量化分析-aaea71f8"
+reference = "aaea71f8581f89cff4654e2f17d972152ca862b2ce2b4c7c1ff757f0d6d98874"
+adaptation = ""
+tags = ["document", "reproduced"]
+parameters_json = "{}"

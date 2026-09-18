@@ -1,0 +1,18 @@
+version = 1
+name = "doc_pvi"
+frequency = "1d"
+formula = "PVI_t=IF(C_t>C_{t-1},C_t/C_{t-1}*PVI_{t-1},PVI_{t-1}); PVI_0=1000"
+inputs = ["close"]
+min_window = 1
+direction = "unspecified"
+category = "momentum"
+adjust = "hfq"
+implementation = "microfactor.factors.document_indicators::doc_pvi"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "广发多因子系列42-海量技术指标掘金Alpha因子-ebb746e4"
+reference = "ebb746e4e36034e7bb654e15858c111028f0e23b67ecbaa72ca1d3677bba07bc"
+adaptation = "按 PDF 打印的收盘价上涨条件递推；原文未提供成交量门槛或初值，因此固定 PVI_0=1000，并在元数据中保留该适配。"
+tags = ["document", "daily", "technical"]
+parameters_json = "{\"initial_value\":1000.0}"

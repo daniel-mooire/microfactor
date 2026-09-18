@@ -1,0 +1,12 @@
+version = 1
+name = "fator-70e55740-v1"
+snapshot = "265fde344d62e8383ad44340244e8fe805f94af821b223bf94baed1da7d1ec59"
+reference = "70e557409f69eedc0b33b308de901d04503b611aa94621b86e95ff08750dcf47"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_joinquant_hs300_alpha_10d_rank_equivalent"
+formula = "../../factors/daily/doc_joinquant_hs300_alpha_10d_rank_equivalent.qha"
+idea = "IDEA-doc_joinquant_hs300_alpha_10d_rank_equivalent.md"

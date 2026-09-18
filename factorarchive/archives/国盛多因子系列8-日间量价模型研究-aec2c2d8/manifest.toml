@@ -1,0 +1,12 @@
+version = 1
+name = "国盛多因子系列8-日间量价模型研究-aec2c2d8-v1"
+snapshot = "33bff04fc725942ec8ef9967b6788d9395ecb8ffb4a1e0d2398d08c1bbd75493"
+reference = "aec2c2d80cd1d97b5eba4e25ffbf1eaffb50d58bf89a5a5b797c163739cb5392"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_guosheng8_corr_rank_volume_intraday_6d"
+formula = "../../factors/daily/doc_guosheng8_corr_rank_volume_intraday_6d.qha"
+idea = "IDEA-doc_guosheng8_corr_rank_volume_intraday_6d.md"

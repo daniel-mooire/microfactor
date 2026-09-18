@@ -1,0 +1,22 @@
+version = 1
+name = "华泰人工智能系列32-AlphaNet-因子挖掘神经网络-3ddfa830-v1"
+snapshot = "18a90630ba46ea563299f3c673b4d84b557afc05953ed8db892bede82911b5eb"
+reference = "3ddfa83027df1c9a66f1c7af5c7c262eac6c1297cc7612d1fc5c17d7bc812858"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_huatai_ai32_free_turn_std_10d"
+formula = "../../factors/daily/doc_huatai_ai32_free_turn_std_10d.qha"
+idea = "IDEA-doc_huatai_ai32_free_turn_std_10d.md"
+
+[[factors]]
+name = "doc_huatai_ai32_high_return_corr_10d"
+formula = "../../factors/daily/doc_huatai_ai32_high_return_corr_10d.qha"
+idea = "IDEA-doc_huatai_ai32_high_return_corr_10d.md"
+
+[[factors]]
+name = "doc_huatai_ai32_low_return_corr_10d"
+formula = "../../factors/daily/doc_huatai_ai32_low_return_corr_10d.qha"
+idea = "IDEA-doc_huatai_ai32_low_return_corr_10d.md"

@@ -1,0 +1,18 @@
+version = 1
+name = "doc_huatai6_id2_std_down_3m"
+frequency = "1d"
+formula = "sum(epsilon^2 where epsilon<0)/sqrt(63), epsilon from 63d OLS(return ~ 1 + market + size + bp)"
+inputs = ["close_to_close_total_return_1d", "is_suspended", "total_mv", "pb"]
+min_window = 64
+direction = "negative"
+category = "volatility"
+adjust = "none"
+implementation = "microfactor.factors.document_extended:_compute/doc_huatai6_id2_std_down_3m"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "华泰多因子系列6-单因子测试之波动率类因子-0e330946"
+reference = "0e33094604f770bf8116b0006d1cfa16e70148b0b958ff9031aede526293ec78"
+adaptation = "The report uses CSI All Share returns; the implementation uses the daily equal-weight return of available non-suspended stocks as a proxy. Three months is fixed at 63 trading days. Size and PB returns use the current available-stock panel, lagged characteristics, and bottom-30% minus top-30% equal-weight returns. Output requires a complete stock-return window, and residual standard deviation uses ddof=0."
+tags = ["document", "daily", "volatility", "idiosyncratic", "three_factor"]
+parameters_json = "{\"characteristic_lag_days\":1,\"exclude_suspended_sessions\":true,\"include_intercept\":true,\"market_return\":\"available_stock_equal_weight\",\"minimum_valid_days\":63,\"portfolio_tail_fraction\":0.3,\"residual_std_ddof\":0,\"size_characteristic\":\"total_mv\",\"value_characteristic\":\"pb\",\"window_days\":63}"

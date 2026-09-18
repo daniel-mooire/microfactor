@@ -1,0 +1,18 @@
+version = 1
+name = "doc_amount_std_6"
+frequency = "1d"
+formula = "STD(AMOUNT,6)"
+inputs = ["amount"]
+min_window = 6
+direction = "negative"
+category = "liquidity"
+adjust = "hfq"
+implementation = "microfactor.factors.document_indicators::doc_amount_std_6"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "广发多因子系列42-海量技术指标掘金Alpha因子-ebb746e4"
+reference = "ebb746e4e36034e7bb654e15858c111028f0e23b67ecbaa72ca1d3677bba07bc"
+adaptation = "报告图表称成交金额方差；实现采用滚动样本标准差（ddof=1）以保持可比性。"
+tags = ["document", "daily", "technical"]
+parameters_json = "{\"N\":6}"

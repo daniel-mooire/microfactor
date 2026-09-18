@@ -1,0 +1,18 @@
+version = 1
+name = "alpha191_008"
+frequency = "1d"
+formula = "-1 * rank(delta((0.2 * ((high + low) / 2)) + (0.8 * vwap), 4))"
+inputs = ["high", "low", "vwap"]
+min_window = 5
+direction = "unspecified"
+category = "price_volume"
+adjust = "none"
+implementation = "microfactor.factors.alpha191_document::alpha191_008"
+implementation_status = "exact"
+status = "candidate"
+source_type = "document"
+source_group = "Alpha191-9f867946"
+reference = "9f867946daeec1a1a84d0e3e7edff93a96485a94effe240d85f0d8c3f3a3f13e"
+adaptation = "The formula is evaluated in the source-supported fq=None mode so OHLC and VWAP remain in the same unadjusted price units. The signal uses information through the T-day close and is evaluated against the standard T+1 open return. Normalization audit: Moved the source's trailing multiplication by -1 outside the rank."
+tags = ["document", "alpha191", "daily"]
+parameters_json = "{\"alpha191_number\":8,\"normalization\":\"Moved the source's trailing multiplication by -1 outside the rank.\",\"normalized_expression\":\"-1 * rank(delta((0.2 * ((high + low) / 2)) + (0.8 * vwap), 4))\",\"recursive_stability_window\":null,\"source_expression\":\"RANK(DELTA(((((HIGH + LOW) / 2) * 0.2) + (VWAP * 0.8)), 4) * -1)\",\"source_fq\":null}"

@@ -1,0 +1,12 @@
+version = 1
+name = "海通选股因子系列研究37-A股是否存在异质动量效应-2c87c85e-v1"
+snapshot = "fc37ac10f6b0f806ae683888fcea24d474a3d092363abae90622895b8f0cb76b"
+reference = "2c87c85e608d686eb7f4416885c4e4628673013ca95cd9bef47583b0aa9b9264"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_haitong37_imom1_12m"
+formula = "../../factors/daily/doc_haitong37_imom1_12m.qha"
+idea = "IDEA-doc_haitong37_imom1_12m.md"

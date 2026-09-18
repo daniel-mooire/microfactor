@@ -1,0 +1,57 @@
+version = 1
+name = "海通选股因子系列研究13-因子大讲坛-056746cd-v1"
+snapshot = "c85e093c47ed07e87b1667fbd932eb3835f7c55696fd9e5cfa95edd37ac94781"
+reference = "056746cd34bd9546995868555b8418149e8519e10649c8c12365f99f77d1de4a"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_haitong13_52week_high"
+formula = "../../factors/daily/doc_haitong13_52week_high.qha"
+idea = "IDEA-doc_haitong13_52week_high.md"
+
+[[factors]]
+name = "doc_haitong13_amihud_12m"
+formula = "../../factors/daily/doc_haitong13_amihud_12m.qha"
+idea = "IDEA-doc_haitong13_amihud_12m.md"
+
+[[factors]]
+name = "doc_haitong13_lagged_momentum_12_7m"
+formula = "../../factors/daily/doc_haitong13_lagged_momentum_12_7m.qha"
+idea = "IDEA-doc_haitong13_lagged_momentum_12_7m.md"
+
+[[factors]]
+name = "doc_haitong13_long_term_reversal_60_13m"
+formula = "../../factors/daily/doc_haitong13_long_term_reversal_60_13m.qha"
+idea = "IDEA-doc_haitong13_long_term_reversal_60_13m.md"
+
+[[factors]]
+name = "doc_haitong13_max_monthly_return"
+formula = "../../factors/daily/doc_haitong13_max_monthly_return.qha"
+idea = "IDEA-doc_haitong13_max_monthly_return.md"
+
+[[factors]]
+name = "doc_haitong13_momentum_6_1m"
+formula = "../../factors/daily/doc_haitong13_momentum_6_1m.qha"
+idea = "IDEA-doc_haitong13_momentum_6_1m.md"
+
+[[factors]]
+name = "doc_haitong13_momentum_reversal_18_13m"
+formula = "../../factors/daily/doc_haitong13_momentum_reversal_18_13m.qha"
+idea = "IDEA-doc_haitong13_momentum_reversal_18_13m.md"
+
+[[factors]]
+name = "doc_haitong13_seasonality_month"
+formula = "../../factors/daily/doc_haitong13_seasonality_month.qha"
+idea = "IDEA-doc_haitong13_seasonality_month.md"
+
+[[factors]]
+name = "doc_haitong13_share_volume_3m"
+formula = "../../factors/daily/doc_haitong13_share_volume_3m.qha"
+idea = "IDEA-doc_haitong13_share_volume_3m.md"
+
+[[factors]]
+name = "doc_haitong13_short_term_reversal_1m"
+formula = "../../factors/daily/doc_haitong13_short_term_reversal_1m.qha"
+idea = "IDEA-doc_haitong13_short_term_reversal_1m.md"

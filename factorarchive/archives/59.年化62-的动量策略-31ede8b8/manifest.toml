@@ -1,0 +1,12 @@
+version = 1
+name = "59.年化62-的动量策略-31ede8b8-v1"
+snapshot = "ee6eefcc3ff6e55dc309cb1bad9628f81211fbd7db8887cdc7eab76e0f4587b8"
+reference = "31ede8b8c288864c2315ab32addd7efde4ca88031ef8832b170731d03ec7639c"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_jq2022_reversal_90d"
+formula = "../../factors/daily/doc_jq2022_reversal_90d.qha"
+idea = "IDEA-doc_jq2022_reversal_90d.md"

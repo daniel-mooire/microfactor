@@ -1,0 +1,27 @@
+version = 1
+name = "星火多因子专题报告10-如何对Beta因子进行稳健估计-fbb29e69-v1"
+snapshot = "ba4211a55a68faff2ade57a3a34d67e89de763ec2a292f691e636c01f7ad7b63"
+reference = "fbb29e6962ff6a40a588beca87626866b36177d11dd7e9b0a8511d5bded3e36d"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_xinghuo10_capm_beta_12m"
+formula = "../../factors/daily/doc_xinghuo10_capm_beta_12m.qha"
+idea = "IDEA-doc_xinghuo10_capm_beta_12m.md"
+
+[[factors]]
+name = "doc_xinghuo10_capm_beta_6m"
+formula = "../../factors/daily/doc_xinghuo10_capm_beta_6m.qha"
+idea = "IDEA-doc_xinghuo10_capm_beta_6m.md"
+
+[[factors]]
+name = "doc_xinghuo10_ewma_beta_12m"
+formula = "../../factors/daily/doc_xinghuo10_ewma_beta_12m.qha"
+idea = "IDEA-doc_xinghuo10_ewma_beta_12m.md"
+
+[[factors]]
+name = "doc_xinghuo10_ewma_beta_6m"
+formula = "../../factors/daily/doc_xinghuo10_ewma_beta_6m.qha"
+idea = "IDEA-doc_xinghuo10_ewma_beta_6m.md"

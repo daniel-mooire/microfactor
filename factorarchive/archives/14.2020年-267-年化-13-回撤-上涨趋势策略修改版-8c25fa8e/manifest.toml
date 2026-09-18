@@ -1,0 +1,12 @@
+version = 1
+name = "14.2020年-267-年化-13-回撤-上涨趋势策略修改版-8c25fa8e-v1"
+snapshot = "241b033cff3eadd241e937d52b88257b81ea7559448c64f0a98ff6318b4b7728"
+reference = "8c25fa8e099088efd28e76dc42218da025b7a4c79a44ca27f7fec38a07d85bfc"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_jq2023_price_trend_r2_120d"
+formula = "../../factors/daily/doc_jq2023_price_trend_r2_120d.qha"
+idea = "IDEA-doc_jq2023_price_trend_r2_120d.md"

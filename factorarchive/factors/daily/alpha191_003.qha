@@ -1,0 +1,18 @@
+version = 1
+name = "alpha191_003"
+frequency = "1d"
+formula = "sum((close == delay(close, 1)) ? 0 : (close - ((close > delay(close, 1)) ? min(low, delay(close, 1)) : max(high, delay(close, 1)))), 6)"
+inputs = ["close", "high", "low"]
+min_window = 7
+direction = "unspecified"
+category = "price_volume"
+adjust = "none"
+implementation = "microfactor.factors.alpha191_document::alpha191_003"
+implementation_status = "exact"
+status = "candidate"
+source_type = "document"
+source_group = "Alpha191-9f867946"
+reference = "9f867946daeec1a1a84d0e3e7edff93a96485a94effe240d85f0d8c3f3a3f13e"
+adaptation = "The formula is evaluated in the source-supported fq=None mode so OHLC and VWAP remain in the same unadjusted price units. The signal uses information through the T-day close and is evaluated against the standard T+1 open return. Normalization audit: Normalized the source equality symbol '=' to parser equality '=='."
+tags = ["document", "alpha191", "daily"]
+parameters_json = "{\"alpha191_number\":3,\"normalization\":\"Normalized the source equality symbol '=' to parser equality '=='.\",\"normalized_expression\":\"sum((close == delay(close, 1)) ? 0 : (close - ((close > delay(close, 1)) ? min(low, delay(close, 1)) : max(high, delay(close, 1)))), 6)\",\"recursive_stability_window\":null,\"source_expression\":\"SUM((CLOSE=DELAY(CLOSE,1)?0:CLOSE-(CLOSE>DELAY(CLOSE,1)?MIN(LOW,DELAY(CLOSE,1)):MAX(HIGH,DELAY(CLOSE,1)))),6)\",\"source_fq\":null}"

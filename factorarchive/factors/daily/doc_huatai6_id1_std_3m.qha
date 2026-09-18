@@ -1,0 +1,18 @@
+version = 1
+name = "doc_huatai6_id1_std_3m"
+frequency = "1d"
+formula = "std(epsilon, ddof=0), epsilon from 63d OLS(return ~ 1 + market)"
+inputs = ["close_to_close_total_return_1d", "is_suspended"]
+min_window = 64
+direction = "negative"
+category = "volatility"
+adjust = "none"
+implementation = "microfactor.factors.document_extended:_compute/doc_huatai6_id1_std_3m"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "华泰多因子系列6-单因子测试之波动率类因子-0e330946"
+reference = "0e33094604f770bf8116b0006d1cfa16e70148b0b958ff9031aede526293ec78"
+adaptation = "The report uses CSI All Share returns; the implementation uses the daily equal-weight return of available non-suspended stocks as a proxy. Three months is fixed at 63 trading days, output requires a complete stock-return window, and residual standard deviation uses ddof=0."
+tags = ["document", "daily", "volatility", "idiosyncratic", "capm"]
+parameters_json = "{\"exclude_suspended_sessions\":true,\"include_intercept\":true,\"market_return\":\"available_stock_equal_weight\",\"minimum_valid_days\":63,\"residual_std_ddof\":0,\"window_days\":63}"

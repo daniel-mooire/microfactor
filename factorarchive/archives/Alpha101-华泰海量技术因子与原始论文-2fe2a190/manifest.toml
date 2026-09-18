@@ -1,0 +1,397 @@
+version = 1
+name = "Alpha101-华泰海量技术因子与原始论文-2fe2a190-v1"
+snapshot = "1184096a86d0d4fedbb787de27b0f5d880c0ca6f422580c45f54a68e4f91487b"
+reference = "2fe2a1906be2da0ebc22e655e652cbb495027a0b859b18a0284b9014cb04dc8e"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "alpha101_001"
+formula = "../../factors/daily/alpha101_001.qha"
+idea = "IDEA-alpha101_001.md"
+
+[[factors]]
+name = "alpha101_002"
+formula = "../../factors/daily/alpha101_002.qha"
+idea = "IDEA-alpha101_002.md"
+
+[[factors]]
+name = "alpha101_003"
+formula = "../../factors/daily/alpha101_003.qha"
+idea = "IDEA-alpha101_003.md"
+
+[[factors]]
+name = "alpha101_004"
+formula = "../../factors/daily/alpha101_004.qha"
+idea = "IDEA-alpha101_004.md"
+
+[[factors]]
+name = "alpha101_005"
+formula = "../../factors/daily/alpha101_005.qha"
+idea = "IDEA-alpha101_005.md"
+
+[[factors]]
+name = "alpha101_006"
+formula = "../../factors/daily/alpha101_006.qha"
+idea = "IDEA-alpha101_006.md"
+
+[[factors]]
+name = "alpha101_008"
+formula = "../../factors/daily/alpha101_008.qha"
+idea = "IDEA-alpha101_008.md"
+
+[[factors]]
+name = "alpha101_009"
+formula = "../../factors/daily/alpha101_009.qha"
+idea = "IDEA-alpha101_009.md"
+
+[[factors]]
+name = "alpha101_010"
+formula = "../../factors/daily/alpha101_010.qha"
+idea = "IDEA-alpha101_010.md"
+
+[[factors]]
+name = "alpha101_011"
+formula = "../../factors/daily/alpha101_011.qha"
+idea = "IDEA-alpha101_011.md"
+
+[[factors]]
+name = "alpha101_012"
+formula = "../../factors/daily/alpha101_012.qha"
+idea = "IDEA-alpha101_012.md"
+
+[[factors]]
+name = "alpha101_013"
+formula = "../../factors/daily/alpha101_013.qha"
+idea = "IDEA-alpha101_013.md"
+
+[[factors]]
+name = "alpha101_014"
+formula = "../../factors/daily/alpha101_014.qha"
+idea = "IDEA-alpha101_014.md"
+
+[[factors]]
+name = "alpha101_015"
+formula = "../../factors/daily/alpha101_015.qha"
+idea = "IDEA-alpha101_015.md"
+
+[[factors]]
+name = "alpha101_017"
+formula = "../../factors/daily/alpha101_017.qha"
+idea = "IDEA-alpha101_017.md"
+
+[[factors]]
+name = "alpha101_018"
+formula = "../../factors/daily/alpha101_018.qha"
+idea = "IDEA-alpha101_018.md"
+
+[[factors]]
+name = "alpha101_019"
+formula = "../../factors/daily/alpha101_019.qha"
+idea = "IDEA-alpha101_019.md"
+
+[[factors]]
+name = "alpha101_020"
+formula = "../../factors/daily/alpha101_020.qha"
+idea = "IDEA-alpha101_020.md"
+
+[[factors]]
+name = "alpha101_021"
+formula = "../../factors/daily/alpha101_021.qha"
+idea = "IDEA-alpha101_021.md"
+
+[[factors]]
+name = "alpha101_022"
+formula = "../../factors/daily/alpha101_022.qha"
+idea = "IDEA-alpha101_022.md"
+
+[[factors]]
+name = "alpha101_023"
+formula = "../../factors/daily/alpha101_023.qha"
+idea = "IDEA-alpha101_023.md"
+
+[[factors]]
+name = "alpha101_024"
+formula = "../../factors/daily/alpha101_024.qha"
+idea = "IDEA-alpha101_024.md"
+
+[[factors]]
+name = "alpha101_025"
+formula = "../../factors/daily/alpha101_025.qha"
+idea = "IDEA-alpha101_025.md"
+
+[[factors]]
+name = "alpha101_026"
+formula = "../../factors/daily/alpha101_026.qha"
+idea = "IDEA-alpha101_026.md"
+
+[[factors]]
+name = "alpha101_027"
+formula = "../../factors/daily/alpha101_027.qha"
+idea = "IDEA-alpha101_027.md"
+
+[[factors]]
+name = "alpha101_028"
+formula = "../../factors/daily/alpha101_028.qha"
+idea = "IDEA-alpha101_028.md"
+
+[[factors]]
+name = "alpha101_029"
+formula = "../../factors/daily/alpha101_029.qha"
+idea = "IDEA-alpha101_029.md"
+
+[[factors]]
+name = "alpha101_030"
+formula = "../../factors/daily/alpha101_030.qha"
+idea = "IDEA-alpha101_030.md"
+
+[[factors]]
+name = "alpha101_031"
+formula = "../../factors/daily/alpha101_031.qha"
+idea = "IDEA-alpha101_031.md"
+
+[[factors]]
+name = "alpha101_032"
+formula = "../../factors/daily/alpha101_032.qha"
+idea = "IDEA-alpha101_032.md"
+
+[[factors]]
+name = "alpha101_033"
+formula = "../../factors/daily/alpha101_033.qha"
+idea = "IDEA-alpha101_033.md"
+
+[[factors]]
+name = "alpha101_034"
+formula = "../../factors/daily/alpha101_034.qha"
+idea = "IDEA-alpha101_034.md"
+
+[[factors]]
+name = "alpha101_035"
+formula = "../../factors/daily/alpha101_035.qha"
+idea = "IDEA-alpha101_035.md"
+
+[[factors]]
+name = "alpha101_036"
+formula = "../../factors/daily/alpha101_036.qha"
+idea = "IDEA-alpha101_036.md"
+
+[[factors]]
+name = "alpha101_037"
+formula = "../../factors/daily/alpha101_037.qha"
+idea = "IDEA-alpha101_037.md"
+
+[[factors]]
+name = "alpha101_038"
+formula = "../../factors/daily/alpha101_038.qha"
+idea = "IDEA-alpha101_038.md"
+
+[[factors]]
+name = "alpha101_039"
+formula = "../../factors/daily/alpha101_039.qha"
+idea = "IDEA-alpha101_039.md"
+
+[[factors]]
+name = "alpha101_041"
+formula = "../../factors/daily/alpha101_041.qha"
+idea = "IDEA-alpha101_041.md"
+
+[[factors]]
+name = "alpha101_042"
+formula = "../../factors/daily/alpha101_042.qha"
+idea = "IDEA-alpha101_042.md"
+
+[[factors]]
+name = "alpha101_043"
+formula = "../../factors/daily/alpha101_043.qha"
+idea = "IDEA-alpha101_043.md"
+
+[[factors]]
+name = "alpha101_045"
+formula = "../../factors/daily/alpha101_045.qha"
+idea = "IDEA-alpha101_045.md"
+
+[[factors]]
+name = "alpha101_046"
+formula = "../../factors/daily/alpha101_046.qha"
+idea = "IDEA-alpha101_046.md"
+
+[[factors]]
+name = "alpha101_047"
+formula = "../../factors/daily/alpha101_047.qha"
+idea = "IDEA-alpha101_047.md"
+
+[[factors]]
+name = "alpha101_049"
+formula = "../../factors/daily/alpha101_049.qha"
+idea = "IDEA-alpha101_049.md"
+
+[[factors]]
+name = "alpha101_051"
+formula = "../../factors/daily/alpha101_051.qha"
+idea = "IDEA-alpha101_051.md"
+
+[[factors]]
+name = "alpha101_052"
+formula = "../../factors/daily/alpha101_052.qha"
+idea = "IDEA-alpha101_052.md"
+
+[[factors]]
+name = "alpha101_053"
+formula = "../../factors/daily/alpha101_053.qha"
+idea = "IDEA-alpha101_053.md"
+
+[[factors]]
+name = "alpha101_054"
+formula = "../../factors/daily/alpha101_054.qha"
+idea = "IDEA-alpha101_054.md"
+
+[[factors]]
+name = "alpha101_055"
+formula = "../../factors/daily/alpha101_055.qha"
+idea = "IDEA-alpha101_055.md"
+
+[[factors]]
+name = "alpha101_056"
+formula = "../../factors/daily/alpha101_056.qha"
+idea = "IDEA-alpha101_056.md"
+
+[[factors]]
+name = "alpha101_057"
+formula = "../../factors/daily/alpha101_057.qha"
+idea = "IDEA-alpha101_057.md"
+
+[[factors]]
+name = "alpha101_060"
+formula = "../../factors/daily/alpha101_060.qha"
+idea = "IDEA-alpha101_060.md"
+
+[[factors]]
+name = "alpha101_061"
+formula = "../../factors/daily/alpha101_061.qha"
+idea = "IDEA-alpha101_061.md"
+
+[[factors]]
+name = "alpha101_062"
+formula = "../../factors/daily/alpha101_062.qha"
+idea = "IDEA-alpha101_062.md"
+
+[[factors]]
+name = "alpha101_064"
+formula = "../../factors/daily/alpha101_064.qha"
+idea = "IDEA-alpha101_064.md"
+
+[[factors]]
+name = "alpha101_065"
+formula = "../../factors/daily/alpha101_065.qha"
+idea = "IDEA-alpha101_065.md"
+
+[[factors]]
+name = "alpha101_066"
+formula = "../../factors/daily/alpha101_066.qha"
+idea = "IDEA-alpha101_066.md"
+
+[[factors]]
+name = "alpha101_068"
+formula = "../../factors/daily/alpha101_068.qha"
+idea = "IDEA-alpha101_068.md"
+
+[[factors]]
+name = "alpha101_071"
+formula = "../../factors/daily/alpha101_071.qha"
+idea = "IDEA-alpha101_071.md"
+
+[[factors]]
+name = "alpha101_072"
+formula = "../../factors/daily/alpha101_072.qha"
+idea = "IDEA-alpha101_072.md"
+
+[[factors]]
+name = "alpha101_073"
+formula = "../../factors/daily/alpha101_073.qha"
+idea = "IDEA-alpha101_073.md"
+
+[[factors]]
+name = "alpha101_074"
+formula = "../../factors/daily/alpha101_074.qha"
+idea = "IDEA-alpha101_074.md"
+
+[[factors]]
+name = "alpha101_075"
+formula = "../../factors/daily/alpha101_075.qha"
+idea = "IDEA-alpha101_075.md"
+
+[[factors]]
+name = "alpha101_077"
+formula = "../../factors/daily/alpha101_077.qha"
+idea = "IDEA-alpha101_077.md"
+
+[[factors]]
+name = "alpha101_078"
+formula = "../../factors/daily/alpha101_078.qha"
+idea = "IDEA-alpha101_078.md"
+
+[[factors]]
+name = "alpha101_081"
+formula = "../../factors/daily/alpha101_081.qha"
+idea = "IDEA-alpha101_081.md"
+
+[[factors]]
+name = "alpha101_083"
+formula = "../../factors/daily/alpha101_083.qha"
+idea = "IDEA-alpha101_083.md"
+
+[[factors]]
+name = "alpha101_084"
+formula = "../../factors/daily/alpha101_084.qha"
+idea = "IDEA-alpha101_084.md"
+
+[[factors]]
+name = "alpha101_085"
+formula = "../../factors/daily/alpha101_085.qha"
+idea = "IDEA-alpha101_085.md"
+
+[[factors]]
+name = "alpha101_086"
+formula = "../../factors/daily/alpha101_086.qha"
+idea = "IDEA-alpha101_086.md"
+
+[[factors]]
+name = "alpha101_088"
+formula = "../../factors/daily/alpha101_088.qha"
+idea = "IDEA-alpha101_088.md"
+
+[[factors]]
+name = "alpha101_092"
+formula = "../../factors/daily/alpha101_092.qha"
+idea = "IDEA-alpha101_092.md"
+
+[[factors]]
+name = "alpha101_094"
+formula = "../../factors/daily/alpha101_094.qha"
+idea = "IDEA-alpha101_094.md"
+
+[[factors]]
+name = "alpha101_095"
+formula = "../../factors/daily/alpha101_095.qha"
+idea = "IDEA-alpha101_095.md"
+
+[[factors]]
+name = "alpha101_096"
+formula = "../../factors/daily/alpha101_096.qha"
+idea = "IDEA-alpha101_096.md"
+
+[[factors]]
+name = "alpha101_098"
+formula = "../../factors/daily/alpha101_098.qha"
+idea = "IDEA-alpha101_098.md"
+
+[[factors]]
+name = "alpha101_099"
+formula = "../../factors/daily/alpha101_099.qha"
+idea = "IDEA-alpha101_099.md"
+
+[[factors]]
+name = "alpha101_101"
+formula = "../../factors/daily/alpha101_101.qha"
+idea = "IDEA-alpha101_101.md"

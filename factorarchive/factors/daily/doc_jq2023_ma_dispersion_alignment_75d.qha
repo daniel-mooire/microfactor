@@ -1,0 +1,18 @@
+version = 1
+name = "doc_jq2023_ma_dispersion_alignment_75d"
+frequency = "1d"
+formula = "SUM(RMS((MA13,MA21,MA55)/MEDIAN-1),lags=1..20)-SUM(IF(MA13>=MA21>=MA55,(MA13-MA21)/MA21+(MA21-MA55)/MA55,0),lags=0..4)"
+inputs = ["adjusted_close"]
+min_window = 75
+direction = "negative"
+category = "trend"
+adjust = "qfq"
+implementation = "microfactor.factors.document_extended:_compute/doc_jq2023_ma_dispersion_alignment_75d"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "49.-7日趋势-交易策略-4a9e21d0"
+reference = "4a9e21d05fb014d129ea24928cec287311511cfadc6c5ff8c308e26b52277989"
+adaptation = "The source ranks the score ascending after turnover, market-cap, listing-age, moving-average, and volume filters, but then keeps only scores above 0.005. The implementation exposes the continuous rolling score across the current stock universe and does not resolve that source-level ranking/threshold conflict."
+tags = ["document", "daily", "trend", "moving_average", "dispersion"]
+parameters_json = "{\"alignment_lags\":[0,1,2,3,4],\"dispersion_center\":\"cross_ma_median\",\"dispersion_lags\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],\"moving_average_windows\":[13,21,55],\"source_keep_threshold\":0.005,\"source_sort\":\"ascending\"}"

@@ -1,0 +1,27 @@
+version = 1
+name = "华泰人工智能系列21-基于遗传规划的选股因子挖掘-b201c5ff-v1"
+snapshot = "244d9ca6859b2d56b0db2cfa09c074b3f052414653ff3856b55015d5863c32c8"
+reference = "b201c5ffae98c44a7d14c3cab40e031a9a925b74fc9315fbd00bb38310319073"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_huatai_ai21_gp_alpha3_volume_std_5d"
+formula = "../../factors/daily/doc_huatai_ai21_gp_alpha3_volume_std_5d.qha"
+idea = "IDEA-doc_huatai_ai21_gp_alpha3_volume_std_5d.md"
+
+[[factors]]
+name = "doc_huatai_ai21_gp_alpha4_high_volume_cov_std_10d"
+formula = "../../factors/daily/doc_huatai_ai21_gp_alpha4_high_volume_cov_std_10d.qha"
+idea = "IDEA-doc_huatai_ai21_gp_alpha4_high_volume_cov_std_10d.md"
+
+[[factors]]
+name = "doc_huatai_ai21_gp_alpha5_high_volume_cov_std_5d"
+formula = "../../factors/daily/doc_huatai_ai21_gp_alpha5_high_volume_cov_std_5d.qha"
+idea = "IDEA-doc_huatai_ai21_gp_alpha5_high_volume_cov_std_5d.md"
+
+[[factors]]
+name = "doc_huatai_ai21_gp_alpha6_high_low_close_sum_5d"
+formula = "../../factors/daily/doc_huatai_ai21_gp_alpha6_high_low_close_sum_5d.qha"
+idea = "IDEA-doc_huatai_ai21_gp_alpha6_high_low_close_sum_5d.md"

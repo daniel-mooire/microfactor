@@ -1,0 +1,37 @@
+version = 1
+name = "43.ETF动量因子评估-803d0afa-v1"
+snapshot = "95e336b1e7c49fa54ef6f30b1d28d42333fccef932d2c2dced5feb49cc3cb4ec"
+reference = "803d0afa67862c0ab4060ed88de841463120c7d8f26989d4a68c0c5b09d2e057"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_etf_slope_10"
+formula = "../../factors/daily/doc_etf_slope_10.qha"
+idea = "IDEA-doc_etf_slope_10.md"
+
+[[factors]]
+name = "doc_etf_slope_20"
+formula = "../../factors/daily/doc_etf_slope_20.qha"
+idea = "IDEA-doc_etf_slope_20.md"
+
+[[factors]]
+name = "doc_etf_slope_3"
+formula = "../../factors/daily/doc_etf_slope_3.qha"
+idea = "IDEA-doc_etf_slope_3.md"
+
+[[factors]]
+name = "doc_etf_slope_30"
+formula = "../../factors/daily/doc_etf_slope_30.qha"
+idea = "IDEA-doc_etf_slope_30.md"
+
+[[factors]]
+name = "doc_etf_slope_5"
+formula = "../../factors/daily/doc_etf_slope_5.qha"
+idea = "IDEA-doc_etf_slope_5.md"
+
+[[factors]]
+name = "doc_etf_slope_60"
+formula = "../../factors/daily/doc_etf_slope_60.qha"
+idea = "IDEA-doc_etf_slope_60.md"

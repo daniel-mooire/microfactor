@@ -1,0 +1,12 @@
+version = 1
+name = "37.处置效应的CGO因子-行为金融学因子-bdd2afe7-v1"
+snapshot = "080a6023d5ae0c49398ebf6954da1bbe3164d40934761b154989769508625440"
+reference = "bdd2afe74b8cb9c64406ca3652f79280747be21a75e467b608d68fe5675e15b4"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_jq2025_cgo_100d"
+formula = "../../factors/daily/doc_jq2025_cgo_100d.qha"
+idea = "IDEA-doc_jq2025_cgo_100d.md"

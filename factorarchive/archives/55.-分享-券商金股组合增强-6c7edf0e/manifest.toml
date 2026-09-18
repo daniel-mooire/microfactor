@@ -1,0 +1,22 @@
+version = 1
+name = "55.-分享-券商金股组合增强-6c7edf0e-v1"
+snapshot = "ed8d216782af98aaa948f965af1814450ebc009ade97d45c67dbc153fba2b92d"
+reference = "6c7edf0ef4bcee88cd335ade773e2edaf5aaf8617300d6b6c22804066a9aeacd"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_jq2023_broker_gold_af_spread_20d"
+formula = "../../factors/daily/doc_jq2023_broker_gold_af_spread_20d.qha"
+idea = "IDEA-doc_jq2023_broker_gold_af_spread_20d.md"
+
+[[factors]]
+name = "doc_jq2023_broker_gold_low_amplitude_momentum_120d"
+formula = "../../factors/daily/doc_jq2023_broker_gold_low_amplitude_momentum_120d.qha"
+idea = "IDEA-doc_jq2023_broker_gold_low_amplitude_momentum_120d.md"
+
+[[factors]]
+name = "doc_jq2023_broker_gold_mean_daily_relative_weakness_22d"
+formula = "../../factors/daily/doc_jq2023_broker_gold_mean_daily_relative_weakness_22d.qha"
+idea = "IDEA-doc_jq2023_broker_gold_mean_daily_relative_weakness_22d.md"

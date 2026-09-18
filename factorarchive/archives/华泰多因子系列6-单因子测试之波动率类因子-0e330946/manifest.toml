@@ -1,0 +1,37 @@
+version = 1
+name = "华泰多因子系列6-单因子测试之波动率类因子-0e330946-v1"
+snapshot = "ac78fcc3ec4f8c2513d5202da001e73643d92a7584d8e7c02222035393ef22cc"
+reference = "0e33094604f770bf8116b0006d1cfa16e70148b0b958ff9031aede526293ec78"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_huatai6_id1_std_3m"
+formula = "../../factors/daily/doc_huatai6_id1_std_3m.qha"
+idea = "IDEA-doc_huatai6_id1_std_3m.md"
+
+[[factors]]
+name = "doc_huatai6_id2_std_3m"
+formula = "../../factors/daily/doc_huatai6_id2_std_3m.qha"
+idea = "IDEA-doc_huatai6_id2_std_3m.md"
+
+[[factors]]
+name = "doc_huatai6_id2_std_down_3m"
+formula = "../../factors/daily/doc_huatai6_id2_std_down_3m.qha"
+idea = "IDEA-doc_huatai6_id2_std_down_3m.md"
+
+[[factors]]
+name = "doc_huatai6_id2_std_umd_3m"
+formula = "../../factors/daily/doc_huatai6_id2_std_umd_3m.qha"
+idea = "IDEA-doc_huatai6_id2_std_umd_3m.md"
+
+[[factors]]
+name = "doc_huatai6_id2_std_up_3m"
+formula = "../../factors/daily/doc_huatai6_id2_std_up_3m.qha"
+idea = "IDEA-doc_huatai6_id2_std_up_3m.md"
+
+[[factors]]
+name = "doc_huatai6_id2_std_upd_3m"
+formula = "../../factors/daily/doc_huatai6_id2_std_upd_3m.qha"
+idea = "IDEA-doc_huatai6_id2_std_upd_3m.md"

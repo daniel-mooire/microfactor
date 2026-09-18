@@ -1,0 +1,12 @@
+version = 1
+name = "2.-7年40倍-策略扩容到50只-62003df2-v1"
+snapshot = "df978239b7786da3556c4ce33defc411c4b67a81faf9fd72d96aeb3f337487e5"
+reference = "62003df231c7c1ed97de76b6c3478e9fce87f5e6a30f3f5bd488784d6c6543ad"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_jq2024_five_dimension_composite_60d"
+formula = "../../factors/daily/doc_jq2024_five_dimension_composite_60d.qha"
+idea = "IDEA-doc_jq2024_five_dimension_composite_60d.md"

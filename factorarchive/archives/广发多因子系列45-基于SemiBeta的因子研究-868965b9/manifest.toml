@@ -1,0 +1,12 @@
+version = 1
+name = "广发多因子系列45-基于SemiBeta的因子研究-868965b9-v1"
+snapshot = "47ecf1a86c187f281122c4c46f850d499c3146af8a96c36b8668892f85e66300"
+reference = "868965b9f7b42007aab42343529990f582f45d4d8c2e1e0e337c6e395554bad9"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_guangfa45_semibeta_mn_60d"
+formula = "../../factors/daily/doc_guangfa45_semibeta_mn_60d.qha"
+idea = "IDEA-doc_guangfa45_semibeta_mn_60d.md"

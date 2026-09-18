@@ -1,0 +1,18 @@
+version = 1
+name = "doc_jq2022_limit_up_count_250d"
+frequency = "1d"
+formula = "SUM(close==up_limit,250)"
+inputs = ["close", "up_limit", "is_suspended"]
+min_window = 250
+direction = "positive"
+category = "event"
+adjust = "none"
+implementation = "microfactor.factors.document_extended:_compute/doc_jq2022_limit_up_count_250d"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "97.-涨停研究一-具有哪些因子的股票更容易涨停-9cd87e21"
+reference = "9cd87e21efc53f85c9178c54bfeb78df28c32125c6c565744df21f76215698c8"
+adaptation = "源码要求历史涨停次数高于全市场均值的5倍，并与价格位置和流通市值共同筛选次日涨停候选；实现仅暴露完全披露的250日原始计数，统一评估未来open_t1收益。"
+tags = ["document", "daily", "limit_up", "event_count", "limit_up_study"]
+parameters_json = "{\"source_target\":\"next_day_limit_up\",\"source_threshold_multiple\":5.0,\"suspended_session_event\":0,\"window\":250}"

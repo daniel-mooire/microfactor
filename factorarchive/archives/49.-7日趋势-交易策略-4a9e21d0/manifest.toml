@@ -1,0 +1,12 @@
+version = 1
+name = "49.-7日趋势-交易策略-4a9e21d0-v1"
+snapshot = "db794092e026806bbe2e3f9dddd1a6516ab47dd5ef8f6f5d564f7a0996e9a16f"
+reference = "4a9e21d05fb014d129ea24928cec287311511cfadc6c5ff8c308e26b52277989"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_jq2023_ma_dispersion_alignment_75d"
+formula = "../../factors/daily/doc_jq2023_ma_dispersion_alignment_75d.qha"
+idea = "IDEA-doc_jq2023_ma_dispersion_alignment_75d.md"

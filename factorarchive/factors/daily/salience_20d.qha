@@ -1,0 +1,18 @@
+version = 1
+name = "salience_20d"
+frequency = "1d"
+formula = "cov20(weight20(salience), return); weight=0.7^rank / mean20(0.7^rank)"
+inputs = ["close", "pre_close"]
+min_window = 58
+direction = "reversal"
+category = "behavioral"
+adjust = "hfq"
+implementation = "microfactor.factors.document_factors::salience_20d"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "90.-复现-凸显度因子-7ad18e92"
+reference = "7ad18e923eafb60adef1a9d7f7fb88cd1b9777e58089d026519694edcd277377"
+adaptation = "The original benchmark return is unavailable; the point-in-time cross-sectional mean return is used."
+tags = ["document", "reproduced"]
+parameters_json = "{}"

@@ -1,0 +1,12 @@
+version = 1
+name = "32.非线性市值-非小市值-组合4只-e3bb3402-v1"
+snapshot = "53af358e338baa35b0de0179ed684c938818f0db5d9654f47434c6dd851ff593"
+reference = "e3bb3402afe70b0933d40f6962edda66c595cf2aed33ba256eae3314752eb970"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_jq2024_large_cap_five_dimension_composite_60d"
+formula = "../../factors/daily/doc_jq2024_large_cap_five_dimension_composite_60d.qha"
+idea = "IDEA-doc_jq2024_large_cap_five_dimension_composite_60d.md"

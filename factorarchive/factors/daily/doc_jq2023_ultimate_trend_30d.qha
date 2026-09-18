@@ -1,0 +1,18 @@
+version = 1
+name = "doc_jq2023_ultimate_trend_30d"
+frequency = "1d"
+formula = "ultimate_score(normalize_compound(adjusted_close, MA=5), N=29); ultimate_score=absolute_score/N^(3/2)"
+inputs = ["adjusted_close"]
+min_window = 30
+direction = "positive"
+category = "trend"
+adjust = "qfq"
+implementation = "microfactor.factors.document_extended:_compute/doc_jq2023_ultimate_trend_30d"
+implementation_status = "exact"
+status = "candidate"
+source_type = "document"
+source_group = "82.势的度量-0d97a4f8"
+reference = "0d97a4f872dd4e6c5973b618b9b9a2096d3a21afd49435bacb2ea6a94c4145be"
+adaptation = ""
+tags = ["document", "daily", "trend", "price_path", "strength"]
+parameters_json = "{\"moving_average_window\":5,\"normalization\":\"compound\",\"score\":\"ultimate\",\"window\":30}"

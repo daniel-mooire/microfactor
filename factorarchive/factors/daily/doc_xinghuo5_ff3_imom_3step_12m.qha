@@ -1,0 +1,18 @@
+version = 1
+name = "doc_xinghuo5_ff3_imom_3step_12m"
+frequency = "1d"
+formula = "(prod(1+epsilon[t-12:t-1])-1)/(sqrt(12)*std(epsilon[t-12:t-1])); epsilon from rolling 36m no-intercept FF3 exposure"
+inputs = ["close_total_return_index", "total_mv", "pb", "is_suspended"]
+min_window = 1029
+direction = "positive"
+category = "momentum"
+adjust = "hfq"
+implementation = "microfactor.factors.document_extended:_compute/doc_xinghuo5_ff3_imom_3step_12m"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "星火多因子专题报告5-源于动量-超越动量-特质动量因子全解析-74c564c8"
+reference = "74c564c8dca402dac3c4d0c24ad8e290eefd2b6f6b2daee62be643fed9bf4f92"
+adaptation = "按报告50%市值与30/40/30账面市值比分组、市值加权构造月度FF3；当前用点时total_mv与BP=1/pb，在可用股票面板内构造MKT/SMB/HML，月度信号映射到下一形成月内的交易日。"
+tags = ["document", "monthly", "momentum", "residual", "ff3"]
+parameters_json = "{\"include_intercept\":false,\"minimum_momentum_months\":3,\"minimum_monthly_trading_days\":10,\"momentum_months\":12,\"regression_months\":36}"

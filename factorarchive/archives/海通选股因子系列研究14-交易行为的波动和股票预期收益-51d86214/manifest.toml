@@ -1,0 +1,12 @@
+version = 1
+name = "海通选股因子系列研究14-交易行为的波动和股票预期收益-51d86214-v1"
+snapshot = "b3c8427fbaf86143747b1cc75d080156e96fc3d747dcb8508b22a83c1f0f550c"
+reference = "51d862144c612132d6144f1c05aa8e8b2b36c63347cee014a4ef9872f983ee4e"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_haitong14_cv20"
+formula = "../../factors/daily/doc_haitong14_cv20.qha"
+idea = "IDEA-doc_haitong14_cv20.md"

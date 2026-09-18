@@ -1,0 +1,12 @@
+version = 1
+name = "50.新策略-一种新思路-超额376-08b40615-v1"
+snapshot = "5c1011727156fb31001ea0c63086018ce9571da6920f56d2510044894ac2743a"
+reference = "08b406153fe2f50a704f7f7b0d0a53f93c40510ec8c048b543752f50acecf490"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_jq2024_ma20_slope_20d"
+formula = "../../factors/daily/doc_jq2024_ma20_slope_20d.qha"
+idea = "IDEA-doc_jq2024_ma20_slope_20d.md"

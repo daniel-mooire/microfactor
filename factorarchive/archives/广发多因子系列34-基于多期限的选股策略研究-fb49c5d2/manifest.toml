@@ -1,0 +1,17 @@
+version = 1
+name = "广发多因子系列34-基于多期限的选股策略研究-fb49c5d2-v1"
+snapshot = "8521e83cc456dc3c5ff6c34f78a3767d7f550815555458971a987b794d1ac19a"
+reference = "fb49c5d26099b31e1693d682df11f90df68e047ba14c1cca7c0b0c7179e49b83"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_guangfa34_multihorizon_llt_weekly"
+formula = "../../factors/daily/doc_guangfa34_multihorizon_llt_weekly.qha"
+idea = "IDEA-doc_guangfa34_multihorizon_llt_weekly.md"
+
+[[factors]]
+name = "doc_guangfa34_multihorizon_ma_weekly"
+formula = "../../factors/daily/doc_guangfa34_multihorizon_ma_weekly.qha"
+idea = "IDEA-doc_guangfa34_multihorizon_ma_weekly.md"

@@ -1,0 +1,12 @@
+version = 1
+name = "广发多因子系列4-沪深300成份股的应用分析上-6622acfe-v1"
+snapshot = "8a7f388624c205f84868b52ed6f3b6afc94480ed7632fd5db9476634a4c3ba63"
+reference = "6622acfe1b1bb78906aafce208a4d3f90a02f23be08556d8b852dba25d607569"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_guangfa4_float_to_total_market_cap_ratio"
+formula = "../../factors/daily/doc_guangfa4_float_to_total_market_cap_ratio.qha"
+idea = "IDEA-doc_guangfa4_float_to_total_market_cap_ratio.md"

@@ -1,0 +1,18 @@
+version = 1
+name = "doc_roc_20"
+frequency = "1d"
+formula = "100*(C/REF(C,20)-1)"
+inputs = ["close"]
+min_window = 21
+direction = "negative"
+category = "momentum"
+adjust = "hfq"
+implementation = "microfactor.factors.document_indicators::doc_roc_20"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "广发多因子系列42-海量技术指标掘金Alpha因子-ebb746e4"
+reference = "ebb746e4e36034e7bb654e15858c111028f0e23b67ecbaa72ca1d3677bba07bc"
+adaptation = "报告正文提到 12/25 日，但结果图同时给出 20/6 日；这里按对应图表固定 N=20，并以百分比形式输出。"
+tags = ["document", "daily", "technical"]
+parameters_json = "{\"N\":20}"

@@ -1,0 +1,18 @@
+version = 1
+name = "alpha191_012"
+frequency = "1d"
+formula = "rank(open - (sum(vwap, 10) / 10)) * (-1 * rank(abs(close - vwap)))"
+inputs = ["open", "close", "vwap"]
+min_window = 10
+direction = "unspecified"
+category = "price_volume"
+adjust = "none"
+implementation = "microfactor.factors.alpha191_document::alpha191_012"
+implementation_status = "exact"
+status = "candidate"
+source_type = "document"
+source_group = "Alpha191-9f867946"
+reference = "9f867946daeec1a1a84d0e3e7edff93a96485a94effe240d85f0d8c3f3a3f13e"
+adaptation = "The formula is evaluated in the source-supported fq=None mode so OHLC and VWAP remain in the same unadjusted price units. The signal uses information through the T-day close and is evaluated against the standard T+1 open return. Normalization audit: Only case and redundant parentheses were normalized."
+tags = ["document", "alpha191", "daily"]
+parameters_json = "{\"alpha191_number\":12,\"normalization\":\"Only case and redundant parentheses were normalized.\",\"normalized_expression\":\"rank(open - (sum(vwap, 10) / 10)) * (-1 * rank(abs(close - vwap)))\",\"recursive_stability_window\":null,\"source_expression\":\"RANK(OPEN-SUM(VWAP,10)/10)*(-1*RANK(ABS(CLOSE-VWAP)))\",\"source_fq\":null}"

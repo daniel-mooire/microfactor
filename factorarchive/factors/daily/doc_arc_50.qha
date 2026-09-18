@@ -1,0 +1,18 @@
+version = 1
+name = "doc_arc_50"
+frequency = "1d"
+formula = "SMA(REF(C/REF(C,50),1),50,1)"
+inputs = ["close"]
+min_window = 101
+direction = "positive"
+category = "momentum"
+adjust = "hfq"
+implementation = "microfactor.factors.document_indicators::doc_arc_50"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "广发多因子系列42-海量技术指标掘金Alpha因子-ebb746e4"
+reference = "ebb746e4e36034e7bb654e15858c111028f0e23b67ecbaa72ca1d3677bba07bc"
+adaptation = "采用报告图示的 50 日参数；SMA(X,N,1) 按递归 alpha=1/N 实现，并严格要求完整预热窗口。"
+tags = ["document", "daily", "technical"]
+parameters_json = "{\"M\":50}"

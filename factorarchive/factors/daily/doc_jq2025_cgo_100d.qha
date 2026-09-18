@@ -1,0 +1,18 @@
+version = 1
+name = "doc_jq2025_cgo_100d"
+frequency = "1d"
+formula = "close/RP100-1; RP100=sum(vwap_i*w_i)/sum(w_i), w_i=turn_i*product(1-turn_j, j=i+1..t)"
+inputs = ["vwap", "close", "turnover_percent", "is_suspended", "list_date"]
+min_window = 100
+direction = "negative"
+category = "behavioral"
+adjust = "none"
+implementation = "microfactor.factors.document_extended:_compute/doc_jq2025_cgo_100d"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "37.处置效应的CGO因子-行为金融学因子-bdd2afe7"
+reference = "bdd2afe74b8cb9c64406ca3652f79280747be21a75e467b608d68fe5675e15b4"
+adaptation = "原策略每 5 个交易日调仓；当前输出每日滚动因子值供统一评估；停牌事件表缺失值按未停牌处理。"
+tags = ["document", "daily", "behavioral", "disposition_effect", "cgo"]
+parameters_json = "{\"maximum_suspended_days\":50,\"minimum_listing_age_days\":220,\"missing_suspension_is_suspended\":false,\"recent_limit_down_threshold\":-0.095,\"recent_limit_down_window\":10,\"window\":100}"

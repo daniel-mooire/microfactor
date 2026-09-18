@@ -1,0 +1,12 @@
+version = 1
+name = "海通选股因子系列研究12-量-与-价-的结合-905efca3-v1"
+snapshot = "9f25ed7c349d28fc790b2ee84b55fb43205527788fa561af6ebc7a3d997800f4"
+reference = "905efca3c8b04870074e3a90a0c46f185f46ec58fb663dfee03d70faf28646b0"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_haitong12_price_turn_corr_10d"
+formula = "../../factors/daily/doc_haitong12_price_turn_corr_10d.qha"
+idea = "IDEA-doc_haitong12_price_turn_corr_10d.md"

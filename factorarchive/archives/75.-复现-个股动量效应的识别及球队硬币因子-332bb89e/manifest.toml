@@ -1,0 +1,27 @@
+version = 1
+name = "75.-复现-个股动量效应的识别及球队硬币因子-332bb89e-v1"
+snapshot = "f521be46470218e7676f983beaf3faa8a4ad8ade95d508b8c1bfb92aa95c51b7"
+reference = "332bb89efd664a20d5d7ec86ac0a814c73d693a396aac9834b2201e3af56f820"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "coin_team_composite"
+formula = "../../factors/daily/coin_team_composite.qha"
+idea = "IDEA-coin_team_composite.md"
+
+[[factors]]
+name = "coin_team_interday"
+formula = "../../factors/daily/coin_team_interday.qha"
+idea = "IDEA-coin_team_interday.md"
+
+[[factors]]
+name = "coin_team_intraday"
+formula = "../../factors/daily/coin_team_intraday.qha"
+idea = "IDEA-coin_team_intraday.md"
+
+[[factors]]
+name = "coin_team_overnight"
+formula = "../../factors/daily/coin_team_overnight.qha"
+idea = "IDEA-coin_team_overnight.md"

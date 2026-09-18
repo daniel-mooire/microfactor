@@ -1,0 +1,18 @@
+version = 1
+name = "alpha101_021"
+frequency = "1d"
+formula = "(((sum(close, 8) / 8) + stddev(close, 8)) < (sum(close, 2) / 2)) ? -1 : (((sum(close, 2) / 2) < ((sum(close, 8) / 8) - stddev(close, 8))) ? 1 : (((1 < (volume / adv20)) || ((volume / adv20) == 1)) ? 1 : -1))"
+inputs = ["close", "volume"]
+min_window = 8
+direction = "unspecified"
+category = "technical"
+adjust = "none"
+implementation = "microfactor.factors.alpha101_document::alpha101_021"
+implementation_status = "exact"
+status = "candidate"
+source_type = "document"
+source_group = "Alpha101-华泰海量技术因子与原始论文-2fe2a190"
+reference = "2fe2a1906be2da0ebc22e655e652cbb495027a0b859b18a0284b9014cb04dc8e"
+adaptation = "Formula copied from the Alpha101 report; raw daily OHLC/VWAP is used and the signal is evaluated after the T-day close."
+tags = ["document", "alpha101", "daily"]
+parameters_json = "{\"delay_sessions\":1,\"factor_number\":21}"

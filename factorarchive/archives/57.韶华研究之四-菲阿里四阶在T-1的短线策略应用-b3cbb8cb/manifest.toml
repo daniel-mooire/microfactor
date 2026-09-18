@@ -1,0 +1,12 @@
+version = 1
+name = "57.韶华研究之四-菲阿里四阶在T-1的短线策略应用-b3cbb8cb-v1"
+snapshot = "cfd46971e9acf2c2e7bd2050647d7c527aa911053dd0181523be0e97d1b94578"
+reference = "b3cbb8cb957298328a09e4fa9f632d907d27956644634640bec5015a253eb974"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_jq2023_price_trend_slope_5d"
+formula = "../../factors/daily/doc_jq2023_price_trend_slope_5d.qha"
+idea = "IDEA-doc_jq2023_price_trend_slope_5d.md"

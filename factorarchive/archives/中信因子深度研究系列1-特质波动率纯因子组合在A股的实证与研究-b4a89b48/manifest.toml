@@ -1,0 +1,12 @@
+version = 1
+name = "中信因子深度研究系列1-特质波动率纯因子组合在A股的实证与研究-b4a89b48-v1"
+snapshot = "c0c94fd112675d889ab4f270d9a56fe8b39ad36403b2a3171dfb350f40dbc489"
+reference = "b4a89b481293b596dcdf9b60aaf70a809665a607da4f4c347d2406a261ebe3e9"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_csc1_vcapm_20d"
+formula = "../../factors/daily/doc_csc1_vcapm_20d.qha"
+idea = "IDEA-doc_csc1_vcapm_20d.md"

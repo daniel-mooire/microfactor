@@ -1,0 +1,18 @@
+version = 1
+name = "doc_kdj_k_9_3_3"
+frequency = "1d"
+formula = "SMA3(RSV,1), RSV=100*(C-LLV9)/(HHV9-LLV9)"
+inputs = ["high", "low", "close"]
+min_window = 9
+direction = "positive"
+category = "technical"
+adjust = "hfq"
+implementation = "microfactor.factors.document_indicators::doc_kdj_k_9_3_3"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "广发多因子系列42-海量技术指标掘金Alpha因子-ebb746e4"
+reference = "ebb746e4e36034e7bb654e15858c111028f0e23b67ecbaa72ca1d3677bba07bc"
+adaptation = "以递归平滑近似平台 SMA(X,3,1)，参数固定为 9/3/3。"
+tags = ["document", "daily", "technical"]
+parameters_json = "{}"

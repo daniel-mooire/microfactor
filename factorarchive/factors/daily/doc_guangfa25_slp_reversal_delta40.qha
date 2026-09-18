@@ -1,0 +1,18 @@
+version = 1
+name = "doc_guangfa25_slp_reversal_delta40"
+frequency = "1d"
+formula = "(adjusted_close-P_last_confirmed_pivot)/(P_last_confirmed_pivot*days_since_pivot)"
+inputs = ["adjusted_close"]
+min_window = 2
+direction = "negative"
+category = "reversal"
+adjust = "hfq"
+implementation = "microfactor.factors.document_extended:_compute/doc_guangfa25_slp_reversal_delta40"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "广发多因子系列25-反转因子再优化-更精准把握拐点-29cc5029"
+reference = "29cc5029e1f0b82301afd2e652cdca408c8da8c7cd47ce3f460ad46e18236af6"
+adaptation = "报告未披露比例参数δP的数值；根据第18页与第21页示例中第15日尚未确认、第16日确认拐点的路径推断δP=0.40。使用后复权收盘价，并从每只股票首个有效观测初始化在线递推；不复刻报告的全市场20档、5日持有和0.3%费用回测。"
+tags = ["document", "daily", "reversal", "turning_point", "guangfa25"]
+parameters_json = "{\"pivot_confirmation\":\"causal_online\",\"price\":\"adjusted_close_hfq\",\"reversal_ratio\":0.4,\"slope_sign\":\"signed\"}"

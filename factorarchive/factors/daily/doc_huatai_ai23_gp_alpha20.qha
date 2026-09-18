@@ -1,0 +1,18 @@
+version = 1
+name = "doc_huatai_ai23_gp_alpha20"
+frequency = "1d"
+formula = "mul(free_turn,rank_sub(open,delta(volume,9)))"
+inputs = ["turnover_rate_f", "open", "volume"]
+min_window = 10
+direction = "positive"
+category = "liquidity"
+adjust = "none"
+implementation = "microfactor.factors.document_extended:_compute/doc_huatai_ai23_gp_alpha20"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "华泰人工智能系列23-再探基于遗传规划的选股因子挖掘-bd8a7160"
+reference = "bd8a7160e81d27798a5ac9a18ae35085b947abe0cd4ee708c67cb5d83d26667e"
+adaptation = "The report fully specifies the formulas and distinguishes ordinary turnover from free-float turnover. The implementation maps them to Tushare turnover_rate and turnover_rate_f, uses pandas sample covariance and standard deviation (ddof=1), and reproduces the raw daily formulas without the report's cross-sectional winsorization, industry/style neutralization, nonlinear transformation, or 20-day prediction target. Price adjustment is not pinned for the raw OHLC inputs; formulas containing return1 use hfq bars, while the other formulas use unadjusted bars."
+tags = ["document", "daily", "genetic_programming", "huatai_ai23"]
+parameters_json = "{\"covariance_ddof\":1,\"free_turn\":\"turnover_rate_f\",\"rank\":\"cross_sectional_average_percentile\",\"std_ddof\":1,\"ts_zscore\":\"rolling_mean_divided_by_sample_std\",\"turn\":\"turnover_rate\"}"

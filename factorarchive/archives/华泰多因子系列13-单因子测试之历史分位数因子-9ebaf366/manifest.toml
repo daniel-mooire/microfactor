@@ -1,0 +1,12 @@
+version = 1
+name = "华泰多因子系列13-单因子测试之历史分位数因子-9ebaf366-v1"
+snapshot = "053b1e78177548b7ca09a35520cdabf3996ddeb51ec3b5c01cf38af0dddcb7f1"
+reference = "9ebaf366e928205cb406d3dca6f92e685e97121d14f9d1ac1a3c99f54ddd1072"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_huatai13_ep_ts_rank_2q"
+formula = "../../factors/daily/doc_huatai13_ep_ts_rank_2q.qha"
+idea = "IDEA-doc_huatai13_ep_ts_rank_2q.md"

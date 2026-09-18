@@ -1,0 +1,18 @@
+version = 1
+name = "doc_jq2024_ma20_slope_20d"
+frequency = "1d"
+formula = "round(100*OLS_no_intercept(MA20[t-19:t]-MA20[t-19], x=0..19).slope, 1)"
+inputs = ["adjusted_close"]
+min_window = 40
+direction = "positive"
+category = "trend"
+adjust = "qfq"
+implementation = "microfactor.factors.document_extended:_compute/doc_jq2024_ma20_slope_20d"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "50.新策略-一种新思路-超额376-08b40615"
+reference = "08b406153fe2f50a704f7f7b0d0a53f93c40510ec8c048b543752f50acecf490"
+adaptation = "The source requests 40 daily closes and applies the score as a monthly filter after fundamental selection. The implementation exposes the same rolling score across the current stock universe for cross-sectional evaluation. JoinQuant's history-price adjustment is not pinned, so the project uses its standard qfq technical-price convention."
+tags = ["document", "daily", "trend", "moving_average", "ols"]
+parameters_json = "{\"history_count_days\":40,\"include_intercept\":false,\"moving_average_window_days\":20,\"round_digits\":1,\"scale\":100,\"slope_observation_count\":20,\"source_rebalance\":\"monthly\",\"source_reject_threshold\":-2,\"subtract_first_moving_average\":true}"

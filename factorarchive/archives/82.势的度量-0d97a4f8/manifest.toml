@@ -1,0 +1,12 @@
+version = 1
+name = "82.势的度量-0d97a4f8-v1"
+snapshot = "c93d43a210173b7d5b3543296a8a09d65635f7b3f4260bbc6fdad05953978e83"
+reference = "0d97a4f872dd4e6c5973b618b9b9a2096d3a21afd49435bacb2ea6a94c4145be"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_jq2023_ultimate_trend_30d"
+formula = "../../factors/daily/doc_jq2023_ultimate_trend_30d.qha"
+idea = "IDEA-doc_jq2023_ultimate_trend_30d.md"

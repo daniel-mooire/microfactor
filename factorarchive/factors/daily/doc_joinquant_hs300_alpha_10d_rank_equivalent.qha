@@ -1,0 +1,18 @@
+version = 1
+name = "doc_joinquant_hs300_alpha_10d_rank_equivalent"
+frequency = "1d"
+formula = "RANK_EQUIVALENT((C_t/C_{t-9}-1)-R_HS300,t)=C_t/C_{t-9}-1"
+inputs = ["adjusted_close"]
+min_window = 10
+direction = "positive"
+category = "momentum"
+adjust = "qfq"
+implementation = "microfactor.factors.document_extended:_compute/doc_joinquant_hs300_alpha_10d_rank_equivalent"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "fator-70e55740"
+reference = "70e557409f69eedc0b33b308de901d04503b611aa94621b86e95ff08750dcf47"
+adaptation = "原式用10行收盘价计算个股收益并减去同期沪深300收益，即包含9个交易间隔。指数收益在同一截面是公共标量，不改变排序、分组、RankIC或Spearman去重结果；因此实现只保存个股收益腿，并使用项目可用的前复权收盘价。"
+tags = ["document", "daily", "momentum", "benchmark", "rank_equivalent"]
+parameters_json = "{\"benchmark\":\"000300.XSHG\",\"return_lag_sessions\":9,\"stored_value\":\"stock_return_leg\",\"window_rows\":10}"

@@ -1,0 +1,12 @@
+version = 1
+name = "海通选股因子系列研究53-上市公司股价关系网因子-ae93c28c-v1"
+snapshot = "3bd0f1582082c436495afba13ac2496223bdcaddfd313da972b632db8d8894f8"
+reference = "ae93c28c192c28488c8fbf5258e377ffdfc0af3f67a951420487239afa2da845"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_haitong53_netr_10_monthly"
+formula = "../../factors/daily/doc_haitong53_netr_10_monthly.qha"
+idea = "IDEA-doc_haitong53_netr_10_monthly.md"

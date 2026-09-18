@@ -1,0 +1,12 @@
+version = 1
+name = "3.苦咖啡-默默赚钱系列-改-e9eb4c47-v1"
+snapshot = "412795edaea923fc020f8fa96a790eb14ed3f1d6451ae7b8cb712f816a285c08"
+reference = "e9eb4c47cdbd819d9d6200d1ecae58837ca81aa7cc78ec061eac5afd600e7cd3"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_jq2023_price_trend_slope_120d"
+formula = "../../factors/daily/doc_jq2023_price_trend_slope_120d.qha"
+idea = "IDEA-doc_jq2023_price_trend_slope_120d.md"

@@ -1,0 +1,12 @@
+version = 1
+name = "40.14年初到23年7月-年化37-夏普1.25-稳健高收益-2b2871e4-v1"
+snapshot = "8ea37bfa0a484f1fd1fd77b06f4963a22bde4623d4bc82f5a6ac08fea79bcb70"
+reference = "2b2871e404aea9cd8590c5c6656ef28db8d5fb05f621b7307836f3cd72d7a7b0"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_jq2024_sparse_ma_gap_2000d"
+formula = "../../factors/daily/doc_jq2024_sparse_ma_gap_2000d.qha"
+idea = "IDEA-doc_jq2024_sparse_ma_gap_2000d.md"

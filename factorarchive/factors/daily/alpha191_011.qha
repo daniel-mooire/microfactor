@@ -1,0 +1,18 @@
+version = 1
+name = "alpha191_011"
+frequency = "1d"
+formula = "sum((((close - low) - (high - close)) / (high - low)) * volume, 6)"
+inputs = ["close", "high", "low", "volume"]
+min_window = 6
+direction = "unspecified"
+category = "price_volume"
+adjust = "none"
+implementation = "microfactor.factors.alpha191_document::alpha191_011"
+implementation_status = "exact"
+status = "candidate"
+source_type = "document"
+source_group = "Alpha191-9f867946"
+reference = "9f867946daeec1a1a84d0e3e7edff93a96485a94effe240d85f0d8c3f3a3f13e"
+adaptation = "The formula is evaluated in the source-supported fq=None mode so OHLC and VWAP remain in the same unadjusted price units. The signal uses information through the T-day close and is evaluated against the standard T+1 open return. Normalization audit: Removed two stray period characters around the documented multiplication operator."
+tags = ["document", "alpha191", "daily"]
+parameters_json = "{\"alpha191_number\":11,\"normalization\":\"Removed two stray period characters around the documented multiplication operator.\",\"normalized_expression\":\"sum((((close - low) - (high - close)) / (high - low)) * volume, 6)\",\"recursive_stability_window\":null,\"source_expression\":\"SUM(((CLOSE-LOW)-(HIGH-CLOSE)). /(HIGH-LOW) . * VOLUME,6)\",\"source_fq\":null}"

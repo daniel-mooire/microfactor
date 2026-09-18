@@ -1,0 +1,18 @@
+version = 1
+name = "doc_haitong18_close_low_20d"
+frequency = "1d"
+formula = "MEAN(log(close/low), i=t-20..t-1)"
+inputs = ["close", "low", "is_suspended"]
+min_window = 21
+direction = "negative"
+category = "price_shape"
+adjust = "hfq"
+implementation = "microfactor.factors.document_extended:_compute/doc_haitong18_close_low_20d"
+implementation_status = "exact"
+status = "candidate"
+source_type = "document"
+source_group = "海通选股因子系列研究18-价格形态选股因子-d695dd3c"
+reference = "d695dd3c8ad7708faeff9fde0b7b5a434387df81b0b148f58b1210f0b94a71f0"
+adaptation = ""
+tags = ["document", "daily", "price_shape"]
+parameters_json = "{\"minimum_valid_days\":10,\"window\":20}"

@@ -1,0 +1,47 @@
+version = 1
+name = "华泰多因子系列基础换手率与波动率因子-a280d26b-v1"
+snapshot = "3c9cc12f5f11d49df6037be9c83853acf79d881560b044fa361c991bc79fd8e7"
+reference = "a280d26bc424b0eecfa985bfebf14a4a4a6d02c7e992eed3593ac476b1d20edc"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_huatai_bias_turn_1m"
+formula = "../../factors/daily/doc_huatai_bias_turn_1m.qha"
+idea = "IDEA-doc_huatai_bias_turn_1m.md"
+
+[[factors]]
+name = "doc_huatai_std_return_1"
+formula = "../../factors/daily/doc_huatai_std_return_1.qha"
+idea = "IDEA-doc_huatai_std_return_1.md"
+
+[[factors]]
+name = "doc_huatai_std_return_3"
+formula = "../../factors/daily/doc_huatai_std_return_3.qha"
+idea = "IDEA-doc_huatai_std_return_3.md"
+
+[[factors]]
+name = "doc_huatai_std_return_6"
+formula = "../../factors/daily/doc_huatai_std_return_6.qha"
+idea = "IDEA-doc_huatai_std_return_6.md"
+
+[[factors]]
+name = "doc_huatai_std_turn_1m"
+formula = "../../factors/daily/doc_huatai_std_turn_1m.qha"
+idea = "IDEA-doc_huatai_std_turn_1m.md"
+
+[[factors]]
+name = "doc_huatai_turn_1"
+formula = "../../factors/daily/doc_huatai_turn_1.qha"
+idea = "IDEA-doc_huatai_turn_1.md"
+
+[[factors]]
+name = "doc_huatai_turn_3"
+formula = "../../factors/daily/doc_huatai_turn_3.qha"
+idea = "IDEA-doc_huatai_turn_3.md"
+
+[[factors]]
+name = "doc_huatai_turn_6"
+formula = "../../factors/daily/doc_huatai_turn_6.qha"
+idea = "IDEA-doc_huatai_turn_6.md"

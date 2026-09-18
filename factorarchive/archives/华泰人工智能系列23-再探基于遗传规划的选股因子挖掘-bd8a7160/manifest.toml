@@ -1,0 +1,127 @@
+version = 1
+name = "华泰人工智能系列23-再探基于遗传规划的选股因子挖掘-bd8a7160-v1"
+snapshot = "df503a829b04e5697a32456547f1b8d627f2b910c295b201e0e2801e270345a2"
+reference = "bd8a7160e81d27798a5ac9a18ae35085b947abe0cd4ee708c67cb5d83d26667e"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha1"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha1.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha1.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha10"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha10.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha10.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha11"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha11.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha11.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha12"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha12.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha12.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha13"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha13.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha13.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha14"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha14.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha14.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha15"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha15.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha15.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha16"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha16.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha16.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha17"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha17.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha17.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha18"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha18.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha18.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha19"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha19.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha19.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha2"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha2.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha2.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha20"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha20.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha20.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha21"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha21.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha21.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha22"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha22.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha22.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha23"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha23.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha23.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha24"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha24.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha24.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha3"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha3.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha3.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha4"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha4.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha4.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha5"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha5.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha5.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha6"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha6.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha6.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha7"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha7.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha7.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha8"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha8.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha8.md"
+
+[[factors]]
+name = "doc_huatai_ai23_gp_alpha9"
+formula = "../../factors/daily/doc_huatai_ai23_gp_alpha9.qha"
+idea = "IDEA-doc_huatai_ai23_gp_alpha9.md"

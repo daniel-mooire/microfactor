@@ -1,0 +1,18 @@
+version = 1
+name = "doc_bohai8_cmra_252d"
+frequency = "1d"
+formula = "max_T(sum_{tau=1..T}(ln(1+r_tau)))-min_T(...), T=1..12, 21d/month"
+inputs = ["close_total_return_index"]
+min_window = 253
+direction = "negative"
+category = "volatility"
+adjust = "none"
+implementation = "microfactor.factors.document_extended:_compute/doc_bohai8_cmra_252d"
+implementation_status = "approximate"
+status = "candidate"
+source_type = "document"
+source_group = "渤海多因子模型研究系列8-Barra风险模型-CNE6-单因子检测-7cf37173"
+reference = "7cf37173e8dc79a552b0139bd5f7706c1745b74a9193dad912e25c0a17b4e9c1"
+adaptation = "The report evaluates monthly industry- and size-neutralized cross-sections. The implementation preserves the report's twelve 21-trading-day cumulative log-return horizons but exposes the raw trailing range daily for the common evaluation contract."
+tags = ["document", "daily", "volatility", "barra_cne6", "cmra"]
+parameters_json = "{\"evaluation_cross_section\":\"raw\",\"evaluation_sampling\":\"daily_rolling\",\"horizons_days\":[21,42,63,84,105,126,147,168,189,210,231,252],\"months\":12,\"return_type\":\"close_total_return\",\"source_cross_section\":\"industry_and_size_neutralized\",\"source_sampling\":\"monthly\",\"trading_days_per_month\":21}"

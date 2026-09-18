@@ -1,0 +1,32 @@
+version = 1
+name = "海通选股因子系列研究18-价格形态选股因子-d695dd3c-v1"
+snapshot = "f16c7443a996dd7b448c78d7fe4153de84df70819c2bc72ee4e3ccdced6b3df3"
+reference = "d695dd3c8ad7708faeff9fde0b7b5a434387df81b0b148f58b1210f0b94a71f0"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_haitong18_close_low_10d"
+formula = "../../factors/daily/doc_haitong18_close_low_10d.qha"
+idea = "IDEA-doc_haitong18_close_low_10d.md"
+
+[[factors]]
+name = "doc_haitong18_close_low_20d"
+formula = "../../factors/daily/doc_haitong18_close_low_20d.qha"
+idea = "IDEA-doc_haitong18_close_low_20d.md"
+
+[[factors]]
+name = "doc_haitong18_high_open_20d"
+formula = "../../factors/daily/doc_haitong18_high_open_20d.qha"
+idea = "IDEA-doc_haitong18_high_open_20d.md"
+
+[[factors]]
+name = "doc_haitong18_vwap_close_10d"
+formula = "../../factors/daily/doc_haitong18_vwap_close_10d.qha"
+idea = "IDEA-doc_haitong18_vwap_close_10d.md"
+
+[[factors]]
+name = "doc_haitong18_vwap_close_20d"
+formula = "../../factors/daily/doc_haitong18_vwap_close_20d.qha"
+idea = "IDEA-doc_haitong18_vwap_close_20d.md"

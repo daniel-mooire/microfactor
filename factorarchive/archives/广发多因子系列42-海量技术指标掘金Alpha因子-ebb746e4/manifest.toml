@@ -1,0 +1,522 @@
+version = 1
+name = "广发多因子系列42-海量技术指标掘金Alpha因子-ebb746e4-v1"
+snapshot = "4d7e22af8ee3b97eb49031f56447d9a92310ff1999ef00ac0b083e689a1ad1f7"
+reference = "ebb746e4e36034e7bb654e15858c111028f0e23b67ecbaa72ca1d3677bba07bc"
+contract = "../../configs/evaluation/daily-v1.toml"
+start = "2016-01-04"
+end = "2026-09-15"
+
+[[factors]]
+name = "doc_acd_20"
+formula = "../../factors/daily/doc_acd_20.qha"
+idea = "IDEA-doc_acd_20.md"
+
+[[factors]]
+name = "doc_acd_6"
+formula = "../../factors/daily/doc_acd_6.qha"
+idea = "IDEA-doc_acd_6.md"
+
+[[factors]]
+name = "doc_ad_1"
+formula = "../../factors/daily/doc_ad_1.qha"
+idea = "IDEA-doc_ad_1.md"
+
+[[factors]]
+name = "doc_adl_20"
+formula = "../../factors/daily/doc_adl_20.qha"
+idea = "IDEA-doc_adl_20.md"
+
+[[factors]]
+name = "doc_adl_6"
+formula = "../../factors/daily/doc_adl_6.qha"
+idea = "IDEA-doc_adl_6.md"
+
+[[factors]]
+name = "doc_adtm_20"
+formula = "../../factors/daily/doc_adtm_20.qha"
+idea = "IDEA-doc_adtm_20.md"
+
+[[factors]]
+name = "doc_amount_mean_20"
+formula = "../../factors/daily/doc_amount_mean_20.qha"
+idea = "IDEA-doc_amount_mean_20.md"
+
+[[factors]]
+name = "doc_amount_std_20"
+formula = "../../factors/daily/doc_amount_std_20.qha"
+idea = "IDEA-doc_amount_std_20.md"
+
+[[factors]]
+name = "doc_amount_std_6"
+formula = "../../factors/daily/doc_amount_std_6.qha"
+idea = "IDEA-doc_amount_std_6.md"
+
+[[factors]]
+name = "doc_ar_20"
+formula = "../../factors/daily/doc_ar_20.qha"
+idea = "IDEA-doc_ar_20.md"
+
+[[factors]]
+name = "doc_arc_20"
+formula = "../../factors/daily/doc_arc_20.qha"
+idea = "IDEA-doc_arc_20.md"
+
+[[factors]]
+name = "doc_arc_50"
+formula = "../../factors/daily/doc_arc_50.qha"
+idea = "IDEA-doc_arc_50.md"
+
+[[factors]]
+name = "doc_aroon_down_20"
+formula = "../../factors/daily/doc_aroon_down_20.qha"
+idea = "IDEA-doc_aroon_down_20.md"
+
+[[factors]]
+name = "doc_aroon_index_20"
+formula = "../../factors/daily/doc_aroon_index_20.qha"
+idea = "IDEA-doc_aroon_index_20.md"
+
+[[factors]]
+name = "doc_aroon_up_20"
+formula = "../../factors/daily/doc_aroon_up_20.qha"
+idea = "IDEA-doc_aroon_up_20.md"
+
+[[factors]]
+name = "doc_asi_20"
+formula = "../../factors/daily/doc_asi_20.qha"
+idea = "IDEA-doc_asi_20.md"
+
+[[factors]]
+name = "doc_asi_si"
+formula = "../../factors/daily/doc_asi_si.qha"
+idea = "IDEA-doc_asi_si.md"
+
+[[factors]]
+name = "doc_atr_12"
+formula = "../../factors/daily/doc_atr_12.qha"
+idea = "IDEA-doc_atr_12.md"
+
+[[factors]]
+name = "doc_atr_20"
+formula = "../../factors/daily/doc_atr_20.qha"
+idea = "IDEA-doc_atr_20.md"
+
+[[factors]]
+name = "doc_atr_6"
+formula = "../../factors/daily/doc_atr_6.qha"
+idea = "IDEA-doc_atr_6.md"
+
+[[factors]]
+name = "doc_bbi_24"
+formula = "../../factors/daily/doc_bbi_24.qha"
+idea = "IDEA-doc_bbi_24.md"
+
+[[factors]]
+name = "doc_bbi_close_24"
+formula = "../../factors/daily/doc_bbi_close_24.qha"
+idea = "IDEA-doc_bbi_close_24.md"
+
+[[factors]]
+name = "doc_bias_12"
+formula = "../../factors/daily/doc_bias_12.qha"
+idea = "IDEA-doc_bias_12.md"
+
+[[factors]]
+name = "doc_bias_24"
+formula = "../../factors/daily/doc_bias_24.qha"
+idea = "IDEA-doc_bias_24.md"
+
+[[factors]]
+name = "doc_bias_6"
+formula = "../../factors/daily/doc_bias_6.qha"
+idea = "IDEA-doc_bias_6.md"
+
+[[factors]]
+name = "doc_br_20"
+formula = "../../factors/daily/doc_br_20.qha"
+idea = "IDEA-doc_br_20.md"
+
+[[factors]]
+name = "doc_cci_20"
+formula = "../../factors/daily/doc_cci_20.qha"
+idea = "IDEA-doc_cci_20.md"
+
+[[factors]]
+name = "doc_chaikin_osc_10_3"
+formula = "../../factors/daily/doc_chaikin_osc_10_3.qha"
+idea = "IDEA-doc_chaikin_osc_10_3.md"
+
+[[factors]]
+name = "doc_chaikin_volatility_10"
+formula = "../../factors/daily/doc_chaikin_volatility_10.qha"
+idea = "IDEA-doc_chaikin_volatility_10.md"
+
+[[factors]]
+name = "doc_chande_sd_10"
+formula = "../../factors/daily/doc_chande_sd_10.qha"
+idea = "IDEA-doc_chande_sd_10.md"
+
+[[factors]]
+name = "doc_chande_su_10"
+formula = "../../factors/daily/doc_chande_su_10.qha"
+idea = "IDEA-doc_chande_su_10.md"
+
+[[factors]]
+name = "doc_cmo_10"
+formula = "../../factors/daily/doc_cmo_10.qha"
+idea = "IDEA-doc_cmo_10.md"
+
+[[factors]]
+name = "doc_coppock_14_11_10"
+formula = "../../factors/daily/doc_coppock_14_11_10.qha"
+idea = "IDEA-doc_coppock_14_11_10.md"
+
+[[factors]]
+name = "doc_cr_20"
+formula = "../../factors/daily/doc_cr_20.qha"
+idea = "IDEA-doc_cr_20.md"
+
+[[factors]]
+name = "doc_dbcd_5_3_3"
+formula = "../../factors/daily/doc_dbcd_5_3_3.qha"
+idea = "IDEA-doc_dbcd_5_3_3.md"
+
+[[factors]]
+name = "doc_ddi_13"
+formula = "../../factors/daily/doc_ddi_13.qha"
+idea = "IDEA-doc_ddi_13.md"
+
+[[factors]]
+name = "doc_ddi_dif_13"
+formula = "../../factors/daily/doc_ddi_dif_13.qha"
+idea = "IDEA-doc_ddi_dif_13.md"
+
+[[factors]]
+name = "doc_ddi_diz_13"
+formula = "../../factors/daily/doc_ddi_diz_13.qha"
+idea = "IDEA-doc_ddi_diz_13.md"
+
+[[factors]]
+name = "doc_dmi_adx_14_6"
+formula = "../../factors/daily/doc_dmi_adx_14_6.qha"
+idea = "IDEA-doc_dmi_adx_14_6.md"
+
+[[factors]]
+name = "doc_dmi_adxr_14_6"
+formula = "../../factors/daily/doc_dmi_adxr_14_6.qha"
+idea = "IDEA-doc_dmi_adxr_14_6.md"
+
+[[factors]]
+name = "doc_dmi_mdi_14"
+formula = "../../factors/daily/doc_dmi_mdi_14.qha"
+idea = "IDEA-doc_dmi_mdi_14.md"
+
+[[factors]]
+name = "doc_dmi_pdi_14"
+formula = "../../factors/daily/doc_dmi_pdi_14.qha"
+idea = "IDEA-doc_dmi_pdi_14.md"
+
+[[factors]]
+name = "doc_elder_20"
+formula = "../../factors/daily/doc_elder_20.qha"
+idea = "IDEA-doc_elder_20.md"
+
+[[factors]]
+name = "doc_emv_14"
+formula = "../../factors/daily/doc_emv_14.qha"
+idea = "IDEA-doc_emv_14.md"
+
+[[factors]]
+name = "doc_emv_6"
+formula = "../../factors/daily/doc_emv_6.qha"
+idea = "IDEA-doc_emv_6.md"
+
+[[factors]]
+name = "doc_hurst_20"
+formula = "../../factors/daily/doc_hurst_20.qha"
+idea = "IDEA-doc_hurst_20.md"
+
+[[factors]]
+name = "doc_kdj_d_9_3_3"
+formula = "../../factors/daily/doc_kdj_d_9_3_3.qha"
+idea = "IDEA-doc_kdj_d_9_3_3.md"
+
+[[factors]]
+name = "doc_kdj_j_9_3_3"
+formula = "../../factors/daily/doc_kdj_j_9_3_3.qha"
+idea = "IDEA-doc_kdj_j_9_3_3.md"
+
+[[factors]]
+name = "doc_kdj_k_9_3_3"
+formula = "../../factors/daily/doc_kdj_k_9_3_3.qha"
+idea = "IDEA-doc_kdj_k_9_3_3.md"
+
+[[factors]]
+name = "doc_klinger_34_55_6"
+formula = "../../factors/daily/doc_klinger_34_55_6.qha"
+idea = "IDEA-doc_klinger_34_55_6.md"
+
+[[factors]]
+name = "doc_ma_close_20"
+formula = "../../factors/daily/doc_ma_close_20.qha"
+idea = "IDEA-doc_ma_close_20.md"
+
+[[factors]]
+name = "doc_ma_slope_12"
+formula = "../../factors/daily/doc_ma_slope_12.qha"
+idea = "IDEA-doc_ma_slope_12.md"
+
+[[factors]]
+name = "doc_ma_slope_6"
+formula = "../../factors/daily/doc_ma_slope_6.qha"
+idea = "IDEA-doc_ma_slope_6.md"
+
+[[factors]]
+name = "doc_macd_12_26_9"
+formula = "../../factors/daily/doc_macd_12_26_9.qha"
+idea = "IDEA-doc_macd_12_26_9.md"
+
+[[factors]]
+name = "doc_mass_index_9"
+formula = "../../factors/daily/doc_mass_index_9.qha"
+idea = "IDEA-doc_mass_index_9.md"
+
+[[factors]]
+name = "doc_mfi_14"
+formula = "../../factors/daily/doc_mfi_14.qha"
+idea = "IDEA-doc_mfi_14.md"
+
+[[factors]]
+name = "doc_micd_12_3_6"
+formula = "../../factors/daily/doc_micd_12_3_6.qha"
+idea = "IDEA-doc_micd_12_3_6.md"
+
+[[factors]]
+name = "doc_money_flow_20"
+formula = "../../factors/daily/doc_money_flow_20.qha"
+idea = "IDEA-doc_money_flow_20.md"
+
+[[factors]]
+name = "doc_mtm_20"
+formula = "../../factors/daily/doc_mtm_20.qha"
+idea = "IDEA-doc_mtm_20.md"
+
+[[factors]]
+name = "doc_mtmma_20"
+formula = "../../factors/daily/doc_mtmma_20.qha"
+idea = "IDEA-doc_mtmma_20.md"
+
+[[factors]]
+name = "doc_obv_20"
+formula = "../../factors/daily/doc_obv_20.qha"
+idea = "IDEA-doc_obv_20.md"
+
+[[factors]]
+name = "doc_obv_6"
+formula = "../../factors/daily/doc_obv_6.qha"
+idea = "IDEA-doc_obv_6.md"
+
+[[factors]]
+name = "doc_obv_cumulative"
+formula = "../../factors/daily/doc_obv_cumulative.qha"
+idea = "IDEA-doc_obv_cumulative.md"
+
+[[factors]]
+name = "doc_price_absdev_20"
+formula = "../../factors/daily/doc_price_absdev_20.qha"
+idea = "IDEA-doc_price_absdev_20.md"
+
+[[factors]]
+name = "doc_price_slope_12"
+formula = "../../factors/daily/doc_price_slope_12.qha"
+idea = "IDEA-doc_price_slope_12.md"
+
+[[factors]]
+name = "doc_price_slope_6"
+formula = "../../factors/daily/doc_price_slope_6.qha"
+idea = "IDEA-doc_price_slope_6.md"
+
+[[factors]]
+name = "doc_psy_12"
+formula = "../../factors/daily/doc_psy_12.qha"
+idea = "IDEA-doc_psy_12.md"
+
+[[factors]]
+name = "doc_psy_20"
+formula = "../../factors/daily/doc_psy_20.qha"
+idea = "IDEA-doc_psy_20.md"
+
+[[factors]]
+name = "doc_pvi"
+formula = "../../factors/daily/doc_pvi.qha"
+idea = "IDEA-doc_pvi.md"
+
+[[factors]]
+name = "doc_pvt_12"
+formula = "../../factors/daily/doc_pvt_12.qha"
+idea = "IDEA-doc_pvt_12.md"
+
+[[factors]]
+name = "doc_pvt_6"
+formula = "../../factors/daily/doc_pvt_6.qha"
+idea = "IDEA-doc_pvt_6.md"
+
+[[factors]]
+name = "doc_pvt_cumulative"
+formula = "../../factors/daily/doc_pvt_cumulative.qha"
+idea = "IDEA-doc_pvt_cumulative.md"
+
+[[factors]]
+name = "doc_rc_20"
+formula = "../../factors/daily/doc_rc_20.qha"
+idea = "IDEA-doc_rc_20.md"
+
+[[factors]]
+name = "doc_rccd_12_3_6"
+formula = "../../factors/daily/doc_rccd_12_3_6.qha"
+idea = "IDEA-doc_rccd_12_3_6.md"
+
+[[factors]]
+name = "doc_roc_12"
+formula = "../../factors/daily/doc_roc_12.qha"
+idea = "IDEA-doc_roc_12.md"
+
+[[factors]]
+name = "doc_roc_20"
+formula = "../../factors/daily/doc_roc_20.qha"
+idea = "IDEA-doc_roc_20.md"
+
+[[factors]]
+name = "doc_roc_25"
+formula = "../../factors/daily/doc_roc_25.qha"
+idea = "IDEA-doc_roc_25.md"
+
+[[factors]]
+name = "doc_roc_6"
+formula = "../../factors/daily/doc_roc_6.qha"
+idea = "IDEA-doc_roc_6.md"
+
+[[factors]]
+name = "doc_rsi_12"
+formula = "../../factors/daily/doc_rsi_12.qha"
+idea = "IDEA-doc_rsi_12.md"
+
+[[factors]]
+name = "doc_rsi_24"
+formula = "../../factors/daily/doc_rsi_24.qha"
+idea = "IDEA-doc_rsi_24.md"
+
+[[factors]]
+name = "doc_rsi_6"
+formula = "../../factors/daily/doc_rsi_6.qha"
+idea = "IDEA-doc_rsi_6.md"
+
+[[factors]]
+name = "doc_rvi_14"
+formula = "../../factors/daily/doc_rvi_14.qha"
+idea = "IDEA-doc_rvi_14.md"
+
+[[factors]]
+name = "doc_rvi_aup_14"
+formula = "../../factors/daily/doc_rvi_aup_14.qha"
+idea = "IDEA-doc_rvi_aup_14.md"
+
+[[factors]]
+name = "doc_rvi_down_14"
+formula = "../../factors/daily/doc_rvi_down_14.qha"
+idea = "IDEA-doc_rvi_down_14.md"
+
+[[factors]]
+name = "doc_srmi_20"
+formula = "../../factors/daily/doc_srmi_20.qha"
+idea = "IDEA-doc_srmi_20.md"
+
+[[factors]]
+name = "doc_stochrsi_14"
+formula = "../../factors/daily/doc_stochrsi_14.qha"
+idea = "IDEA-doc_stochrsi_14.md"
+
+[[factors]]
+name = "doc_tema_20"
+formula = "../../factors/daily/doc_tema_20.qha"
+idea = "IDEA-doc_tema_20.md"
+
+[[factors]]
+name = "doc_tri_1_14"
+formula = "../../factors/daily/doc_tri_1_14.qha"
+idea = "IDEA-doc_tri_1_14.md"
+
+[[factors]]
+name = "doc_trix_20"
+formula = "../../factors/daily/doc_trix_20.qha"
+idea = "IDEA-doc_trix_20.md"
+
+[[factors]]
+name = "doc_ulcer_20"
+formula = "../../factors/daily/doc_ulcer_20.qha"
+idea = "IDEA-doc_ulcer_20.md"
+
+[[factors]]
+name = "doc_uos_7_14_28"
+formula = "../../factors/daily/doc_uos_7_14_28.qha"
+idea = "IDEA-doc_uos_7_14_28.md"
+
+[[factors]]
+name = "doc_vema_20"
+formula = "../../factors/daily/doc_vema_20.qha"
+idea = "IDEA-doc_vema_20.md"
+
+[[factors]]
+name = "doc_vmacd_12_26_9"
+formula = "../../factors/daily/doc_vmacd_12_26_9.qha"
+idea = "IDEA-doc_vmacd_12_26_9.md"
+
+[[factors]]
+name = "doc_vosc_5_10_20"
+formula = "../../factors/daily/doc_vosc_5_10_20.qha"
+idea = "IDEA-doc_vosc_5_10_20.md"
+
+[[factors]]
+name = "doc_vr_20"
+formula = "../../factors/daily/doc_vr_20.qha"
+idea = "IDEA-doc_vr_20.md"
+
+[[factors]]
+name = "doc_vroc_20"
+formula = "../../factors/daily/doc_vroc_20.qha"
+idea = "IDEA-doc_vroc_20.md"
+
+[[factors]]
+name = "doc_vrsi_20"
+formula = "../../factors/daily/doc_vrsi_20.qha"
+idea = "IDEA-doc_vrsi_20.md"
+
+[[factors]]
+name = "doc_vstd_10"
+formula = "../../factors/daily/doc_vstd_10.qha"
+idea = "IDEA-doc_vstd_10.md"
+
+[[factors]]
+name = "doc_vstd_20"
+formula = "../../factors/daily/doc_vstd_20.qha"
+idea = "IDEA-doc_vstd_20.md"
+
+[[factors]]
+name = "doc_williams_r_14"
+formula = "../../factors/daily/doc_williams_r_14.qha"
+idea = "IDEA-doc_williams_r_14.md"
+
+[[factors]]
+name = "doc_williams_r_15"
+formula = "../../factors/daily/doc_williams_r_15.qha"
+idea = "IDEA-doc_williams_r_15.md"
+
+[[factors]]
+name = "doc_williams_r_20"
+formula = "../../factors/daily/doc_williams_r_20.qha"
+idea = "IDEA-doc_williams_r_20.md"
+
+[[factors]]
+name = "doc_williams_r_9"
+formula = "../../factors/daily/doc_williams_r_9.qha"
+idea = "IDEA-doc_williams_r_9.md"
